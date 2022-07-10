@@ -28,9 +28,9 @@ export default function Jumbotron() {
 				</div>
 			</header>
 			<aside className="bg-red-600 text-white">
-				<div className="mx-auto flex max-w-6xl flex-col items-center justify-between space-y-4 divide-y divide-red-700/90 py-10 px-4 sm:px-6 lg:py-14 lg:px-8 2md:flex-row 2md:space-y-0 2md:divide-y-0">
+				<div className="mx-auto flex max-w-6xl flex-col items-center justify-between space-y-0 divide-y divide-red-700/90 py-10 px-4 sm:px-6 lg:py-14 lg:px-8 2md:flex-row 2md:space-y-0 2md:divide-y-0">
 					<IconContext.Provider value={{ className: 'w-7 2md:w-9 h-7 2md:h-9' }}>
-						<div className="flex flex-col items-center space-y-2 space-x-0 py-4 lg:flex-row lg:space-y-0 lg:space-x-4 2md:items-start 2md:py-0">
+						<div className="flex flex-col items-center space-y-2 space-x-0 pb-6 lg:flex-row lg:space-y-0 lg:space-x-4 2md:items-start 2md:py-0">
 							<HiPhone></HiPhone>
 							<div className="space-y-2 text-center 2md:text-left">
 								<p className="font-light">Have a question? Call us now.</p>
@@ -42,14 +42,14 @@ export default function Jumbotron() {
 								</a>
 							</div>
 						</div>
-						<div className="flex flex-col items-center space-y-2 space-x-0 py-4 lg:flex-row lg:space-y-0 lg:space-x-4 2md:items-start 2md:py-0">
+						<div className="flex flex-col items-center space-y-2 space-x-0 py-6 lg:flex-row lg:space-y-0 lg:space-x-4 2md:items-start 2md:py-0">
 							<HiOutlineClock></HiOutlineClock>
 							<div className="space-y-2 text-center 2md:text-left">
 								<p className="font-light">We are open at:</p>
 								<span className="block text-lg font-medium">Monday-Friday, 08:30-17:30</span>
 							</div>
 						</div>
-						<div className="flex flex-col items-center space-y-2 space-x-0 py-4 lg:flex-row lg:space-y-0 lg:space-x-4 2md:items-start 2md:py-0">
+						<div className="flex flex-col items-center space-y-2 space-x-0 pt-6 lg:flex-row lg:space-y-0 lg:space-x-4 2md:items-start 2md:py-0">
 							<HiMail></HiMail>
 							<div className="space-y-2 text-center 2md:text-left">
 								<p className="font-light">Drop us an email here:</p>
