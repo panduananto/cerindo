@@ -3,85 +3,88 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: 'Rubik';
-    font-weight: 300;
-    src: url('/public/fonts/Rubik-Light.ttf');
-  }
-  @font-face {
-    font-family: 'Rubik';
-    font-weight: 400;
-    src: url('/public/fonts/Rubik-Regular.ttf');
-  }
-  @font-face {
-    font-family: 'Rubik';
-    font-weight: 500;
-    src: url('/public/fonts/Rubik-Medium.ttf');
-  }
-  @font-face {
-    font-family: 'Rubik';
-    font-weight: 600;
-    src: url('/public/fonts/Rubik-SemiBold.ttf');
-  }
-  @font-face {
-    font-family: 'Rubik';
-    font-weight: 700;
-    src: url('/public/fonts/Rubik-Bold.ttf');
-  }
-  @font-face {
-    font-family: 'Rubik';
-    font-weight: 800;
-    src: url('/public/fonts/Rubik-ExtraBold.ttf');
-  }
-  @font-face {
-    font-family: 'Rubik';
-    font-weight: 900;
-    src: url('/public/fonts/Rubik-Black.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 100;
-    src: url('/public/fonts/Inter-Thin.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 200;
-    src: url('/public/fonts/Inter-ExtraLight.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 300;
-    src: url('/public/fonts/Inter-Light.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 400;
-    src: url('/public/fonts/Inter-Regular.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 500;
-    src: url('/public/fonts/Inter-Medium.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 600;
-    src: url('/public/fonts/Inter-SemiBold.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 700;
-    src: url('/public/fonts/Inter-Bold.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 800;
-    src: url('/public/fonts/Inter-ExtraBold.ttf');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-weight: 900;
-    src: url('/public/fonts/Inter-Black.ttf');
-  }
+	@font-face {
+		font-family: 'Rubik';
+		font-weight: 300;
+		src: url('/public/fonts/Rubik-Light.ttf');
+	}
+	@font-face {
+		font-family: 'Rubik';
+		font-weight: 400;
+		src: url('/public/fonts/Rubik-Regular.ttf');
+	}
+	@font-face {
+		font-family: 'Rubik';
+		font-weight: 500;
+		src: url('/public/fonts/Rubik-Medium.ttf');
+	}
+	@font-face {
+		font-family: 'Rubik';
+		font-weight: 600;
+		src: url('/public/fonts/Rubik-SemiBold.ttf');
+	}
+	@font-face {
+		font-family: 'Rubik';
+		font-weight: 700;
+		src: url('/public/fonts/Rubik-Bold.ttf');
+	}
+	@font-face {
+		font-family: 'Rubik';
+		font-weight: 800;
+		src: url('/public/fonts/Rubik-ExtraBold.ttf');
+	}
+	@font-face {
+		font-family: 'Rubik';
+		font-weight: 900;
+		src: url('/public/fonts/Rubik-Black.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 100;
+		src: url('/public/fonts/Inter-Thin.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 200;
+		src: url('/public/fonts/Inter-ExtraLight.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 300;
+		src: url('/public/fonts/Inter-Light.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 400;
+		src: url('/public/fonts/Inter-Regular.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 500;
+		src: url('/public/fonts/Inter-Medium.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 600;
+		src: url('/public/fonts/Inter-SemiBold.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 700;
+		src: url('/public/fonts/Inter-Bold.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 800;
+		src: url('/public/fonts/Inter-ExtraBold.ttf');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-weight: 900;
+		src: url('/public/fonts/Inter-Black.ttf');
+	}
 }
 
+.swiper-wrapper {
+	transition-timing-function: linear !important;
+}
