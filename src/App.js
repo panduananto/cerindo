@@ -3,6 +3,7 @@ import React from 'react';
 import NavigationBar from './components/Navigation/NavigationBar';
 import Jumbotron from './components/Jumbotron';
 import SectionTitle from './components/SectionTitle';
+import ClientSection from './components/ClientSection';
 
 function App() {
 	return (
@@ -15,7 +16,7 @@ function App() {
 						title="Take a look at our clients"
 						subTitle="We did a great job with these companies. You can be the next to work with us!"
 					></SectionTitle>
-					<div className="flex"></div>
+					<ClientSection></ClientSection>
 				</div>
 			</section>
 		</div>

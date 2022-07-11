@@ -6,30 +6,9 @@ import { HiOutlineMenu } from 'react-icons/hi';
 import NavigationMenu from './NavigationMenu';
 import NavigationMobile from './NavigationMobile';
 
-export default function NavigationBar() {
-	const navigationItems = [
-		{
-			text: 'home',
-			link: '#home',
-		},
-		{
-			text: 'client',
-			link: '#client',
-		},
-		{
-			text: 'service',
-			link: '#service',
-		},
-		{
-			text: 'project',
-			link: '#project',
-		},
-		{
-			text: 'get in touch',
-			link: '#get-in-touch',
-		},
-	];
+import { navigationItems } from '../../data';
 
+export default function NavigationBar() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
