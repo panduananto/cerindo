@@ -17,9 +17,13 @@ function ClientSection() {
 				{clients.map((client) => (
 					<div
 						key={client.id}
-						className="col-span-3 flex items-center justify-center rounded border border-slate-300/70 py-2 shadow-sm"
+						className="group col-span-3 flex items-center justify-center rounded border border-slate-300/70 py-2 shadow-sm"
 					>
-						<img src={client.logo} className="inline h-[60px] max-w-[80%]" alt={`${client.id} logo`} />
+						<img
+							src={client.logo}
+							className="inline h-[60px] max-w-[80%] grayscale filter transition-[filter] duration-200 ease-in-out group-hover:grayscale-0"
+							alt={`${client.id} logo`}
+						/>
 					</div>
 				))}
 			</div>
@@ -40,9 +44,13 @@ function ClientSection() {
 						{clients.map((client) => (
 							<div
 								key={client.id}
-								className="flex items-center justify-center rounded border border-slate-300/70 py-2 shadow-sm"
+								className="group flex items-center justify-center rounded border border-slate-300/70 py-2 shadow-sm"
 							>
-								<img src={client.logo} className="inline h-[60px] max-w-[80%]" alt={`${client.id} logo`} />
+								<img
+									src={client.logo}
+									className="inline h-[60px] max-w-[80%] grayscale filter transition-[filter] duration-200 ease-in-out group-hover:grayscale-0"
+									alt={`${client.id} logo`}
+								/>
 							</div>
 						))}
 					</SwiperSlide>
