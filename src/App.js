@@ -4,6 +4,7 @@ import NavigationBar from './components/Navigation/NavigationBar';
 import Jumbotron from './components/Jumbotron';
 import SectionTitle from './components/SectionTitle';
 import ClientSection from './components/ClientSection';
+import ServiceSection from './components/ServiceSection';
 
 function App() {
 	return (
@@ -26,6 +27,7 @@ function App() {
 							title="Services offered to your business"
 							subTitle="We provide the best in class services for our customers."
 						></SectionTitle>
+						<ServiceSection></ServiceSection>
 					</div>
 				</section>
 			</main>
