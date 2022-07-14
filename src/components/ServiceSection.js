@@ -17,11 +17,9 @@ function ServiceSection() {
 							className={({ selected }) =>
 								classNames(
 									classNames(
-										'w-full whitespace-nowrap rounded-r py-4 px-5 text-left text-sm font-semibold leading-5 text-white',
+										'w-full whitespace-nowrap rounded py-4 px-5 text-left text-sm font-semibold leading-5 text-white',
 										'focus:outline-none focus:ring-4 focus:ring-red-300',
-										selected
-											? 'border-l-4 border-red-600 bg-red-100 text-red-600'
-											: 'text-slate-500 hover:bg-slate-200 hover:text-slate-600'
+										selected ? 'bg-red-600 text-white' : 'text-slate-500 hover:bg-slate-200 hover:text-slate-600'
 									)
 								)
 							}

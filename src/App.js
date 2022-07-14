@@ -17,6 +17,7 @@ function App() {
 						<SectionTitle
 							title="Take a look at our clients"
 							subTitle="We did a great job with these companies. You can be the next to work with us!"
+							keywordRed="clients"
 						></SectionTitle>
 						<ClientSection></ClientSection>
 					</div>
@@ -26,6 +27,7 @@ function App() {
 						<SectionTitle
 							title="Services offered to your business"
 							subTitle="We provide the best in class services for our customers."
+							keywordRed="Services"
 						></SectionTitle>
 						<ServiceSection></ServiceSection>
 					</div>
