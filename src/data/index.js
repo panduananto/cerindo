@@ -36,7 +36,6 @@ const clients = [
 ];
 
 // prettier-ignore
-
 const services = {
 	'Customs Brockerage': [
 		{
@@ -116,6 +115,44 @@ const services = {
 			],
 		},
 	],
+};
+
+// prettier-ignore
+const projects = {
+	'Telkomsel': [
+		{
+			id: 1,
+			title: 'Telkomsel',
+			totalShipment: '12748',
+			description: 'Official house forwarder for import and export of telecommunication equipment. Project import and delivery of telecommunication equipment for IKC (Ibukota Kecamatan) allover Indonesia. Bonded warehouse management in 2004-2006 for Telkomsel. Import with Priority Lane facility for Telkomsel, providing export services including: warehouse management, export documentation, shipment arrangement, container stuffing, trucking, haulage, ocean freight',
+			tabImages: '',
+			images: [
+				{
+					src: ''
+				},
+				{
+					src: ''
+				}
+			] 
+		}
+	],
+	'Kementrian Kelautan dan Perikanan RI': [
+		{
+			id: 2,
+			title: 'Kementrian Kelautan dan Perikanan RI',
+			totalShipment: '78',
+			description: 'Delivery and local distribution of material for fish farming project. Project site located on Sabang, Pangandaran and Karimun, Java. Import of mooring, cages, netts from Norway by 43 containers, bracket for sinker tube from China by 4 containers, 3 unit feeding barges from vietnam via 2 work boats from Batam',
+			tabImages: '',
+			images: [
+				{
+					src: ''
+				},
+				{
+					src: ''
+				}
+			] 
+		}
+	]
 };
 
 export { clients, navigationItems, services };

@@ -20,7 +20,7 @@ export default function Jumbotron() {
 					<a
 						href="/"
 						role="button"
-						className="mt-8 inline-flex items-center rounded bg-red-600 px-6 py-3 font-semibold text-white hover:bg-red-700 focus:outline-dashed focus:outline-2 focus:outline-offset-4 focus:outline-white"
+						className="mt-8 inline-flex items-center rounded bg-red-600 px-6 py-3 font-semibold text-white transition-colors duration-150 ease-in-out hover:bg-red-700 focus:outline-dashed focus:outline-2 focus:outline-offset-4 focus:outline-white"
 					>
 						<HiLocationMarker className="h-6 w-6"></HiLocationMarker>
 						<span className="ml-2">Track now</span>

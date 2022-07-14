@@ -48,7 +48,7 @@ export default function NavigationBar() {
 						<div className="-mr-2 flex items-center 2md:hidden">
 							<button
 								type="button"
-								className="inline-flex items-center justify-center rounded bg-white p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+								className="inline-flex items-center justify-center rounded bg-white p-2 text-slate-500 transition-colors duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500"
 								onClick={() => setIsOpen(!isOpen)}
 							>
 								<HiOutlineMenu className="h-6 w-6"></HiOutlineMenu>
@@ -59,13 +59,16 @@ export default function NavigationBar() {
 				<div className="ml-14 hidden w-full items-center 2md:flex">
 					<NavigationMenu items={navigationItems}></NavigationMenu>
 					<div className="ml-auto flex items-center">
-						<a href="/" className="block font-medium text-slate-900 hover:text-red-600">
+						<a
+							href="/"
+							className="block font-medium text-slate-900 transition-colors duration-150 ease-in-out hover:text-red-600"
+						>
 							Log in
 						</a>
 						<a
 							role="button"
 							href="/"
-							className="ml-8 block rounded bg-red-600 px-6 py-3 font-semibold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+							className="ml-8 block rounded bg-red-600 px-6 py-3 font-semibold text-white transition-colors duration-150 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
 						>
 							Sign up
 						</a>

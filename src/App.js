@@ -5,6 +5,7 @@ import Jumbotron from './components/Jumbotron';
 import SectionTitle from './components/SectionTitle';
 import ClientSection from './components/ClientSection';
 import ServiceSection from './components/ServiceSection';
+import ProjectSection from './components/ProjectSection';
 
 function App() {
 	return (
@@ -30,6 +31,16 @@ function App() {
 							keywordRed="Services"
 						></SectionTitle>
 						<ServiceSection></ServiceSection>
+					</div>
+				</section>
+				<section id="project">
+					<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-7 sm:px-6 lg:px-8">
+						<SectionTitle
+							title="Our latest project"
+							subTitle="Check out some of our featured projects we have been and currently working on."
+							keywordRed="project"
+						></SectionTitle>
+						<ProjectSection></ProjectSection>
 					</div>
 				</section>
 			</main>

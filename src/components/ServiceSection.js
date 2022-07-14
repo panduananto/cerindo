@@ -10,7 +10,7 @@ function ServiceSection() {
 	return (
 		<div className="mt-6 grid w-full grid-cols-12 gap-4 md:mt-10">
 			<Tab.Group>
-				<div className="col-span-12 touch-pan-x self-start overflow-x-auto bg-white px-2 pb-4 pt-2 scrollbar scrollbar-track-white scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-500 xl:col-span-3 xl:touch-none xl:overflow-x-visible xl:bg-transparent xl:p-0">
+				<div className="col-span-12 touch-pan-x self-start overflow-x-auto bg-white px-2 pb-6 pt-2 transition-colors duration-150 ease-in-out scrollbar scrollbar-track-white scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400 xl:col-span-3 xl:touch-none xl:overflow-visible xl:bg-transparent xl:p-0">
 					<Tab.List className="flex space-x-2 space-y-0 xl:block xl:space-y-2 xl:space-x-0">
 						{Object.keys(services).map((service) => (
 							<Tab
@@ -19,8 +19,8 @@ function ServiceSection() {
 									classNames(
 										classNames(
 											'w-full whitespace-nowrap rounded py-2.5 px-5 text-left text-sm font-semibold leading-5 text-white xl:py-4 xl:px-5',
-											'focus:outline-none focus:ring-4 focus:ring-red-300',
-											selected ? 'bg-red-600 text-white' : 'text-slate-500 hover:bg-slate-200 hover:text-slate-600'
+											'transition-colors duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300',
+											selected ? 'bg-red-600 text-white' : 'text-slate-500 hover:bg-red-100 hover:text-red-600'
 										)
 									)
 								}
@@ -30,7 +30,7 @@ function ServiceSection() {
 						))}
 					</Tab.List>
 				</div>
-				<Tab.Panels className="col-span-12 xl:col-span-9">
+				<Tab.Panels className="col-span-12 pt-0 xl:col-span-9">
 					{Object.values(services).map((posts, index) => (
 						<Tab.Panel key={`posts-${index}`}>
 							{posts.map((post) => (

@@ -6,7 +6,10 @@ function NavigationMenu({ items }) {
 			<ul className="flex space-x-8">
 				{items.map((item) => (
 					<li key={`menu-item-${item.text}`}>
-						<a href={item.link} className="block font-medium text-slate-900 first-letter:uppercase hover:text-red-600">
+						<a
+							href={item.link}
+							className="block font-medium text-slate-900 transition-colors duration-150 ease-in-out first-letter:uppercase hover:text-red-600"
+						>
 							{item.text}
 						</a>
 					</li>
