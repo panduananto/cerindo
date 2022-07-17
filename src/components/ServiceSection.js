@@ -10,18 +10,16 @@ function ServiceSection() {
 	return (
 		<div className="mt-6 grid w-full grid-cols-12 gap-4 md:mt-10">
 			<Tab.Group>
-				<div className="col-span-12 touch-pan-x self-start overflow-x-auto bg-white px-2 pb-6 pt-2 transition-colors duration-150 ease-in-out scrollbar scrollbar-track-white scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400 xl:col-span-3 xl:touch-none xl:overflow-visible xl:bg-transparent xl:p-0">
+				<div className="col-span-12 touch-pan-x select-none self-start overflow-x-auto bg-white px-2 pb-6 pt-2 transition-colors duration-150 ease-in-out scrollbar scrollbar-track-white scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400 xl:col-span-3 xl:touch-none xl:overflow-visible xl:bg-transparent xl:p-0">
 					<Tab.List className="flex space-x-2 space-y-0 xl:block xl:space-y-2 xl:space-x-0">
 						{Object.keys(services).map((service) => (
 							<Tab
 								key={service}
 								className={({ selected }) =>
 									classNames(
-										classNames(
-											'w-full whitespace-nowrap rounded py-2.5 px-5 text-left text-sm font-semibold leading-5 text-white xl:py-4 xl:px-5',
-											'transition-colors duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300',
-											selected ? 'bg-red-600 text-white' : 'text-slate-500 hover:bg-red-100 hover:text-red-600'
-										)
+										'w-full whitespace-nowrap rounded py-2.5 px-5 text-left text-sm font-semibold leading-5 text-white xl:py-4 xl:px-5',
+										'transition-colors duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300',
+										selected ? 'bg-red-600 text-white' : 'text-slate-500 hover:bg-red-100 hover:text-red-600'
 									)
 								}
 							>
@@ -34,10 +32,10 @@ function ServiceSection() {
 					{Object.values(services).map((posts, index) => (
 						<Tab.Panel key={`posts-${index}`}>
 							{posts.map((post) => (
-								<div key={`post-${post.id}`} className="grid grid-cols-8 overflow-hidden rounded shadow">
+								<div key={`post-${post.id}`} className="grid grid-cols-8 overflow-hidden rounded">
 									<img
 										src={post.images}
-										className="col-span-8 h-64 w-full bg-no-repeat object-cover object-center md:col-span-4 md:h-full"
+										className="col-span-8 h-auto max-h-full min-h-full w-auto min-w-full max-w-full bg-no-repeat object-cover object-center md:col-span-4 md:h-full"
 										alt={`${post.id}`}
 									/>
 									<div className="col-span-8 rounded-br rounded-bl border-l border-r border-b border-slate-300 bg-white py-4 px-4 text-slate-900 md:col-span-4 md:rounded-bl-none md:rounded-tr md:border-l-0 md:border-t md:px-6 md:py-8">

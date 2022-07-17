@@ -118,41 +118,61 @@ const services = {
 };
 
 // prettier-ignore
-const projects = {
-	'Telkomsel': [
-		{
-			id: 1,
-			title: 'Telkomsel',
-			totalShipment: '12748',
-			description: 'Official house forwarder for import and export of telecommunication equipment. Project import and delivery of telecommunication equipment for IKC (Ibukota Kecamatan) allover Indonesia. Bonded warehouse management in 2004-2006 for Telkomsel. Import with Priority Lane facility for Telkomsel, providing export services including: warehouse management, export documentation, shipment arrangement, container stuffing, trucking, haulage, ocean freight',
-			tabImages: '',
-			images: [
-				{
-					src: ''
-				},
-				{
-					src: ''
-				}
-			] 
-		}
-	],
-	'Kementrian Kelautan dan Perikanan RI': [
-		{
-			id: 2,
-			title: 'Kementrian Kelautan dan Perikanan RI',
-			totalShipment: '78',
-			description: 'Delivery and local distribution of material for fish farming project. Project site located on Sabang, Pangandaran and Karimun, Java. Import of mooring, cages, netts from Norway by 43 containers, bracket for sinker tube from China by 4 containers, 3 unit feeding barges from vietnam via 2 work boats from Batam',
-			tabImages: '',
-			images: [
-				{
-					src: ''
-				},
-				{
-					src: ''
-				}
-			] 
-		}
-	]
-};
+const projects = [
+	{
+		id: 1,
+		title: 'Telkomsel',
+		totalShipment: '12748',
+		description: 'Official house forwarder for Telkomsel. Importing telecom equipment for district capital allover Indonesia with Priority Lane facility. Bonded warehouse management in 2004-2006. Providing export services including: warehouse management, export documentation, shipment arrangement, container stuffing, trucking, haulage, and ocean freight.',
+		backgroundImage: '/images/telkomsel_bg.jpg',
+		images: [
+			{
+				src: '/images/telkomsel_bts.jpg',
+			},
+			{
+				src: '/images/telkomsel_bts_drum.jpg',
+			},
+			{
+				src: '/images/telkomsel_simcard.jpg',
+			},
+		],
+	},
+	{
+		id: 2,
+		title: 'Kementerian Kelautan dan Perikanan RI',
+		totalShipment: '78',
+		description: 'Delivery and local distribution of material for fish farming project located on Sabang, Pangandaran and Karimun, Java. Import of mooring, cages, netts from Norway by 43 containers, bracket for sinker tube from China by 4 containers, 3 unit feeding barges from Vietnam via 2 work boats from Batam.',
+		backgroundImage: '/images/kkp_bg.jpg',
+		images: [
+			{
+				src: '/images/kkp_mooring.jpg',
+			},
+			{
+				src: '/images/kkp_feeding_barges.jpg',
+			},
+			{
+				src: '/images/kkp_bracket_sinker_tubes.jpg',
+			},
+		],
+	},
+	{
+		id: 3,
+		title: 'PT PAL Indonesia',
+		totalShipment: '567',
+		description: 'Shipset material for 5 (five) units PALWO BOWONO vessel, PALPASS 500 project, Fast Patrol Boats for Indonesian Customs, and FPU for PT. PERTAMINA, 2 (two) units MPC project. Main Diesel Engine 8PA5L, Auxiliary Main Diesel Engine PB1600 from Korea to Surabaya.',
+		backgroundImage: '/images/ptpal_bg.jpg',
+		images: [
+			{
+				src: '/images/pal_main_diesel_engine_8pa5l.jpg',
+			},
+			{
+				src: '/images/pal_main_diesel_engine_pb1600.jpg',
+			},
+			{
+				src: '/images/pal_fast_patrol_boat.jpg',
+			},
+		],
+	},
+];
 
-export { clients, navigationItems, services };
+export { clients, navigationItems, services, projects };

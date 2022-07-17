@@ -5,7 +5,9 @@ import Jumbotron from './components/Jumbotron';
 import SectionTitle from './components/SectionTitle';
 import ClientSection from './components/ClientSection';
 import ServiceSection from './components/ServiceSection';
-import ProjectSection from './components/ProjectSection';
+import ProjectSection from './components/ProjectsSection/ProjectSection';
+
+import 'swiper/css/bundle';
 
 function App() {
 	return (

@@ -6,13 +6,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { clients } from '../data';
 import chunk from '../utils/chunk';
 
-import 'swiper/css/bundle';
-
 function ClientSection() {
 	const clientsChunked = chunk(clients, 2);
 
 	return (
-		<div className="mt-6 w-full md:mt-10">
+		<div className="mt-6 w-full select-none md:mt-10">
 			<div className="hidden grid-cols-12 gap-y-7 gap-x-4 2md:grid">
 				{clients.map((client) => (
 					<div

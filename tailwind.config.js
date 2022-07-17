@@ -10,6 +10,7 @@ module.exports = {
 				rubik: ['Rubik', ...defaultTheme.fontFamily.serif],
 			},
 			screens: {
+				'swiper-md': '835px',
 				'2md': '860px',
 			},
 		},
