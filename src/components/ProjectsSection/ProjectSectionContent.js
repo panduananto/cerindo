@@ -19,7 +19,7 @@ function ProjectSectionContent({ project }) {
 				swiperSlide.isNext || swiperSlide.isPrev ? 'before:opacity-80' : 'before:opacity-0'
 			)}
 		>
-			<div className="col-span-12 block h-64 swiper-md:hidden">
+			<div className="col-span-12 block h-64 sm:hidden">
 				<img
 					src={backgroundImage}
 					alt=""
