@@ -6,6 +6,7 @@ import SectionTitle from './components/SectionTitle';
 import ClientSection from './components/ClientSection';
 import ServiceSection from './components/ServiceSection';
 import ProjectSection from './components/ProjectsSection/ProjectSection';
+import Footer from './components/Footer';
 
 import 'swiper/css/bundle';
 
@@ -46,6 +47,7 @@ function App() {
 					</div>
 				</section>
 			</main>
+			<Footer></Footer>
 		</div>
 	);
 }
