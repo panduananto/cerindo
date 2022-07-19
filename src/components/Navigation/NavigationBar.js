@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { Link } from 'react-router-dom';
 import { Transition } from '@headlessui/react';
 import { HiOutlineMenu } from 'react-icons/hi';
 
@@ -42,9 +43,9 @@ export default function NavigationBar() {
 			<div className="relative mx-auto flex max-w-6xl items-center py-4 px-4 sm:px-6 md:py-7 lg:px-8">
 				<div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
 					<div className="flex w-full items-center justify-between 2md:w-auto">
-						<a href="/">
+						<Link to="/">
 							<img src="/images/cerindo_logo.svg" className="h-14 w-auto text-[#9d001b] sm:h-16" alt="Cerindo logo" />
-						</a>
+						</Link>
 						<div className="-mr-2 flex items-center 2md:hidden">
 							<button
 								type="button"
@@ -59,19 +60,19 @@ export default function NavigationBar() {
 				<div className="ml-14 hidden w-full items-center 2md:flex">
 					<NavigationMenu items={navigationItems}></NavigationMenu>
 					<div className="ml-auto flex items-center">
-						<a
-							href="/"
+						<Link
+							to="login"
 							className="block font-medium text-slate-900 transition-colors duration-150 ease-in-out hover:text-red-600"
 						>
 							Log in
-						</a>
-						<a
+						</Link>
+						<Link
 							role="button"
-							href="/"
+							to="signup"
 							className="ml-8 block rounded bg-red-600 px-6 py-3 font-semibold text-white transition-colors duration-150 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
 						>
 							Sign up
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>

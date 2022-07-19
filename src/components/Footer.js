@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { IconContext } from 'react-icons/lib';
 import { HiChevronRight } from 'react-icons/hi';
 import { SiInstagram, SiGmail } from 'react-icons/si';
@@ -18,7 +20,7 @@ function Footer() {
 					</div>
 					<div className="mt-4 flex items-center space-x-4">
 						<IconContext.Provider value={{ className: 'h-5 w-5 text-slate-700' }}>
-							<a href="https://www.instagram.com/cerindogroup/">
+							<a href="https://www.instagram.com/cerindogroup/" target="_blank" rel="noreferrer noopener">
 								<SiInstagram></SiInstagram>
 							</a>
 							<a href="mailto:customerservice@cerindo.co.id">
@@ -32,21 +34,21 @@ function Footer() {
 						<div className="col-span-5 md:col-span-2">
 							<h4 className="font-rubik text-3xl font-medium text-slate-700">We bring</h4>
 							<h4 className="mt-3 font-rubik text-5xl font-medium text-slate-700">Solutions!</h4>
-							<a
-								href="/"
+							<Link
+								to="about-us"
 								className="mt-4 inline-flex items-center text-lg text-slate-900 hover:underline hover:underline-offset-4"
 							>
 								<HiChevronRight className="h-5 w-5"></HiChevronRight>
 								About us
-							</a>
+							</Link>
 						</div>
 						<div className="col-span-5 flex flex-col items-start space-y-3 md:col-span-2">
-							<a href="/" className="inline-block hover:underline">
+							<Link to="projects" className="inline-block hover:underline">
 								Projects
-							</a>
-							<a href="/" className="inline-block hover:underline">
+							</Link>
+							<Link to="track-shipment" className="inline-block hover:underline">
 								Track shipment
-							</a>
+							</Link>
 						</div>
 					</div>
 					<div className="mt-6 flex flex-row space-x-8 sm:flex-col sm:space-x-0">

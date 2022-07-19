@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
 
@@ -22,13 +23,13 @@ function ProjectSection() {
 					</SwiperSlide>
 				))}
 			</Swiper>
-			<a
-				href="/"
+			<Link
+				to="projects"
 				className="mt-4 inline-flex items-center text-lg text-slate-900 hover:underline hover:underline-offset-4"
 			>
 				See more
 				<HiOutlineArrowRight className="ml-2 h-5 w-5 text-slate-900"></HiOutlineArrowRight>
-			</a>
+			</Link>
 		</div>
 	);
 }
