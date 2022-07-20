@@ -9,7 +9,7 @@ import { SiInstagram, SiGmail } from 'react-icons/si';
 function Footer() {
 	return (
 		<footer className="mt-auto w-full border-t border-slate-300">
-			<div className="mx-auto grid max-w-6xl grid-cols-12 px-4 py-7 sm:px-6 lg:px-8">
+			<div className="mx-auto flex max-w-6xl flex-col space-x-0 px-4 py-7 sm:px-6 md:flex-row md:space-x-16 lg:space-x-24 lg:px-8">
 				<div className="col-span-12 pt-10 pb-6 md:col-span-4 md:pb-10">
 					<img src="/images/cerindo_logo.svg" className="mr-2 h-14 w-auto text-[#9d001b] sm:h-24" alt="Cerindo logo" />
 					<div className="mt-6 font-light text-slate-600">
@@ -30,8 +30,8 @@ function Footer() {
 					</div>
 				</div>
 				<div className="col-span-12 pt-6 pb-10 md:col-span-8 md:pt-10">
-					<div className="grid grid-cols-5 gap-8">
-						<div className="col-span-5 md:col-span-2">
+					<div className="flex flex-col space-x-0 space-y-6 md:flex-row md:space-x-10 md:space-y-0">
+						<div className="">
 							<h4 className="font-rubik text-3xl font-medium text-slate-700">We bring</h4>
 							<h4 className="mt-3 font-rubik text-5xl font-medium text-slate-700">Solutions!</h4>
 							<Link
@@ -42,7 +42,7 @@ function Footer() {
 								About us
 							</Link>
 						</div>
-						<div className="col-span-5 flex flex-col items-start space-y-3 text-slate-900 md:col-span-2">
+						<div className="flex flex-col items-start space-y-3 text-slate-900">
 							<Link to="projects" className="inline-block hover:underline">
 								Projects
 							</Link>

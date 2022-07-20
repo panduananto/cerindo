@@ -5,6 +5,7 @@ import ClientSection from '../components/ClientSection';
 import ProjectSection from '../components/ProjectsSection/ProjectSection';
 import SectionTitle from '../components/SectionTitle';
 import ServiceSection from '../components/ServiceSection';
+import GetInTouchSection from '../components/GetInTouchSection';
 
 function Home() {
 	return (
@@ -38,6 +39,11 @@ function Home() {
 						keywordRed="project"
 					></SectionTitle>
 					<ProjectSection></ProjectSection>
+				</div>
+			</section>
+			<section id="get-in-touch">
+				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-7 sm:px-6 lg:px-8">
+					<GetInTouchSection></GetInTouchSection>
 				</div>
 			</section>
 		</Fragment>

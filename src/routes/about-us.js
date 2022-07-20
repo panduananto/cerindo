@@ -20,7 +20,7 @@ function AboutUs() {
 						</p>
 						<IconContext.Provider value={{ className: 'h-8 w-8 text-slate-900' }}>
 							<div className="grid grid-cols-6 gap-6">
-								<div className="col-span-2 rounded bg-blue-100 p-4">
+								<div className="col-span-6 rounded bg-blue-100 p-4 md:col-span-2">
 									<HiEye></HiEye>
 									<h3>Our Vission</h3>
 									<p>
@@ -28,7 +28,7 @@ function AboutUs() {
 										satisfying services for customers, in order to create a continuing business growth.
 									</p>
 								</div>
-								<div className="col-span-2 rounded bg-zinc-100 p-4">
+								<div className="col-span-6 rounded bg-zinc-100 p-4 md:col-span-2">
 									<HiPresentationChartLine></HiPresentationChartLine>
 									<h3>Our Mission</h3>
 									<p>
@@ -36,7 +36,7 @@ function AboutUs() {
 										warehousing, cargo and courier both domestic and international, based on customers’ satisfaction.
 									</p>
 								</div>
-								<div className="col-span-2 rounded bg-red-100 p-4">
+								<div className="col-span-6 rounded bg-red-100 p-4 md:col-span-2">
 									<HiAcademicCap></HiAcademicCap>
 									<h3>Our Culture</h3>
 									<p>Upholding business ethic and a healthy competition.</p>
@@ -98,13 +98,6 @@ function AboutUs() {
 							care.
 						</p>
 					</article>
-				</div>
-			</div>
-			<div className="w-full border-t border-slate-300 bg-slate-50">
-				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-7 sm:px-6 lg:px-8">
-					<div className="w-full">
-						<h3 className="text-center">Cerindo Team</h3>
-					</div>
 				</div>
 			</div>
 		</div>
