@@ -1,8 +1,13 @@
 import React from 'react';
 
+import { useLocation } from 'react-router-dom';
 import { HiOutlineX } from 'react-icons/hi';
 
+import classNames from '../../utils/classNames';
+
 function NavigationMobile({ items, isOpen, setIsOpen }) {
+	const location = useLocation();
+
 	return (
 		<div aria-hidden={!isOpen} className="overflow-hidden rounded border border-slate-300/50 bg-white shadow">
 			<div className="flex items-center justify-between px-5 pt-4">
@@ -24,7 +29,10 @@ function NavigationMobile({ items, isOpen, setIsOpen }) {
 					<a
 						key={`mobile-menu-item-${item.text}`}
 						href={item.link}
-						className="block rounded px-3 py-2 text-base font-medium text-slate-700 transition-colors duration-150 ease-in-out first-letter:uppercase hover:bg-slate-100 hover:text-slate-900"
+						className={classNames(
+							'block rounded px-3 py-2 text-base font-medium text-slate-700 transition-colors duration-150 ease-in-out first-letter:uppercase hover:bg-slate-100 hover:text-slate-900',
+							location.hash === item.link ? 'border-l-4 border-slate-600 bg-slate-100' : 'bg-none'
+						)}
 					>
 						{item.text}
 					</a>

@@ -8,12 +8,12 @@ import { SiInstagram, SiGmail } from 'react-icons/si';
 
 function Footer() {
 	return (
-		<footer className="w-full border-t border-slate-300">
+		<footer className="mt-auto w-full border-t border-slate-300">
 			<div className="mx-auto grid max-w-6xl grid-cols-12 px-4 py-7 sm:px-6 lg:px-8">
 				<div className="col-span-12 pt-10 pb-6 md:col-span-4 md:pb-10">
 					<img src="/images/cerindo_logo.svg" className="mr-2 h-14 w-auto text-[#9d001b] sm:h-24" alt="Cerindo logo" />
-					<div className="mt-6 font-extralight">
-						<p className="font-rubik font-medium text-slate-700">Cerindo</p>
+					<div className="mt-6 font-light text-slate-600">
+						<p className="font-rubik font-medium text-slate-900">Cerindo</p>
 						<p>Puri Sentra Niaga Blok B No. 37</p>
 						<p>Jatiwaringin, Pondok Gede</p>
 						<p>Jakarta Timur 13620</p>
@@ -42,7 +42,7 @@ function Footer() {
 								About us
 							</Link>
 						</div>
-						<div className="col-span-5 flex flex-col items-start space-y-3 md:col-span-2">
+						<div className="col-span-5 flex flex-col items-start space-y-3 text-slate-900 md:col-span-2">
 							<Link to="projects" className="inline-block hover:underline">
 								Projects
 							</Link>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
 import { HiLocationMarker, HiPhone, HiMail, HiOutlineClock } from 'react-icons/hi';
 
@@ -17,14 +18,14 @@ export default function Jumbotron() {
 				<div className="z-20 mx-auto flex h-full w-full max-w-6xl flex-col items-center justify-center py-7 px-4 text-white sm:px-6 md:items-start lg:px-8">
 					<h1 className="font-rubik text-5xl font-bold md:text-7xl">Trusted!</h1>
 					<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">Done by experienced people.</p>
-					<a
-						href="/"
+					<Link
+						to="track-shipment"
 						role="button"
 						className="mt-8 inline-flex items-center rounded bg-red-600 px-6 py-3 font-semibold text-white transition-colors duration-150 ease-in-out hover:bg-red-700 focus:outline-dashed focus:outline-2 focus:outline-offset-4 focus:outline-white"
 					>
 						<HiLocationMarker className="h-6 w-6"></HiLocationMarker>
 						<span className="ml-2">Track now</span>
-					</a>
+					</Link>
 				</div>
 			</header>
 			<aside className="bg-red-600 text-white">
