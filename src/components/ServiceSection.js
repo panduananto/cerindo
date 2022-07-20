@@ -11,7 +11,7 @@ function ServiceSection() {
 		<div className="mt-6 grid w-full grid-cols-12 gap-4 md:mt-10">
 			<Tab.Group>
 				<div className="col-span-12 touch-pan-x select-none self-start overflow-x-auto bg-white px-2 pb-6 pt-2 transition-colors duration-150 ease-in-out scrollbar scrollbar-track-white scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400 xl:col-span-3 xl:touch-none xl:overflow-visible xl:bg-transparent xl:p-0">
-					<Tab.List className="flex space-x-2 space-y-0 xl:block xl:space-y-2 xl:space-x-0">
+					<Tab.List className="float-left flex min-w-full space-x-2 space-y-0 xl:float-none xl:block xl:space-y-2 xl:space-x-0">
 						{Object.keys(services).map((service) => (
 							<Tab
 								key={service}
