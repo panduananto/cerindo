@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Formik, Field, Form } from 'formik';
 import { HiOutlineArrowLeft } from 'react-icons/hi';
+
+import LoginForm from '../components/LoginForm';
 
 function login() {
 	return (
 		<div className="flex h-full w-full flex-auto flex-col text-slate-900">
-			<div className="flex h-full min-w-0 flex-auto flex-col items-center sm:flex-row sm:justify-center md:items-start md:justify-start">
-				<div className="w-full py-8 px-4 sm:w-auto sm:rounded-2xl sm:bg-white sm:p-12 sm:shadow md:flex md:w-1/2 md:items-center md:justify-end md:rounded-none md:p-16 md:shadow-none">
+			<div className="flex h-full min-w-0 flex-auto flex-col items-center bg-slate-50 sm:flex-row sm:justify-center sm:bg-slate-100 sm:bg-none md:items-start md:justify-start">
+				<div className="h-full w-full py-8 px-4 sm:w-auto sm:rounded sm:border sm:border-slate-300 sm:bg-white sm:p-12 sm:shadow md:flex md:w-1/2 md:items-center md:justify-end md:rounded-none md:shadow-none lg:p-16">
 					<div className="mx-auto w-full max-w-[20rem] sm:mx-0 sm:w-80">
 						<div className="inline-flex flex-col items-start">
 							<Link to="/" className="mb-4 inline-flex items-center text-sm hover:underline hover:underline-offset-4">
@@ -30,21 +31,7 @@ function login() {
 								Sign up
 							</Link>
 						</div>
-						<div>
-							<Formik initialValues={{ email: '', password: '' }}>
-								<Form>
-									<label htmlFor="username">Username</label>
-									<Field type="email" id="username" name="username" placeholder="Enter your username here..."></Field>
-									<label htmlFor="password">Password</label>
-									<Field
-										type="password"
-										id="password"
-										name="password"
-										placeholder="Enter your password here..."
-									></Field>
-								</Form>
-							</Formik>
-						</div>
+						<LoginForm></LoginForm>
 					</div>
 				</div>
 				<div className="relative hidden h-full w-1/2 flex-auto items-center justify-center overflow-hidden bg-[url('../public/images/login_bg.jpg')] bg-cover bg-center bg-no-repeat p-16 dark:border-l md:flex lg:px-28"></div>
