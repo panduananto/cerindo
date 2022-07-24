@@ -1,0 +1,56 @@
+import React, { useState } from 'react';
+
+import { Outlet } from 'react-router-dom';
+import { HiOutlineMenu, HiOutlineBell } from 'react-icons/hi';
+
+import Sidebar from './Sidebar';
+
+import classNames from '../../utils/classNames';
+
+function LayoutDashboard() {
+	const [sidebarOpen, setSidebarOpen] = useState(true);
+
+	return (
+		<div id="home" className="relative flex h-full min-h-full flex-row">
+			<Sidebar sidebarOpen={sidebarOpen}></Sidebar>
+			<main
+				className={classNames(
+					sidebarOpen ? 'ml-[260px] w-[calc(100%-260px)]' : 'ml-0 w-full',
+					'flex min-h-full flex-col transition-sidebar duration-300 ease-in-out'
+				)}
+			>
+				<nav className="sticky inset-x-0 top-0 z-40 w-full border-b border-slate-300 bg-white transition-transform duration-150 ease-in-out">
+					<div className="relative mx-auto flex h-16 max-w-full items-center justify-between px-4 sm:px-6 lg:px-8">
+						<button
+							type="button"
+							className="inline-flex items-center justify-center rounded bg-white p-2 text-slate-500 transition-colors duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-600 focus:bg-slate-100 focus:outline-none focus:ring-0"
+							onClick={() => setSidebarOpen(!sidebarOpen)}
+						>
+							<HiOutlineMenu className="h-6 w-6"></HiOutlineMenu>
+						</button>
+						<div className="flex flex-row items-center space-x-2">
+							<button
+								type="button"
+								className="inline-flex items-center justify-center rounded bg-white p-2 text-slate-500 transition-colors duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-600 focus:bg-slate-100 focus:outline-none focus:ring-0"
+							>
+								<HiOutlineBell className="h-6 w-6"></HiOutlineBell>
+							</button>
+							<div>
+								<button className="flex items-center rounded-full">
+									<img
+										src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+										className="h-10 w-10 rounded-full"
+										alt="User profile"
+									/>
+								</button>
+							</div>
+						</div>
+					</div>
+				</nav>
+				<Outlet></Outlet>
+			</main>
+		</div>
+	);
+}
+
+export default LayoutDashboard;

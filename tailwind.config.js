@@ -13,6 +13,9 @@ module.exports = {
 				'swiper-md': '835px',
 				'2md': '860px',
 			},
+			transitionProperty: {
+				sidebar: 'width, margin, transform',
+			},
 		},
 	},
 	plugins: [require('tailwind-scrollbar'), require('@tailwindcss/typography'), require('@tailwindcss/forms')],

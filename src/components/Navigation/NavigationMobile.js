@@ -17,7 +17,7 @@ function NavigationMobile({ items, isOpen, setIsOpen }) {
 				<div className="-mr-2">
 					<button
 						type="button"
-						className="inline-flex items-center justify-center rounded bg-white p-2 text-slate-400 transition-colors duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+						className="inline-flex items-center justify-center rounded bg-white p-2 text-slate-500 transition-colors duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-600 focus:bg-slate-100 focus:outline-none focus:ring-0"
 						onClick={() => setIsOpen(!isOpen)}
 					>
 						<HiOutlineX className="h-6 w-6"></HiOutlineX>
