@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Outlet } from 'react-router-dom';
 import { HiOutlineMenu, HiOutlineBell } from 'react-icons/hi';
+import { Transition } from '@headlessui/react';
 
 import Sidebar from './Sidebar';
 
@@ -12,11 +13,26 @@ function LayoutDashboard() {
 
 	return (
 		<div id="home" className="relative flex h-full min-h-full flex-row">
-			<Sidebar sidebarOpen={sidebarOpen}></Sidebar>
+			<Transition
+				as={React.Fragment}
+				show={sidebarOpen}
+				enter="transition-opacity duration-300"
+				enterFrom="opacity-0"
+				enterTo="opacity-100"
+				leave="transition-opacity duration-300"
+				leaveFrom="opacity-100"
+				leaveTo="opacity-0"
+			>
+				<div
+					className="absolute z-[50] block h-full w-full bg-black/70 md:hidden"
+					onClick={() => setSidebarOpen(false)}
+				></div>
+			</Transition>
+			<Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}></Sidebar>
 			<main
 				className={classNames(
-					sidebarOpen ? 'ml-[260px] w-[calc(100%-260px)]' : 'ml-0 w-full',
-					'flex min-h-full flex-col transition-sidebar duration-300 ease-in-out'
+					sidebarOpen ? 'ml-0 w-full md:ml-[280px] md:w-[calc(100%-280px)]' : 'ml-0 w-full',
+					'absolute flex min-h-full flex-col transition-sidebar duration-300 ease-in-out'
 				)}
 			>
 				<nav className="sticky inset-x-0 top-0 z-40 w-full border-b border-slate-300 bg-white transition-transform duration-150 ease-in-out">

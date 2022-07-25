@@ -9,7 +9,7 @@ import Login from './routes/login';
 import HomeDashboard from './routes/dashboard/home';
 
 import Layout from './components/Layout';
-import LayoutDashboard from './components/dashboard/LayoutDashboard';
+import LayoutDashboard from './components/Dashboard/LayoutDashboard';
 import NotFound from './components/NotFound';
 
 import 'swiper/css/bundle';
