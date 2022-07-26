@@ -15,35 +15,35 @@ const sideBarNavigationItems = [
 	{
 		text: 'Dashboard',
 		link: '',
-		isRoot: false,
+		isRoot: true,
 		type: 'file',
 		icon: <HiOutlineHome></HiOutlineHome>,
 	},
 	{
 		text: 'Checklist Shipment',
 		link: 'checklist-shipment',
-		isRoot: false,
+		isRoot: true,
 		type: 'file',
 		icon: <HiOutlineCheckCircle></HiOutlineCheckCircle>,
 	},
 	{
 		text: 'Cash Bank Requisition',
 		link: 'cbr',
-		isRoot: false,
+		isRoot: true,
 		type: 'file',
 		icon: <HiOutlineCurrencyDollar></HiOutlineCurrencyDollar>,
 	},
 	{
 		text: 'Shipment Report',
 		link: 'shipment-report',
-		isRoot: false,
+		isRoot: true,
 		type: 'file',
 		icon: <HiOutlineDocumentReport></HiOutlineDocumentReport>,
 	},
 	{
 		text: 'Pertanggungjawaban',
 		link: 'ptj',
-		isRoot: false,
+		isRoot: true,
 		type: 'file',
 		icon: <HiOutlineClipboardList></HiOutlineClipboardList>,
 	},
@@ -56,15 +56,21 @@ const sideBarNavigationItems = [
 		children: [
 			{
 				text: 'Shipper',
-				link: 'shipper',
+				link: 'master-data/shipper',
+				isRoot: false,
+				type: 'file',
 			},
 			{
 				text: 'Consignee',
-				link: 'consignee',
+				link: 'master-data/consignee',
+				isRoot: false,
+				type: 'file',
 			},
 			{
 				text: 'Agent',
-				link: 'agent',
+				link: 'master-data/agent',
+				isRoot: false,
+				type: 'file',
 			},
 		],
 	},
@@ -75,22 +81,23 @@ function Tree() {
 
 	const getRootNodes = () => nodes.filter((node) => node.isRoot);
 	const getChildNodes = (node) => (!node.children ? [] : node.children.map((nc) => nc));
-	const onToggle = (node) => {
-		const nodesCopy = [...nodes];
-		const target = nodesCopy.findIndex((nodeCopy) => nodeCopy.link === node.link);
 
-		nodesCopy[target].isOpen = !node.isOpen;
+	const onToggle = (node) => {
+		const targetIndex = nodes.findIndex((n) => n.link === node.link);
+		const nodesCopy = [...nodes];
+
+		nodesCopy[targetIndex].isOpen = !node.isOpen;
 		setNodes(nodesCopy);
 	};
 
 	const rootNodes = getRootNodes();
 
 	return (
-		<div>
+		<ul className="space-y-1">
 			{rootNodes.map((node) => (
-				<TreeNode node={node} getChildNodes={getChildNodes} onToggle={onToggle}></TreeNode>
+				<TreeNode node={node} getChildNodes={getChildNodes} onToggle={onToggle} />
 			))}
-		</div>
+		</ul>
 	);
 }
 

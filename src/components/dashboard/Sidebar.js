@@ -1,64 +1,10 @@
 import React, { useEffect } from 'react';
 
-import { NavLink } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
-import {
-	HiOutlineHome,
-	HiOutlineCheckCircle,
-	HiOutlineCurrencyDollar,
-	HiOutlineDocumentReport,
-	HiOutlineClipboardList,
-	HiOutlineDatabase,
-} from 'react-icons/hi';
+
+import Tree from './Tree/Tree';
 
 import classNames from '../../utils/classNames';
-
-const sideBarNavigationItems = [
-	{
-		text: 'Dashboard',
-		link: '',
-		icon: <HiOutlineHome></HiOutlineHome>,
-	},
-	{
-		text: 'Checklist Shipment',
-		link: 'checklist-shipment',
-		icon: <HiOutlineCheckCircle></HiOutlineCheckCircle>,
-	},
-	{
-		text: 'Cash Bank Requisition',
-		link: 'cbr',
-		icon: <HiOutlineCurrencyDollar></HiOutlineCurrencyDollar>,
-	},
-	{
-		text: 'Shipment Report',
-		link: 'shipment-report',
-		icon: <HiOutlineDocumentReport></HiOutlineDocumentReport>,
-	},
-	{
-		text: 'Pertanggungjawaban',
-		link: 'ptj',
-		icon: <HiOutlineClipboardList></HiOutlineClipboardList>,
-	},
-	{
-		text: 'Master Data',
-		link: 'master-data',
-		icon: <HiOutlineDatabase></HiOutlineDatabase>,
-		children: [
-			{
-				text: 'Shipper',
-				link: 'shipper',
-			},
-			{
-				text: 'Consignee',
-				link: 'consignee',
-			},
-			{
-				text: 'Agent',
-				link: 'agent',
-			},
-		],
-	},
-];
 
 function Sidebar({ sidebarOpen, setSidebarOpen, windowWidth }) {
 	useEffect(() => {
@@ -76,27 +22,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen, windowWidth }) {
 				<div className="flex h-20 items-center py-4 px-6 pb-0">
 					<img src="/images/cerindo_logo.svg" className="h-14 w-auto" alt="Cerindo text logo" />
 				</div>
-				<div className="overflow-y-auto py-4">
-					<ul className="space-y-1">
-						<IconContext.Provider value={{ className: 'h-6 w-6' }}>
-							{sideBarNavigationItems.map((item) => (
-								<li key={`sidebar-${item.text.split(' ').join('-')}`}>
-									<NavLink
-										to={item.link}
-										className={(props) =>
-											classNames(
-												props.isActive ? 'bg-red-50 text-red-600' : 'text-slate-700 hover:bg-red-50 hover:text-red-600',
-												'mx-2 flex items-center rounded px-4 py-2 text-[13px] text-base font-semibold'
-											)
-										}
-									>
-										<span className="mr-3">{item.icon}</span>
-										{item.text}
-									</NavLink>
-								</li>
-							))}
-						</IconContext.Provider>
-					</ul>
+				<div className="select-none overflow-y-auto py-4">
+					<IconContext.Provider value={{ className: 'h-6 w-6' }}>
+						<Tree></Tree>
+					</IconContext.Provider>
 				</div>
 			</div>
 		</div>

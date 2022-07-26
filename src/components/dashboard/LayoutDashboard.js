@@ -3,46 +3,37 @@ import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { HiOutlineMenu, HiOutlineBell } from 'react-icons/hi';
 import { Transition } from '@headlessui/react';
-import { useDebouncedCallback } from 'use-debounce';
 
 import Sidebar from './Sidebar';
 
+import useDebouncedWindowSize from '../../hooks/useDebouncedWindowSize';
 import classNames from '../../utils/classNames';
 
 function LayoutDashboard() {
 	const [sidebarOpen, setSidebarOpen] = useState(true);
 	const [sidebarMode, setSidebarMode] = useState('side');
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-	const debouncedWidth = useDebouncedCallback(() => {
-		setWindowWidth(window.innerWidth);
-	}, 100);
+	const windowSize = useDebouncedWindowSize(100);
 
 	useEffect(() => {
-		windowWidth >= 768 ? setSidebarMode('side') : setSidebarMode('over');
-
-		window.addEventListener('resize', debouncedWidth);
-
-		return () => {
-			window.removeEventListener('resize', debouncedWidth);
-		};
-	}, [windowWidth, debouncedWidth]);
+		windowSize.width >= 768 ? setSidebarMode('side') : setSidebarMode('over');
+	}, [windowSize.width]);
 
 	return (
 		<div id="home" className="relative flex h-full min-h-full flex-row">
 			<Transition
 				as={React.Fragment}
 				show={sidebarOpen && sidebarMode === 'over'}
-				enter="transition-opacity duration-200"
+				enter="transition-opacity duration-300"
 				enterFrom="opacity-0"
 				enterTo="opacity-100"
-				leave="transition-opacity duration-200"
+				leave="transition-opacity duration-300"
 				leaveFrom="opacity-100"
 				leaveTo="opacity-0"
 			>
-				<div className={`absolute z-[50] block h-full w-full bg-black/70`} onClick={() => setSidebarOpen(false)}></div>
+				<div className="absolute z-[50] block h-full w-full bg-black/70" onClick={() => setSidebarOpen(false)}></div>
 			</Transition>
-			<Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} windowWidth={windowWidth}></Sidebar>
+			<Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} windowWidth={windowSize.width}></Sidebar>
 			<main
 				className={classNames(
 					sidebarOpen ? 'ml-0 w-full md:ml-[280px] md:w-[calc(100%-280px)]' : 'ml-0 w-full',
