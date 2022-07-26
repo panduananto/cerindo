@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { NavLink } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
@@ -10,7 +10,6 @@ import {
 	HiOutlineClipboardList,
 	HiOutlineDatabase,
 } from 'react-icons/hi';
-import { Dialog, Transition } from '@headlessui/react';
 
 import classNames from '../../utils/classNames';
 
@@ -61,7 +60,11 @@ const sideBarNavigationItems = [
 	},
 ];
 
-function Sidebar({ sidebarOpen }) {
+function Sidebar({ sidebarOpen, setSidebarOpen, windowWidth }) {
+	useEffect(() => {
+		windowWidth <= 768 ? setSidebarOpen(false) : setSidebarOpen(true);
+	}, [windowWidth, setSidebarOpen]);
+
 	return (
 		<div
 			className={classNames(

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HiOutlineX } from 'react-icons/hi';
 
 import classNames from '../../utils/classNames';
@@ -39,20 +39,20 @@ function NavigationMobile({ items, isOpen, setIsOpen }) {
 				))}
 			</div>
 			<div className="space-y-2 px-2 pb-3">
-				<a
+				<Link
 					role="button"
-					href="/"
+					to="login"
 					className="flex items-center justify-center rounded bg-red-100/70 px-3 py-2 font-semibold text-red-600 transition-colors duration-150 ease-in-out hover:bg-red-200/70 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
 				>
 					Log in
-				</a>
-				<a
+				</Link>
+				<Link
 					role="button"
-					href="/"
+					to="signup"
 					className="flex items-center justify-center rounded bg-red-600 px-3 py-2 font-semibold text-white transition-colors duration-150 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
 				>
 					Sign up
-				</a>
+				</Link>
 			</div>
 		</div>
 	);
