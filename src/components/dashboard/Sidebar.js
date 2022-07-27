@@ -6,6 +6,8 @@ import Tree from './Tree/Tree';
 
 import classNames from '../../utils/classNames';
 
+import { sideBarNavigationItems } from '../../data/index';
+
 function Sidebar({ sidebarOpen, setSidebarOpen, windowWidth }) {
 	useEffect(() => {
 		windowWidth <= 768 ? setSidebarOpen(false) : setSidebarOpen(true);
@@ -24,7 +26,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, windowWidth }) {
 				</div>
 				<div className="select-none overflow-y-auto py-4">
 					<IconContext.Provider value={{ className: 'h-6 w-6' }}>
-						<Tree></Tree>
+						<Tree items={sideBarNavigationItems}></Tree>
 					</IconContext.Provider>
 				</div>
 			</div>

@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { NavLink, useLocation } from 'react-router-dom';
-import { HiChevronRight, HiChevronDown } from 'react-icons/hi';
+import { IconContext } from 'react-icons/lib';
+import { HiChevronRight } from 'react-icons/hi';
 
 import classNames from '../../../utils/classNames';
-import { IconContext } from 'react-icons/lib';
 
 function TreeNode(props) {
-	const { node, getChildNodes, level = 0, onToggle } = props;
-	const location = useLocation();
+	const [isOpen, setIsOpen] = useState(false);
+
+	const nodeParentRef = useRef();
+
+	const { node, getChildNodes, level = 0 } = props;
+	const { pathname } = useLocation();
+
+	useEffect(() => {
+		if (node.children) {
+			if (nodeParentRef.current && isOpen) {
+				nodeParentRef.current.style.height = `${nodeParentRef.current.scrollHeight}px`;
+			} else {
+				nodeParentRef.current.style.height = '0px';
+			}
+		}
+	}, [isOpen, node]);
 
 	return (
 		<React.Fragment>
 			{node.type === 'folder' ? (
-				<li role="button" level={level} type={node.type} onClick={() => onToggle(node)}>
+				<li role="button" level={level} type={node.type} onClick={() => setIsOpen(!isOpen)}>
 					<div
 						className={classNames(
-							location.pathname === node.link
-								? 'bg-red-50 text-red-600'
-								: 'text-slate-700 hover:bg-red-50 hover:text-red-600',
+							pathname === node.link ? 'bg-red-50 text-red-600' : 'text-slate-700 hover:bg-red-50 hover:text-red-600',
 							'mx-2 flex items-center justify-between rounded px-4 py-2 text-[13px] font-semibold'
 						)}
 					>
@@ -28,7 +40,14 @@ function TreeNode(props) {
 						</div>
 						<IconContext.Provider value={{ className: 'h-4 w-4' }}>
 							{node.type === 'folder' && node.children && (
-								<span>{node.isOpen ? <HiChevronDown /> : <HiChevronRight />}</span>
+								<span>
+									<HiChevronRight
+										className={classNames(
+											isOpen ? 'rotate-90' : 'rotate-0',
+											'transform transition-transform duration-100 ease-in-out'
+										)}
+									/>
+								</span>
 							)}
 						</IconContext.Provider>
 					</div>
@@ -45,14 +64,23 @@ function TreeNode(props) {
 						}
 					>
 						{node.icon && <span className="mr-3">{node.icon}</span>}
-						<span className={level > 0 && 'pl-9'}>{node.text}</span>
+						<span className={level > 0 ? 'pl-9' : 'pl-0'}>{node.text}</span>
 					</NavLink>
 				</li>
 			)}
-			{node.isOpen &&
+			{node.children ? (
+				<ul ref={nodeParentRef} className="space-y-1 overflow-hidden transition-[height] duration-100 ease-in-out">
+					{isOpen &&
+						getChildNodes(node).map((childNode) => {
+							return <TreeNode key={`node-${childNode.link}`} {...props} node={childNode} level={level + 1}></TreeNode>;
+						})}
+				</ul>
+			) : (
+				isOpen &&
 				getChildNodes(node).map((childNode) => {
-					return <TreeNode {...props} node={childNode} level={level + 1}></TreeNode>;
-				})}
+					return <TreeNode key={`node-${childNode.link}`} {...props} node={childNode} level={level + 1}></TreeNode>;
+				})
+			)}
 		</React.Fragment>
 	);
 }

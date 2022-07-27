@@ -1,3 +1,12 @@
+import {
+	HiOutlineHome,
+	HiOutlineCheckCircle,
+	HiOutlineCurrencyDollar,
+	HiOutlineDocumentReport,
+	HiOutlineClipboardList,
+	HiOutlineDatabase,
+} from 'react-icons/hi';
+
 const navigationItems = [
 	{ text: 'home', link: '#home' },
 	{ text: 'client', link: '#client' },
@@ -175,4 +184,69 @@ const projects = [
 	},
 ];
 
-export { clients, navigationItems, services, projects };
+const sideBarNavigationItems = [
+	{
+		text: 'Dashboard',
+		link: '',
+		isRoot: true,
+		type: 'file',
+		icon: <HiOutlineHome></HiOutlineHome>,
+	},
+	{
+		text: 'Checklist Shipment',
+		link: 'checklist-shipment',
+		isRoot: true,
+		type: 'file',
+		icon: <HiOutlineCheckCircle></HiOutlineCheckCircle>,
+	},
+	{
+		text: 'Cash Bank Requisition',
+		link: 'cbr',
+		isRoot: true,
+		type: 'file',
+		icon: <HiOutlineCurrencyDollar></HiOutlineCurrencyDollar>,
+	},
+	{
+		text: 'Shipment Report',
+		link: 'shipment-report',
+		isRoot: true,
+		type: 'file',
+		icon: <HiOutlineDocumentReport></HiOutlineDocumentReport>,
+	},
+	{
+		text: 'Master Data',
+		link: 'master-data',
+		isRoot: true,
+		type: 'folder',
+		icon: <HiOutlineDatabase></HiOutlineDatabase>,
+		children: [
+			{
+				text: 'Shipper',
+				link: 'master-data/shipper',
+				isRoot: false,
+				type: 'file',
+			},
+			{
+				text: 'Consignee',
+				link: 'master-data/consignee',
+				isRoot: false,
+				type: 'file',
+			},
+			{
+				text: 'Agent',
+				link: 'master-data/agent',
+				isRoot: false,
+				type: 'file',
+			},
+		],
+	},
+	{
+		text: 'Pertanggungjawaban',
+		link: 'ptj',
+		isRoot: true,
+		type: 'file',
+		icon: <HiOutlineClipboardList></HiOutlineClipboardList>,
+	},
+];
+
+export { clients, navigationItems, services, projects, sideBarNavigationItems };
