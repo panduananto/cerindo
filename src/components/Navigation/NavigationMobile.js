@@ -3,6 +3,8 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { HiOutlineX } from 'react-icons/hi';
 
+import Logo from '../Logo';
+
 import classNames from '../../utils/classNames';
 
 function NavigationMobile({ items, isOpen, setIsOpen }) {
@@ -11,9 +13,7 @@ function NavigationMobile({ items, isOpen, setIsOpen }) {
 	return (
 		<div aria-hidden={!isOpen} className="overflow-hidden rounded border border-slate-300/50 bg-white shadow">
 			<div className="flex items-center justify-between px-5 pt-4">
-				<div>
-					<img src="/images/cerindo_logo.svg" className="h-14 w-auto text-[#9d001b] sm:h-16" alt="Cerindo logo" />
-				</div>
+				<Logo></Logo>
 				<div className="-mr-2">
 					<button
 						type="button"
@@ -48,7 +48,7 @@ function NavigationMobile({ items, isOpen, setIsOpen }) {
 				</Link>
 				<Link
 					role="button"
-					to="signup"
+					to="registration"
 					className="flex items-center justify-center rounded bg-red-600 px-3 py-2 font-semibold text-white transition-colors duration-150 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
 				>
 					Sign up

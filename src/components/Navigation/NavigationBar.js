@@ -6,6 +6,7 @@ import { HiOutlineMenu } from 'react-icons/hi';
 
 import NavigationMenu from './NavigationMenu';
 import NavigationMobile from './NavigationMobile';
+import Logo from '../Logo';
 
 import useOutsideClick from '../../hooks/useOutsideClick';
 import useScroll from '../../hooks/useScroll';
@@ -43,9 +44,7 @@ export default function NavigationBar() {
 			<div className="relative mx-auto flex max-w-6xl items-center py-4 px-4 sm:px-6 md:py-7 lg:px-8">
 				<div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
 					<div className="flex w-full items-center justify-between 2md:w-auto">
-						<Link to="/">
-							<img src="/images/cerindo_logo.svg" className="h-14 w-auto text-[#9d001b] sm:h-16" alt="Cerindo logo" />
-						</Link>
+						<Logo></Logo>
 						<div className="-mr-2 flex items-center 2md:hidden">
 							<button
 								type="button"

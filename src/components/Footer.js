@@ -1,17 +1,18 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-
 import { IconContext } from 'react-icons/lib';
 import { HiChevronRight } from 'react-icons/hi';
 import { SiInstagram, SiGmail } from 'react-icons/si';
+
+import Logo from './Logo';
 
 function Footer() {
 	return (
 		<footer className="mt-auto w-full border-t border-slate-300">
 			<div className="mx-auto flex max-w-6xl flex-col space-x-0 px-4 py-7 sm:px-6 md:flex-row md:space-x-16 lg:space-x-24 lg:px-8">
 				<div className="col-span-12 pt-10 pb-6 md:col-span-4 md:pb-10">
-					<img src="/images/cerindo_logo.svg" className="mr-2 h-14 w-auto text-[#9d001b] sm:h-24" alt="Cerindo logo" />
+					<Logo></Logo>
 					<div className="mt-6 font-light text-slate-600">
 						<p className="font-rubik font-medium text-slate-900">Cerindo</p>
 						<p>Puri Sentra Niaga Blok B No. 37</p>

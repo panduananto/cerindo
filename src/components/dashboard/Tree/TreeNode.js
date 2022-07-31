@@ -31,7 +31,7 @@ function TreeNode(props) {
 					<div
 						className={classNames(
 							pathname === node.link ? 'bg-red-50 text-red-600' : 'text-slate-700 hover:bg-red-50 hover:text-red-600',
-							'mx-2 flex items-center justify-between rounded px-4 py-2 text-[13px] font-semibold'
+							'mx-2 flex items-center justify-between rounded px-4 py-2 text-[13px] font-medium'
 						)}
 					>
 						<div className="inline-flex items-center">
@@ -59,7 +59,7 @@ function TreeNode(props) {
 						className={(props) =>
 							classNames(
 								props.isActive ? 'bg-red-50 text-red-600' : 'text-slate-700 hover:bg-red-50 hover:text-red-600',
-								'mx-2 flex items-center rounded px-4 py-2 text-[13px] text-base font-semibold'
+								'mx-2 flex items-center rounded px-4 py-2 text-[13px] text-base font-medium'
 							)
 						}
 					>

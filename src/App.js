@@ -6,6 +6,7 @@ import Home from './routes/home';
 import Projects from './routes/projects';
 import AboutUs from './routes/about-us';
 import Login from './routes/login';
+import Signup from './routes/signup';
 import HomeDashboard from './routes/dashboard/home';
 
 import Layout from './components/Layout';
@@ -28,6 +29,7 @@ function App() {
 	return (
 		<Routes>
 			<Route path="login" element={<Login></Login>}></Route>
+			<Route path="registration" element={<Signup></Signup>}></Route>
 			<Route path="/" element={<Layout></Layout>}>
 				<Route index={true} element={<Home></Home>}></Route>
 				<Route path="projects" element={<Projects></Projects>}></Route>

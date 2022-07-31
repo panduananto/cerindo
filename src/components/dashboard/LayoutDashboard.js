@@ -40,7 +40,7 @@ function LayoutDashboard() {
 					'absolute flex min-h-full flex-col transition-sidebar duration-300 ease-in-out'
 				)}
 			>
-				<nav className="sticky inset-x-0 top-0 z-40 w-full border-b border-slate-300 bg-white transition-transform duration-150 ease-in-out">
+				<nav className="sticky inset-x-0 top-0 z-40 w-full border-b border-slate-300 bg-white shadow-sm transition-transform duration-150 ease-in-out">
 					<div className="relative mx-auto flex h-16 max-w-full items-center justify-between px-4 sm:px-6 lg:px-8">
 						<button
 							type="button"
