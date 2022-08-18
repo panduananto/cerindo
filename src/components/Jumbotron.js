@@ -17,7 +17,9 @@ export default function Jumbotron() {
 				</picture>
 				<div className="z-20 mx-auto flex h-full w-full max-w-6xl flex-col items-center justify-center py-7 px-4 text-white sm:px-6 md:items-start lg:px-8">
 					<h1 className="font-rubik text-5xl font-bold md:text-7xl">Trusted!</h1>
-					<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">Done by experienced people.</p>
+					<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">
+						Done by experienced people.
+					</p>
 					<Link
 						to="track-shipment"
 						role="button"
@@ -47,7 +49,9 @@ export default function Jumbotron() {
 							<HiOutlineClock></HiOutlineClock>
 							<div className="space-y-2 text-center 2md:text-left">
 								<p className="font-light">We are open at:</p>
-								<span className="block text-base font-medium 2md:text-lg">Monday-Friday, 08:30-17:30</span>
+								<span className="block text-base font-medium 2md:text-lg">
+									Monday-Friday, 08:30-17:30
+								</span>
 							</div>
 						</div>
 						<div className="flex flex-col items-center space-y-2 space-x-0 pt-6 lg:flex-row lg:space-y-0 lg:space-x-4 2md:items-start 2md:py-0">

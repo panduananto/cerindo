@@ -19,7 +19,9 @@ function ServiceSection() {
 									classNames(
 										'w-full whitespace-nowrap rounded py-2.5 px-5 text-left text-sm font-semibold leading-5 text-white xl:py-4 xl:px-5',
 										'transition-colors duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300',
-										selected ? 'bg-red-600 text-white' : 'text-slate-500 hover:bg-red-100 hover:text-red-600'
+										selected
+											? 'bg-red-600 text-white'
+											: 'text-slate-500 hover:bg-red-100 hover:text-red-600'
 									)
 								}
 							>
@@ -40,12 +42,19 @@ function ServiceSection() {
 									/>
 									<div className="col-span-8 rounded-br rounded-bl border-l border-r border-b border-slate-300 bg-white py-4 px-4 text-slate-900 md:col-span-4 md:rounded-bl-none md:rounded-tr md:border-l-0 md:border-t md:px-6 md:py-8">
 										<h3 className="font-rubik text-lg font-bold md:text-xl">{post.title}</h3>
-										<p className="mt-2 text-justify text-sm md:mt-4 md:text-base">{post.description}</p>
+										<p className="mt-2 text-justify text-sm md:mt-4 md:text-base">
+											{post.description}
+										</p>
 										<ul className="mt-4 space-y-2 md:mt-6">
 											{post.benefits.map((benefit) => (
-												<li key={benefit.description} className="flex flex-row items-start space-x-3">
+												<li
+													key={benefit.description}
+													className="flex flex-row items-start space-x-3"
+												>
 													<HiStar className="h-5 w-5 flex-shrink-0 text-red-600 md:h-7 md:w-7"></HiStar>
-													<p className="text-sm text-slate-600 md:text-base">{benefit.description}</p>
+													<p className="text-sm text-slate-600 md:text-base">
+														{benefit.description}
+													</p>
 												</li>
 											))}
 										</ul>

@@ -16,7 +16,9 @@ function NavigationMenu({ items }) {
 							href={`/${item.link}`}
 							className={classNames(
 								'block font-medium transition-colors duration-150 ease-in-out first-letter:uppercase hover:text-red-600',
-								location.hash === item.link ? 'border-b-2 border-red-600 text-red-600' : 'text-slate-900'
+								location.hash === item.link
+									? 'border-b-2 border-red-600 text-red-600'
+									: 'text-slate-900'
 							)}
 						>
 							{item.text}

@@ -26,7 +26,11 @@ function ProjectSectionContent({ project }) {
 					className="h-auto max-h-full min-h-full w-auto min-w-full max-w-full bg-no-repeat object-cover object-center"
 				/>
 			</div>
-			<ProjectSectionText title={title} totalShipment={totalShipment} description={description}></ProjectSectionText>
+			<ProjectSectionText
+				title={title}
+				totalShipment={totalShipment}
+				description={description}
+			></ProjectSectionText>
 			<ProjectSectionGallery images={images}></ProjectSectionGallery>
 		</div>
 	);

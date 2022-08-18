@@ -10,7 +10,9 @@ function NotFound() {
 					</h1>
 					<p className="mt-2 font-rubik text-6xl font-bold">Not Found</p>
 					<p className="mt-8 text-3xl font-normal">This page doesn't exist yet!</p>
-					<p className="mt-2 text-xl font-light">Sorry, the page you were looking for could not be found.</p>
+					<p className="mt-2 text-xl font-light">
+						Sorry, the page you were looking for could not be found.
+					</p>
 				</div>
 			</div>
 		</div>

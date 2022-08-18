@@ -34,6 +34,7 @@ module.exports = {
 				'2md': '860px',
 			},
 			transitionProperty: {
+				spacing: 'margin, padding',
 				sidebar: 'width, margin, transform',
 			},
 		},

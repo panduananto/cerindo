@@ -30,12 +30,14 @@ function TreeNode(props) {
 				<li role="button" level={level} type={node.type} onClick={() => setIsOpen(!isOpen)}>
 					<div
 						className={classNames(
-							pathname === node.link ? 'bg-red-50 text-red-600' : 'text-slate-700 hover:bg-red-50 hover:text-red-600',
+							pathname === node.link
+								? 'bg-red-50 text-red-600'
+								: 'text-slate-700 hover:bg-red-50 hover:text-red-600',
 							'mx-2 flex items-center justify-between rounded px-4 py-2 text-[13px] font-medium'
 						)}
 					>
 						<div className="inline-flex items-center">
-							<span className="mr-3">{node.icon}</span>
+							<span className="mr-3 shrink-0">{node.icon}</span>
 							{node.text}
 						</div>
 						<IconContext.Provider value={{ className: 'h-4 w-4' }}>
@@ -58,27 +60,46 @@ function TreeNode(props) {
 						to={node.link}
 						className={(props) =>
 							classNames(
-								props.isActive ? 'bg-red-50 text-red-600' : 'text-slate-700 hover:bg-red-50 hover:text-red-600',
+								props.isActive
+									? 'bg-red-50 text-red-600'
+									: 'text-slate-700 hover:bg-red-50 hover:text-red-600',
 								'mx-2 flex items-center rounded px-4 py-2 text-[13px] text-base font-medium'
 							)
 						}
 					>
-						{node.icon && <span className="mr-3">{node.icon}</span>}
+						{node.icon && <span className="mr-3 shrink-0">{node.icon}</span>}
 						<span className={level > 0 ? 'pl-9' : 'pl-0'}>{node.text}</span>
 					</NavLink>
 				</li>
 			)}
 			{node.children ? (
-				<ul ref={nodeParentRef} className="space-y-1 overflow-hidden transition-[height] duration-100 ease-in-out">
+				<ul
+					ref={nodeParentRef}
+					className="space-y-1 overflow-hidden transition-[height] duration-100 ease-in-out"
+				>
 					{isOpen &&
 						getChildNodes(node).map((childNode) => {
-							return <TreeNode key={`node-${childNode.link}`} {...props} node={childNode} level={level + 1}></TreeNode>;
+							return (
+								<TreeNode
+									key={`node-${childNode.link}`}
+									{...props}
+									node={childNode}
+									level={level + 1}
+								></TreeNode>
+							);
 						})}
 				</ul>
 			) : (
 				isOpen &&
 				getChildNodes(node).map((childNode) => {
-					return <TreeNode key={`node-${childNode.link}`} {...props} node={childNode} level={level + 1}></TreeNode>;
+					return (
+						<TreeNode
+							key={`node-${childNode.link}`}
+							{...props}
+							node={childNode}
+							level={level + 1}
+						></TreeNode>
+					);
 				})
 			)}
 		</React.Fragment>

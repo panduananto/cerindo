@@ -21,7 +21,11 @@ function Footer() {
 					</div>
 					<div className="mt-4 flex items-center space-x-4">
 						<IconContext.Provider value={{ className: 'h-5 w-5 text-slate-700' }}>
-							<a href="https://www.instagram.com/cerindogroup/" target="_blank" rel="noreferrer noopener">
+							<a
+								href="https://www.instagram.com/cerindogroup/"
+								target="_blank"
+								rel="noreferrer noopener"
+							>
 								<SiInstagram></SiInstagram>
 							</a>
 							<a href="mailto:customerservice@cerindo.co.id">
@@ -57,15 +61,27 @@ function Footer() {
 							<h6 className="font-rubik">Incorporated in</h6>
 							<div className="space-x-4">
 								<img src="/images/fiata_logo.svg" className="inline h-10 w-auto" alt="FIATA" />
-								<img src="/images/gla_logo.svg" className="inline h-auto w-20" alt="Global Logistics Associates" />
-								<img src="/images/alfi_ilfa_logo.svg" className="inline h-10 w-auto" alt="ALFI/ILFA" />
+								<img
+									src="/images/gla_logo.svg"
+									className="inline h-auto w-20"
+									alt="Global Logistics Associates"
+								/>
+								<img
+									src="/images/alfi_ilfa_logo.svg"
+									className="inline h-10 w-auto"
+									alt="ALFI/ILFA"
+								/>
 							</div>
 						</div>
 						<div className="mt-2 font-medium text-slate-700">
 							<h6 className="font-rubik">Certified by</h6>
 							<div className="mt-5 space-x-4">
 								<img src="/images/iso9001.svg" className="inline h-auto w-24" alt="ACS ISO 9001" />
-								<img src="/images/iso45001.svg" className="inline h-auto w-24" alt="ACS ISO 45001" />
+								<img
+									src="/images/iso45001.svg"
+									className="inline h-auto w-24"
+									alt="ACS ISO 45001"
+								/>
 							</div>
 						</div>
 					</div>

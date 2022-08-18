@@ -4,7 +4,10 @@ function SectionTitle({ title, subTitle, keywordRed }) {
 	const textToRed = (text, keyword) => {
 		const style = 'color: rgb(220, 38, 38)';
 		const selectedText = text.match(new RegExp(keyword, 'i'));
-		const convertedText = text.replace(selectedText, `<span style="${style}">${selectedText}</span>`);
+		const convertedText = text.replace(
+			selectedText,
+			`<span style="${style}">${selectedText}</span>`
+		);
 		const parsedTextToHTML = new DOMParser().parseFromString(convertedText, 'text/html');
 
 		return { __html: parsedTextToHTML.body.innerHTML };

@@ -11,7 +11,10 @@ function NavigationMobile({ items, isOpen, setIsOpen }) {
 	const location = useLocation();
 
 	return (
-		<div aria-hidden={!isOpen} className="overflow-hidden rounded border border-slate-300/50 bg-white shadow">
+		<div
+			aria-hidden={!isOpen}
+			className="overflow-hidden rounded border border-slate-300/50 bg-white shadow"
+		>
 			<div className="flex items-center justify-between px-5 pt-4">
 				<Logo></Logo>
 				<div className="-mr-2">

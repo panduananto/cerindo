@@ -67,7 +67,7 @@ export default function NavigationBar() {
 						</Link>
 						<Link
 							role="button"
-							to="signup"
+							to="registration"
 							className="ml-8 block rounded bg-red-600 px-6 py-3 font-semibold text-white transition-colors duration-150 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
 						>
 							Sign up
