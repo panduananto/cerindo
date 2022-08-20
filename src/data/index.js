@@ -1,10 +1,11 @@
 import {
 	HiOutlineHome,
-	HiOutlineCheckCircle,
-	HiOutlineCurrencyDollar,
+	HiOutlineDocumentText,
+	HiOutlineCash,
 	HiOutlineDocumentReport,
 	HiOutlineClipboardList,
 	HiOutlineDatabase,
+	HiOutlineDocumentSearch,
 } from 'react-icons/hi';
 
 const navigationItems = [
@@ -192,60 +193,67 @@ const sideBarNavigationItems = [
 		type: 'file',
 		icon: <HiOutlineHome></HiOutlineHome>,
 	},
+	// {
+	// 	text: 'Master Data',
+	// 	link: 'master-data',
+	// 	isRoot: true,
+	// 	type: 'folder',
+	// 	icon: <HiOutlineDatabase></HiOutlineDatabase>,
+	// 	children: [
+	// 		{
+	// 			text: 'Shipper',
+	// 			link: 'master-data/shipper',
+	// 			isRoot: false,
+	// 			type: 'file',
+	// 		},
+	// 		{
+	// 			text: 'Consignee',
+	// 			link: 'master-data/consignee',
+	// 			isRoot: false,
+	// 			type: 'file',
+	// 		},
+	// 		{
+	// 			text: 'Agent',
+	// 			link: 'master-data/agent',
+	// 			isRoot: false,
+	// 			type: 'file',
+	// 		},
+	// 	],
+	// },
+	// {
+	// 	text: 'Checklist Shipment',
+	// 	link: 'checklist-shipment',
+	// 	isRoot: true,
+	// 	type: 'file',
+	// 	icon: <HiOutlineDocumentText></HiOutlineDocumentText>,
+	// },
+	// {
+	// 	text: 'Cash Bank Requisition',
+	// 	link: 'cbr',
+	// 	isRoot: true,
+	// 	type: 'file',
+	// 	icon: <HiOutlineCash></HiOutlineCash>,
+	// },
+	// {
+	// 	text: 'Shipment Report',
+	// 	link: 'shipment-report',
+	// 	isRoot: true,
+	// 	type: 'file',
+	// 	icon: <HiOutlineDocumentReport></HiOutlineDocumentReport>,
+	// },
+	// {
+	// 	text: 'Pertanggungjawaban',
+	// 	link: 'ptj',
+	// 	isRoot: true,
+	// 	type: 'file',
+	// 	icon: <HiOutlineClipboardList></HiOutlineClipboardList>,
+	// },
 	{
-		text: 'Checklist Shipment',
-		link: 'checklist-shipment',
+		text: 'Pencarian AKL',
+		link: 'akl',
 		isRoot: true,
 		type: 'file',
-		icon: <HiOutlineCheckCircle></HiOutlineCheckCircle>,
-	},
-	{
-		text: 'Cash Bank Requisition',
-		link: 'cbr',
-		isRoot: true,
-		type: 'file',
-		icon: <HiOutlineCurrencyDollar></HiOutlineCurrencyDollar>,
-	},
-	{
-		text: 'Shipment Report',
-		link: 'shipment-report',
-		isRoot: true,
-		type: 'file',
-		icon: <HiOutlineDocumentReport></HiOutlineDocumentReport>,
-	},
-	{
-		text: 'Master Data',
-		link: 'master-data',
-		isRoot: true,
-		type: 'folder',
-		icon: <HiOutlineDatabase></HiOutlineDatabase>,
-		children: [
-			{
-				text: 'Shipper',
-				link: 'master-data/shipper',
-				isRoot: false,
-				type: 'file',
-			},
-			{
-				text: 'Consignee',
-				link: 'master-data/consignee',
-				isRoot: false,
-				type: 'file',
-			},
-			{
-				text: 'Agent',
-				link: 'master-data/agent',
-				isRoot: false,
-				type: 'file',
-			},
-		],
-	},
-	{
-		text: 'Pertanggungjawaban',
-		link: 'ptj',
-		isRoot: true,
-		type: 'file',
-		icon: <HiOutlineClipboardList></HiOutlineClipboardList>,
+		icon: <HiOutlineDocumentSearch></HiOutlineDocumentSearch>,
 	},
 ];
 

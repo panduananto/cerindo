@@ -46,7 +46,7 @@ function TreeNode(props) {
 									<HiChevronRight
 										className={classNames(
 											isOpen ? 'rotate-90' : 'rotate-0',
-											'transform transition-transform duration-100 ease-in-out'
+											'transform transition-transform duration-200 ease-in-out'
 										)}
 									/>
 								</span>
@@ -75,19 +75,18 @@ function TreeNode(props) {
 			{node.children ? (
 				<ul
 					ref={nodeParentRef}
-					className="space-y-1 overflow-hidden transition-[height] duration-100 ease-in-out"
+					className="space-y-1 overflow-hidden transition-[height] duration-200 ease-in-out"
 				>
-					{isOpen &&
-						getChildNodes(node).map((childNode) => {
-							return (
-								<TreeNode
-									key={`node-${childNode.link}`}
-									{...props}
-									node={childNode}
-									level={level + 1}
-								></TreeNode>
-							);
-						})}
+					{getChildNodes(node).map((childNode) => {
+						return (
+							<TreeNode
+								key={`node-${childNode.link}`}
+								{...props}
+								node={childNode}
+								level={level + 1}
+							></TreeNode>
+						);
+					})}
 				</ul>
 			) : (
 				isOpen &&
