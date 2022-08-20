@@ -8,8 +8,10 @@ import Sidebar from './Sidebar';
 import useDebouncedWindowSize from '../../hooks/useDebouncedWindowSize';
 import classNames from '../../utils/classNames';
 import DashboardNavigationBar from './Navigation/DashboardNavigationBar';
+import ProfileForm from '../ProfileForm';
 
 function LayoutDashboard() {
+	const [profileFormOpen, setProfileFormOpen] = useState(true);
 	const [sidebarOpen, setSidebarOpen] = useState(true);
 	const [sidebarMode, setSidebarMode] = useState('side');
 
@@ -21,6 +23,7 @@ function LayoutDashboard() {
 
 	return (
 		<div id="home" className="relative flex h-full min-h-full flex-row">
+			<ProfileForm profileFormOpen={profileFormOpen} setProfileFormOpen={setProfileFormOpen} />
 			<Transition
 				as={React.Fragment}
 				show={sidebarOpen && sidebarMode === 'over'}
@@ -40,17 +43,14 @@ function LayoutDashboard() {
 				sidebarOpen={sidebarOpen}
 				setSidebarOpen={setSidebarOpen}
 				windowWidth={windowSize.width}
-			></Sidebar>
+			/>
 			<main
 				className={classNames(
 					sidebarOpen ? 'ml-0 w-full md:ml-[280px] md:w-[calc(100%-280px)]' : 'ml-0 w-full',
 					'absolute flex min-h-full flex-col transition-sidebar duration-300 ease-in-out'
 				)}
 			>
-				<DashboardNavigationBar
-					sidebarOpen={sidebarOpen}
-					setSidebarOpen={setSidebarOpen}
-				></DashboardNavigationBar>
+				<DashboardNavigationBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 				<Outlet></Outlet>
 			</main>
 		</div>

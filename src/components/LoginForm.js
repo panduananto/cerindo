@@ -78,7 +78,7 @@ function LoginForm() {
 										name="email"
 										placeholder="Enter your email here..."
 										className={classNames(
-											'block w-full rounded border bg-white p-3 pl-10 text-sm text-slate-900 focus:border-red-600 focus:ring-red-600 sm:bg-slate-50',
+											'block w-full rounded border bg-white p-3 pl-10 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
 											errors.email && touched.email
 												? 'border-red-600 ring-red-600'
 												: 'border-slate-300'
@@ -117,7 +117,7 @@ function LoginForm() {
 										name="password"
 										placeholder="Enter your password here..."
 										className={classNames(
-											'relative z-10 block w-full min-w-0 flex-1 rounded-none rounded-l border border-slate-300 bg-white p-3 pl-10 text-sm text-slate-900 focus:border focus:border-red-600 focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											'relative z-10 block w-full min-w-0 flex-1 rounded-none rounded-l border border-slate-300 bg-white p-3 pl-10 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
 											errors.password && touched.password
 												? 'border-red-600 ring-red-600'
 												: 'border-slate-300'
