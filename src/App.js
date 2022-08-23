@@ -34,23 +34,23 @@ function App() {
 		<Routes>
 			<Route
 				path="login"
-				element={auth?.session ? <Navigate to="/dashboard"></Navigate> : <Login></Login>}
+				element={auth?.session ? <Navigate to="/dashboard"></Navigate> : <Login />}
 			></Route>
 			<Route
 				path="registration"
-				element={auth?.session ? <Navigate to="/dashboard"></Navigate> : <Signup></Signup>}
+				element={auth?.session ? <Navigate to="/dashboard"></Navigate> : <Signup />}
 			></Route>
-			<Route path="/" element={<Layout></Layout>}>
-				<Route index={true} element={<Home></Home>}></Route>
-				<Route path="projects" element={<Projects></Projects>}></Route>
-				<Route path="about-us" element={<AboutUs></AboutUs>}></Route>
+			<Route path="/" element={<Layout />}>
+				<Route index={true} element={<Home />}></Route>
+				<Route path="projects" element={<Projects />}></Route>
+				<Route path="about-us" element={<AboutUs />}></Route>
 			</Route>
-			<Route element={<RequiredAuth></RequiredAuth>}>
-				<Route path="/dashboard" element={<LayoutDashboard></LayoutDashboard>}>
-					<Route index={true} element={<HomeDashboard></HomeDashboard>}></Route>
+			<Route element={<RequiredAuth />}>
+				<Route path="/dashboard" element={<LayoutDashboard />}>
+					<Route index={true} element={<HomeDashboard />}></Route>
 				</Route>
 			</Route>
-			<Route path="*" element={<NotFound></NotFound>}></Route>
+			<Route path="*" element={<NotFound />}></Route>
 		</Routes>
 	);
 }

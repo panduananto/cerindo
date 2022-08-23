@@ -4,18 +4,38 @@ import { Outlet } from 'react-router-dom';
 import { Transition } from '@headlessui/react';
 
 import Sidebar from './Sidebar';
-
-import useDebouncedWindowSize from '../../hooks/useDebouncedWindowSize';
-import classNames from '../../utils/classNames';
 import DashboardNavigationBar from './Navigation/DashboardNavigationBar';
 import ProfileForm from '../ProfileForm';
 
+import { useAuthContext } from '../../contexts/AuthContext';
+
+import useDebouncedWindowSize from '../../hooks/useDebouncedWindowSize';
+import classNames from '../../utils/classNames';
+import supabase from '../../supabase';
+
 function LayoutDashboard() {
-	const [profileFormOpen, setProfileFormOpen] = useState(true);
+	const { auth } = useAuthContext();
+
+	const [userProfile, setUserProfile] = useState([]);
+	const [profileFormOpen, setProfileFormOpen] = useState(false);
 	const [sidebarOpen, setSidebarOpen] = useState(true);
 	const [sidebarMode, setSidebarMode] = useState('side');
 
 	const windowSize = useDebouncedWindowSize(100);
+
+	useEffect(() => {
+		const checkIfUserProfileExists = async () => {
+			const { id } = auth?.session.user;
+			const { data, error } = await supabase.from('profiles').select('id').eq('id', id);
+
+			if (error) throw error;
+
+			setUserProfile(data.length !== 0 ? [...data] : []);
+			setProfileFormOpen(userProfile.length === 0 ? true : false);
+		};
+
+		checkIfUserProfileExists();
+	}, [auth?.session.user, userProfile.length]);
 
 	useEffect(() => {
 		windowSize.width >= 768 ? setSidebarMode('side') : setSidebarMode('over');
@@ -23,7 +43,19 @@ function LayoutDashboard() {
 
 	return (
 		<div id="home" className="relative flex h-full min-h-full flex-row">
-			<ProfileForm profileFormOpen={profileFormOpen} setProfileFormOpen={setProfileFormOpen} />
+			<Transition
+				appear={true}
+				show={userProfile.length === 0 && profileFormOpen}
+				as={React.Fragment}
+			>
+				<div>
+					<ProfileForm
+						user={auth?.session.user}
+						profileFormOpen={profileFormOpen}
+						setProfileFormOpen={setProfileFormOpen}
+					/>
+				</div>
+			</Transition>
 			<Transition
 				as={React.Fragment}
 				show={sidebarOpen && sidebarMode === 'over'}
@@ -50,8 +82,12 @@ function LayoutDashboard() {
 					'absolute flex min-h-full flex-col transition-sidebar duration-300 ease-in-out'
 				)}
 			>
-				<DashboardNavigationBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-				<Outlet></Outlet>
+				<DashboardNavigationBar
+					user={auth?.session.user}
+					sidebarOpen={sidebarOpen}
+					setSidebarOpen={setSidebarOpen}
+				/>
+				<Outlet context={[auth?.profile]}></Outlet>
 			</main>
 		</div>
 	);

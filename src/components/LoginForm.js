@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
 import { HiMail, HiLockClosed, HiEye, HiEyeOff } from 'react-icons/hi';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
 
+import { useAuthContext } from '../contexts/AuthContext';
 import { useMessageContext } from '../contexts/MessageContext';
 import { showErrorMessage } from '../store/actions/messageActions';
 
 import LoadingSpinner from './LoadingSpinner';
 import Message from './Message';
 
-import supabase from '../supabase';
 import classNames from '../utils/classNames';
 
 const loginSchema = object().shape({
@@ -20,21 +21,25 @@ const loginSchema = object().shape({
 });
 
 function LoginForm() {
+	const { signIn } = useAuthContext();
 	const { messageDispatch } = useMessageContext();
 
 	const [loading, setLoading] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/dashboard';
+
 	const handleSubmit = async (values, actions) => {
 		try {
 			setLoading(true);
 
-			const { error } = await supabase.auth.signIn({
-				email: values.email,
-				password: values.password,
-			});
+			const { error } = await signIn(values.email, values.password);
 
 			if (error) throw error;
+
+			navigate(from, { replace: true });
 		} catch (error) {
 			messageDispatch(showErrorMessage(error));
 		} finally {

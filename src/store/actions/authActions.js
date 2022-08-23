@@ -13,4 +13,11 @@ const logout = () => {
 	};
 };
 
-export { login, logout };
+const setProfile = (profile) => {
+	return {
+		type: AUTH_ACTION.SET_PROFILE,
+		payload: profile,
+	};
+};
+
+export { login, logout, setProfile };

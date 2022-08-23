@@ -1,25 +1,39 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { IconContext } from 'react-icons/lib';
 import { HiOutlineUserCircle, HiOutlineLogout } from 'react-icons/hi';
 import { Popover, Transition } from '@headlessui/react';
 
-import supabase from '../../../supabase';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
-function DashboardNavigationPopover() {
-	const handleSignOut = async () => {
-		await supabase.auth.signOut();
-	};
+import readImageAsDataURL from '../../../utils/readImageAsDataUrl';
+
+function DashboardNavigationPopover({ user }) {
+	const { auth, signOut } = useAuthContext();
+
+	const navigate = useNavigate();
 
 	return (
 		<Popover className="relative">
 			<>
 				<Popover.Button className="flex items-center rounded-full">
-					<img
-						src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-						className="h-8 w-8 rounded-full"
-						alt="User profile"
-					/>
+					{auth?.profile.avatar_image ? (
+						<img
+							src={auth?.profile.avatar_image}
+							className="h-8 w-8 rounded-full"
+							alt="User profile"
+						/>
+					) : (
+						<svg
+							className="h-8 w-8 rounded-full text-gray-300"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+						</svg>
+					)}
 				</Popover.Button>
 				<Transition
 					as={React.Fragment}
@@ -37,7 +51,7 @@ function DashboardNavigationPopover() {
 									<div className="px-4 py-2 hover:bg-red-50">
 										<span className="flex flex-col text-sm leading-none">
 											<span>Signed in as</span>
-											<span className="mt-1.5 font-medium">udnap@gmail.com</span>
+											<span className="mt-1.5 font-medium">{user?.email}</span>
 										</span>
 									</div>
 									<ul className="pt-2">
@@ -57,7 +71,10 @@ function DashboardNavigationPopover() {
 									<div className="pt-2">
 										<button
 											className="flex w-full items-center rounded px-4 py-2 text-[14px] font-medium leading-5 hover:bg-red-50 hover:text-red-600"
-											onClick={() => handleSignOut()}
+											onClick={() => {
+												signOut();
+												navigate('/login', { replace: true });
+											}}
 										>
 											<span className="mr-3 shrink-0">
 												<HiOutlineLogout />
