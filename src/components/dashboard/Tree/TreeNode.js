@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
 import { HiChevronRight } from 'react-icons/hi';
 
@@ -12,7 +12,6 @@ function TreeNode(props) {
 	const nodeParentRef = useRef();
 
 	const { node, getChildNodes, level = 0 } = props;
-	const { pathname } = useLocation();
 
 	useEffect(() => {
 		if (node.children) {
@@ -30,17 +29,15 @@ function TreeNode(props) {
 				<li role="button" level={level} type={node.type} onClick={() => setIsOpen(!isOpen)}>
 					<div
 						className={classNames(
-							pathname === node.link
-								? 'bg-red-50 text-red-600'
-								: 'text-slate-700 hover:bg-red-50 hover:text-red-600',
-							'mx-2 flex items-center justify-between rounded px-4 py-2 text-[13px] font-medium'
+							isOpen ? 'text-red-600' : 'text-slate-700',
+							'mx-2 flex items-center justify-between rounded px-4 py-2 text-[13px] font-medium hover:bg-red-50 hover:text-red-600'
 						)}
 					>
 						<div className="inline-flex items-center">
 							<span className="mr-3 shrink-0">{node.icon}</span>
 							{node.text}
 						</div>
-						<IconContext.Provider value={{ className: 'h-4 w-4' }}>
+						<IconContext.Provider value={{ className: 'h-4 w-4 text-slate-700' }}>
 							{node.type === 'folder' && node.children && (
 								<span>
 									<HiChevronRight
@@ -58,12 +55,11 @@ function TreeNode(props) {
 				<li level={level} type={node.type}>
 					<NavLink
 						to={node.link}
+						end
 						className={(props) =>
 							classNames(
-								props.isActive
-									? 'bg-red-50 text-red-600'
-									: 'text-slate-700 hover:bg-red-50 hover:text-red-600',
-								'mx-2 flex items-center rounded px-4 py-2 text-[13px] text-base font-medium'
+								props.isActive ? 'bg-red-50 text-red-600' : 'text-slate-700 ',
+								'mx-2 flex items-center rounded px-4 py-2 text-[13px] text-base font-medium hover:bg-red-50 hover:text-red-600'
 							)
 						}
 					>

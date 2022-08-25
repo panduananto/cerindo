@@ -193,33 +193,39 @@ const sideBarNavigationItems = [
 		type: 'file',
 		icon: <HiOutlineHome></HiOutlineHome>,
 	},
-	// {
-	// 	text: 'Master Data',
-	// 	link: 'master-data',
-	// 	isRoot: true,
-	// 	type: 'folder',
-	// 	icon: <HiOutlineDatabase></HiOutlineDatabase>,
-	// 	children: [
-	// 		{
-	// 			text: 'Shipper',
-	// 			link: 'master-data/shipper',
-	// 			isRoot: false,
-	// 			type: 'file',
-	// 		},
-	// 		{
-	// 			text: 'Consignee',
-	// 			link: 'master-data/consignee',
-	// 			isRoot: false,
-	// 			type: 'file',
-	// 		},
-	// 		{
-	// 			text: 'Agent',
-	// 			link: 'master-data/agent',
-	// 			isRoot: false,
-	// 			type: 'file',
-	// 		},
-	// 	],
-	// },
+	{
+		text: 'Master Data',
+		link: 'data',
+		isRoot: true,
+		type: 'folder',
+		icon: <HiOutlineDatabase></HiOutlineDatabase>,
+		children: [
+			// {
+			// 	text: 'Shipper',
+			// 	link: 'data/shipper',
+			// 	isRoot: false,
+			// 	type: 'file',
+			// },
+			// {
+			// 	text: 'Consignee',
+			// 	link: 'data/consignee',
+			// 	isRoot: false,
+			// 	type: 'file',
+			// },
+			// {
+			// 	text: 'Agent',
+			// 	link: 'data/agent',
+			// 	isRoot: false,
+			// 	type: 'file',
+			// },
+			{
+				text: 'AKL',
+				link: 'data/akl',
+				isRoot: false,
+				type: 'file',
+			},
+		],
+	},
 	// {
 	// 	text: 'Checklist Shipment',
 	// 	link: 'checklist-shipment',

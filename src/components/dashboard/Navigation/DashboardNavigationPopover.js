@@ -8,8 +8,6 @@ import { Popover, Transition } from '@headlessui/react';
 
 import { useAuthContext } from '../../../contexts/AuthContext';
 
-import readImageAsDataURL from '../../../utils/readImageAsDataUrl';
-
 function DashboardNavigationPopover({ user }) {
 	const { auth, signOut } = useAuthContext();
 

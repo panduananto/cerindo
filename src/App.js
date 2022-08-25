@@ -13,6 +13,8 @@ import AboutUs from './routes/about-us';
 import Login from './routes/login';
 import Signup from './routes/signup';
 import HomeDashboard from './routes/dashboard/home';
+import AklLookup from './routes/dashboard/akl-lookup';
+import AKL from './routes/dashboard/data/akl';
 import NotFound from './components/NotFound';
 import RequiredAuth from './components/RequiredAuth';
 
@@ -35,22 +37,26 @@ function App() {
 			<Route
 				path="login"
 				element={auth?.session ? <Navigate to="/dashboard"></Navigate> : <Login />}
-			></Route>
+			/>
 			<Route
 				path="registration"
 				element={auth?.session ? <Navigate to="/dashboard"></Navigate> : <Signup />}
-			></Route>
+			/>
 			<Route path="/" element={<Layout />}>
-				<Route index={true} element={<Home />}></Route>
-				<Route path="projects" element={<Projects />}></Route>
-				<Route path="about-us" element={<AboutUs />}></Route>
+				<Route index={true} element={<Home />} />
+				<Route path="projects" element={<Projects />} />
+				<Route path="about-us" element={<AboutUs />} />
 			</Route>
 			<Route element={<RequiredAuth />}>
 				<Route path="/dashboard" element={<LayoutDashboard />}>
-					<Route index={true} element={<HomeDashboard />}></Route>
+					<Route index={true} element={<HomeDashboard />} />
+					<Route path="akl" element={<AklLookup />} />
+					<Route path="data">
+						<Route path="akl" element={<AKL />}></Route>
+					</Route>
 				</Route>
 			</Route>
-			<Route path="*" element={<NotFound />}></Route>
+			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
 }
