@@ -19,16 +19,16 @@ function AklLookup() {
 		<div className="h-[calc(100vh-65px)] w-full overflow-y-auto bg-slate-50 px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
 			<h1 className="font-rubik text-3xl font-semibold leading-8">Pencarian AKL</h1>
 			<p className="mt-1 text-sm font-medium text-slate-700">Tambah, cari, tinjau izin AKL</p>
-			<div className="relative mt-4 w-full cursor-default overflow-hidden rounded-lg border border-slate-300 bg-white">
+			<div className="ounded relative mt-4 w-full cursor-default rounded bg-white shadow">
 				<Combobox value={selectedAkl} onChange={setSelectedAkl}>
-					<div className="relative">
-						<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+					<div className="relative rounded bg-white">
+						<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center rounded pl-3">
 							<HiSearch className="h-5 w-5 text-slate-700" />
 						</div>
 						<Combobox.Input
 							onChange={(event) => setQuery(event.target.value)}
 							placeholder="Cari izin AKL di sini..."
-							className="w-full border-none px-3 py-4 pl-10 leading-5"
+							className="w-full rounded border border-slate-300 bg-white px-3 py-4 pl-10 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
 						/>
 					</div>
 					<Combobox.Options>
