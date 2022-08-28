@@ -7,7 +7,7 @@ function HomeDashboard() {
 
 	return (
 		<div className="h-[calc(100vh-65px)] w-full overflow-y-auto bg-slate-50 px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
-			<div class="flex items-center">
+			<div className="flex items-center">
 				{profile?.avatar_image ? (
 					<img src={profile?.avatar_image} className="h-16 w-16 rounded-full" alt="User profile" />
 				) : (
