@@ -37,7 +37,7 @@ function AklLookup() {
 						.from('item_akl')
 						.select(
 							`id, type, name,
-							akl:id_akl (brand_name, packaging, date, expiry_date),
+							akl:id_akl (id, brand_name, packaging, date, expiry_date),
 							hscode:id_hscode (hs_code, import_dutyfees, value_added_tax, income_tax_api, income_tax_non_api, lartas),
 							country:id_country (country_code, country)`
 						)
@@ -71,7 +71,7 @@ function AklLookup() {
 				</p>
 				<div className="relative mt-4 flex w-full flex-col">
 					<label htmlFor="aklType" className="sr-only">
-						AKL type
+						Tipe AKL
 					</label>
 					<div className="relative">
 						<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -178,7 +178,7 @@ function AklLookup() {
 													<td className="hidden whitespace-nowrap px-6 py-4 text-left text-sm uppercase tracking-normal text-slate-700 2md:table-cell">
 														{item.type}
 													</td>
-													<td className="truncate whitespace-nowrap px-6 py-4 text-left text-sm uppercase tracking-normal text-slate-700">
+													<td className="max-w-[270px] truncate px-6 py-4 text-left text-sm uppercase tracking-normal text-slate-700">
 														{item.name}
 													</td>
 													<td className="hidden whitespace-nowrap px-6 py-4 text-left text-sm tracking-normal text-slate-700 lg:table-cell">
@@ -209,19 +209,45 @@ function AklLookup() {
 													<td colSpan="5">
 														<div className="grid grid-cols-12 gap-x-4 gap-y-4 px-6 py-8">
 															<div className="col-span-12 space-y-4 xl:col-span-6">
-																<div className="grid grid-cols-3 gap-x-4">
-																	<div className="col-span-1 rounded border border-slate-300 px-2.5 py-2 shadow">
+																<div className="grid grid-cols-4 gap-x-4 gap-y-4">
+																	<div className="col-span-4 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-2">
+																		<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
+																			Kode AKL
+																		</p>
+																		<p className="mt-1 text-sm text-slate-700">
+																			{item.akl.id.split('_').join(' ')}
+																		</p>
+																	</div>
+																	<div className="col-span-4 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 																		<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 																			Tipe
 																		</p>
 																		<p className="mt-1 text-sm text-slate-700">{item.type}</p>
 																	</div>
-																	<div className="col-span-1 col-start-2 col-end-4 rounded border border-slate-300 px-2.5 py-2 shadow">
+																	<div className="col-span-4 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 																		<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 																			HS Code
 																		</p>
 																		<p className="mt-1 text-sm text-slate-700">
 																			{item.hscode.hs_code}
+																		</p>
+																	</div>
+																</div>
+																<div className="grid grid-cols-2 gap-x-4 gap-y-4">
+																	<div className="col-span-2 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
+																		<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
+																			Merek
+																		</p>
+																		<p className="mt-1 truncate text-sm text-slate-700">
+																			{item.akl.brand_name}
+																		</p>
+																	</div>
+																	<div className="col-span-2 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
+																		<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
+																			Kemasan
+																		</p>
+																		<p className="mt-1 truncate text-sm text-slate-700">
+																			{item.akl.packaging}
 																		</p>
 																	</div>
 																</div>
@@ -231,14 +257,6 @@ function AklLookup() {
 																	</p>
 																	<p className="mt-1 truncate text-sm text-slate-700">
 																		{item.name}
-																	</p>
-																</div>
-																<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
-																	<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
-																		Kemasan
-																	</p>
-																	<p className="mt-1 truncate text-sm text-slate-700">
-																		{item.akl.packaging}
 																	</p>
 																</div>
 																<div className="grid grid-cols-3 gap-x-4 gap-y-4">
