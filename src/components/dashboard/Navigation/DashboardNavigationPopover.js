@@ -20,7 +20,7 @@ function DashboardNavigationPopover({ user }) {
 					{auth?.profile.avatar_image ? (
 						<img
 							src={auth?.profile.avatar_image}
-							className="h-8 w-8 rounded-full"
+							className="h-8 w-8 rounded-full bg-no-repeat object-cover object-center"
 							alt="User profile"
 						/>
 					) : (
