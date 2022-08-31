@@ -10,19 +10,27 @@ function AklLookup() {
 	const [loading, setLoading] = useState(false);
 	const [query, setQuery] = useState('');
 	const [debouncedQuery] = useDebounce(query, 800);
+	const [queryResult, setQueryResult] = useState(null);
+	const [items, setItems] = useState([]);
 	const [akl, setAkl] = useState([]);
-	const [resultAkl, setResultAkl] = useState(null);
 
 	const handleClearQuery = () => {
 		setQuery('');
 	};
 
 	const handleAddAkl = (id) => {
-		const target = resultAkl.filter((akl) => akl.id === id);
+		const target = queryResult.filter((item) => item.id === id);
+		const checkDuplicateAkl = akl.some((a) => a.id === target[0].akl.id);
 
 		if (target === null) return null;
 
-		setAkl((prev) => [...prev, ...target]);
+		setItems((prev) => [...prev, target[0]]);
+
+		if (!checkDuplicateAkl) {
+			const { id } = target[0].akl;
+
+			setAkl((prev) => [...prev, { id }]);
+		}
 	};
 
 	useEffect(() => {
@@ -45,7 +53,7 @@ function AklLookup() {
 
 					if (errorAKL) throw errorAKL;
 
-					setResultAkl(itemAKL);
+					setQueryResult(itemAKL);
 				} catch (error) {
 					console.log(error); // TODO: show error message to user
 				} finally {
@@ -53,7 +61,7 @@ function AklLookup() {
 				}
 			} else {
 				setLoading(false);
-				setResultAkl(null);
+				setQueryResult(null);
 			}
 		};
 
@@ -99,14 +107,14 @@ function AklLookup() {
 						<div className="absolute top-[4.125rem] left-1/2 z-50 -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 shadow-lg">
 							Sedang mencari izin AKL...
 						</div>
-					) : !loading && query !== '' && resultAkl !== null ? (
-						resultAkl.length === 0 ? (
+					) : !loading && query !== '' && queryResult !== null ? (
+						queryResult.length === 0 ? (
 							<div className="absolute top-[4.125rem] left-1/2 z-50 -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 shadow-lg">
 								Izin AKL yang Anda cari tidak ditemukan
 							</div>
 						) : (
 							<ul className="absolute top-[4.125rem] z-50 flex w-full flex-col rounded border border-slate-200 bg-white py-4 shadow-xl">
-								{resultAkl.map((result) => {
+								{queryResult.map((result) => {
 									return (
 										<li
 											key={result.id}
@@ -167,9 +175,9 @@ function AklLookup() {
 							</th>
 						</tr>
 					</thead>
-					{akl.length !== 0 ? (
+					{items.length !== 0 ? (
 						<tbody className="w-full divide-y divide-slate-200 overflow-y-auto">
-							{akl.map((item, index) => {
+							{items.map((item, index) => {
 								return (
 									<Disclosure as={React.Fragment} key={item.id + index}>
 										{({ open }) => (
@@ -365,7 +373,7 @@ function AklLookup() {
 				</table>
 			</div>
 			<div className="mt-auto border-t border-slate-300 bg-white px-6 py-3 text-left text-[13px] font-semibold text-slate-700">
-				{akl.length} izin AKL terpilih
+				{items.length} barang dan {akl.length} izin AKL terpilih
 			</div>
 		</div>
 	);
