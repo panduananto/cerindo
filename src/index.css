@@ -11,3 +11,10 @@
 .swiper-wrapper {
 	transition-timing-function: linear !important;
 }
+
+.Toastify__toast-icon {
+	margin-inline-end: 10px;
+	width: 24px;
+	flex-shrink: 0;
+	display: flex;
+}
