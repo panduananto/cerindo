@@ -7,10 +7,12 @@ import {
 	HiChevronDown,
 	HiCheckCircle,
 	HiExclamation,
+	HiExclamationCircle,
 	HiDotsVertical,
 } from 'react-icons/hi';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDebounce } from 'use-debounce';
+import { utils, writeFile } from 'xlsx';
 
 import supabase from '../../supabase';
 
@@ -36,22 +38,83 @@ function AklLookup() {
 
 		setItems((prev) => [...prev, target[0]]);
 
-		const { id: idAkl, expiry_date: expiryDate } = target[0].akl;
+		const { id: idAkl, date, expiry_date: expiryDate } = target[0].akl;
 		const aklCode = idAkl.split('_').join(' ');
 
 		if (!checkDuplicateAkl) {
-			setAkl((prev) => [...prev, { id: idAkl, expiry_date: expiryDate }]);
+			setAkl((prev) => [...prev, { id: idAkl, date: date, expiry_date: expiryDate }]);
 
 			toast.success(`${aklCode} berhasil ditambahkan`, {
 				position: toast.POSITION.TOP_CENTER,
-				icon: <HiCheckCircle className="h-6 w-6 text-green-600" />,
+				icon: <HiCheckCircle className="h-5 w-5 text-green-600" />,
 			});
 		} else {
-			toast.warn(`${aklCode} sudah ada di dalam daftar`, {
+			toast.warn(`${aklCode} telah terdaftar`, {
 				position: toast.POSITION.TOP_CENTER,
-				icon: <HiExclamation className="h-6 w-6 text-yellow-600" />,
+				icon: <HiExclamation className="h-5 w-5 text-yellow-600" />,
 			});
 		}
+	};
+
+	const handleDownloadExcel = () => {
+		const headerItems = [
+			[
+				'NEGARA ASAL',
+				'MEREK',
+				'NAMA DAGANG',
+				'KEMASAN',
+				'HS CODE',
+				'BM',
+				'PPN',
+				'PPH-API',
+				'PPH-NONAPI',
+			],
+		];
+		const headerAKL = [['KODE AKL', 'TANGGAL TERBIT', 'TANGGAL KADALUARSA']];
+
+		const workbook = utils.book_new();
+
+		if (items.length === 0 || akl.length === 0) {
+			toast.error('Barang atau AKL masih kosong', {
+				position: toast.POSITION.TOP_CENTER,
+				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
+			});
+
+			return null;
+		}
+
+		const rowsItems = items.map((item) => ({
+			countryCode: item.country.country_code,
+			type: item.type,
+			brandName: `KEMASAN : ${item.akl.brand_name}`,
+			packaging: item.akl.packaging,
+			hsCode: item.hscode.hs_code,
+			importDutyFees: item.hscode.import_dutyfees,
+			valueAddedTax: item.hscode.value_added_tax,
+			incomeTaxApi: item.hscode.income_tax_api,
+			incomeTaxNonApi: item.hscode.income_tax_non_api,
+		}));
+
+		const rowsAKL = akl.map((a) => {
+			const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+			return {
+				aklCode: a.id.split('_').join(' '),
+				date: new Date(a.date).toLocaleDateString('id', dateOptions),
+				expiryDate: new Date(a.expiry_date).toLocaleDateString('id', dateOptions),
+			};
+		});
+
+		const worksheetItems = utils.json_to_sheet(rowsItems);
+		const worksheetAKL = utils.json_to_sheet(rowsAKL);
+
+		utils.book_append_sheet(workbook, worksheetItems, 'BARANG');
+		utils.book_append_sheet(workbook, worksheetAKL, 'AKL');
+
+		utils.sheet_add_aoa(worksheetItems, headerItems, { origin: 'A1' });
+		utils.sheet_add_aoa(worksheetAKL, headerAKL, { origin: 'A1' });
+
+		writeFile(workbook, 'TABEL BARANG.xlsx');
 	};
 
 	useEffect(() => {
@@ -94,9 +157,9 @@ function AklLookup() {
 	return (
 		<React.Fragment>
 			<ToastContainer
-				toastClassName="w-[26rem]"
-				bodyClassName="text-slate-900 font-inter font-medium"
-				hideProgressBar={true}
+				className="w-[22rem]"
+				toastClassName="min-w-full"
+				bodyClassName="text-slate-900 font-inter font-medium text-sm"
 				closeButton={false}
 			/>
 			<div className="relative flex h-[calc(100vh-65px)] w-full flex-auto flex-col overflow-y-auto bg-white">
@@ -400,7 +463,7 @@ function AklLookup() {
 						)}
 					</table>
 				</div>
-				<div className="mt-auto flex h-16 items-center justify-between border-t border-slate-300 bg-white px-4 sm:px-6 lg:px-8">
+				<div className="mt-auto flex items-center justify-between border-t border-slate-300 bg-white px-4 py-1 sm:px-6 lg:px-8 2md:py-3">
 					<p className="text-[13px] text-slate-700">
 						<span className="font-extrabold">{items.length}</span> barang dan{' '}
 						<span className="font-extrabold">{akl.length}</span> izin AKL terpilih
@@ -427,17 +490,18 @@ function AklLookup() {
 													<li>
 														<button
 															disabled={akl.length === 0 ? true : false}
-															className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600"
+															className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
 														>
-															Download AKL
+															Download AKL &#40;.zip&#41;
 														</button>
 													</li>
 													<li>
 														<button
 															disabled={items.length === 0 ? true : false}
-															className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600"
+															className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
+															onClick={() => handleDownloadExcel()}
 														>
-															Download daftar barang
+															Download excel &#40;.xlsx&#41;
 														</button>
 													</li>
 												</ul>
@@ -453,13 +517,14 @@ function AklLookup() {
 							disabled={akl.length === 0 ? true : false}
 							className="rounded border border-slate-300 px-2 py-1 hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
 						>
-							Download AKL
+							Download AKL &#40;.zip&#41;
 						</button>
 						<button
 							disabled={items.length === 0 ? true : false}
 							className="rounded border border-slate-300 px-2 py-1 hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
+							onClick={() => handleDownloadExcel()}
 						>
-							Download daftar barang
+							Download excel &#40;.xlsx&#41;
 						</button>
 					</div>
 				</div>
