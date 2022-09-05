@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+import JSZip from 'jszip';
+import FileSaver from 'file-saver';
+
 import { Disclosure, Popover, Transition } from '@headlessui/react';
 import {
 	HiSearch,
@@ -30,27 +33,58 @@ function AklLookup() {
 		setQuery('');
 	};
 
-	const handleAddAkl = (id) => {
+	const handleFetchAklFile = async (url) => {
+		return await supabase.storage.from('cerindo').download(`akl/${url}`);
+	};
+
+	const handleSaveAkl = async (akl) => {
+		const { data, error } = await handleFetchAklFile(akl.file_url);
+
+		if (error) throw error;
+
+		setAkl((prev) => [
+			...prev,
+			{
+				id: akl.id,
+				date: akl.date,
+				expiry_date: akl.expiry_date,
+				file: data,
+			},
+		]);
+	};
+
+	const handleSaveItemAndAkl = async (id) => {
 		const target = queryResult.filter((item) => item.id === id);
-		const checkDuplicateAkl = akl.some((a) => a.id === target[0].akl.id);
 
 		if (target === null) return null;
 
 		setItems((prev) => [...prev, target[0]]);
 
-		const { id: idAkl, date, expiry_date: expiryDate } = target[0].akl;
-		const aklCode = idAkl.split('_').join(' ');
+		const { akl: aklTarget } = target[0];
+		const aklCode = aklTarget.id.split('_').join(' ');
+		const checkDuplicateAkl = akl.some((a) => a.id === aklTarget.id);
 
 		if (!checkDuplicateAkl) {
-			setAkl((prev) => [...prev, { id: idAkl, date: date, expiry_date: expiryDate }]);
-
-			toast.success(`${aklCode} berhasil ditambahkan`, {
-				position: toast.POSITION.TOP_CENTER,
-				icon: <HiCheckCircle className="h-5 w-5 text-green-600" />,
+			toast.promise(handleSaveAkl(aklTarget), {
+				pending: {
+					render() {
+						return `Mengunduh ${aklCode}`;
+					},
+				},
+				success: {
+					render() {
+						return `${aklCode} berhasil ditambahkan`;
+					},
+					icon: <HiCheckCircle className="h-5 w-5 text-green-600" />,
+				},
+				error: {
+					renter() {
+						return 'Maaf, ada kesalahan. Coba lagi.';
+					},
+				},
 			});
 		} else {
 			toast.warn(`${aklCode} telah terdaftar`, {
-				position: toast.POSITION.TOP_CENTER,
 				icon: <HiExclamation className="h-5 w-5 text-yellow-600" />,
 			});
 		}
@@ -76,7 +110,6 @@ function AklLookup() {
 
 		if (items.length === 0 || akl.length === 0) {
 			toast.error('Barang atau AKL masih kosong', {
-				position: toast.POSITION.TOP_CENTER,
 				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
 			});
 
@@ -117,6 +150,26 @@ function AklLookup() {
 		writeFile(workbook, 'TABEL BARANG.xlsx');
 	};
 
+	const handleDownloadAKL = () => {
+		if (akl.length === 0) {
+			toast.error('AKL masih kosong', {
+				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
+			});
+
+			return null;
+		}
+
+		const zip = new JSZip();
+
+		akl.forEach((a) => {
+			zip.file(`${a.id}.pdf`, a.file, { binary: true });
+		});
+
+		zip.generateAsync({ type: 'Blob' }).then((content) => {
+			FileSaver.saveAs(content, 'AKL.zip');
+		});
+	};
+
 	useEffect(() => {
 		let isSubscribed = true;
 
@@ -129,7 +182,7 @@ function AklLookup() {
 						.from('item_akl')
 						.select(
 							`id, type, name,
-							akl:id_akl (id, brand_name, packaging, date, expiry_date),
+							akl:id_akl (id, brand_name, packaging, date, expiry_date, file_url),
 							hscode:id_hscode (hs_code, import_dutyfees, value_added_tax, income_tax_api, income_tax_non_api, lartas),
 							country:id_country (country_code, country)`
 						)
@@ -161,6 +214,7 @@ function AklLookup() {
 				toastClassName="min-w-full"
 				bodyClassName="text-slate-900 font-inter font-medium text-sm"
 				closeButton={false}
+				position="top-center"
 			/>
 			<div className="relative flex h-[calc(100vh-65px)] w-full flex-auto flex-col overflow-y-auto bg-white">
 				<div className="bg-white px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
@@ -210,7 +264,7 @@ function AklLookup() {
 											<li
 												key={result.id}
 												className="cursor-pointer px-4 py-2 hover:bg-slate-100"
-												onClick={() => handleAddAkl(result.id)}
+												onClick={() => handleSaveItemAndAkl(result.id)}
 											>
 												<p className="font-bold">
 													{result.akl.brand_name} / {result.name}
@@ -491,6 +545,7 @@ function AklLookup() {
 														<button
 															disabled={akl.length === 0 ? true : false}
 															className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
+															onClick={() => handleDownloadAKL()}
 														>
 															Download AKL &#40;.zip&#41;
 														</button>
@@ -516,6 +571,7 @@ function AklLookup() {
 						<button
 							disabled={akl.length === 0 ? true : false}
 							className="rounded border border-slate-300 px-2 py-1 hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
+							onClick={() => handleDownloadAKL()}
 						>
 							Download AKL &#40;.zip&#41;
 						</button>
