@@ -117,11 +117,11 @@ function AklLookup() {
 		}
 
 		const rowsItems = items.map((item) => ({
-			countryCode: item.country.country_code,
+			countryCode: item.country.code,
 			type: item.type,
 			brandName: `KEMASAN : ${item.akl.brand_name}`,
 			packaging: item.akl.packaging,
-			hsCode: item.hscode.hs_code,
+			hsCode: item.hscode.code,
 			importDutyFees: item.hscode.import_dutyfees,
 			valueAddedTax: item.hscode.value_added_tax,
 			incomeTaxApi: item.hscode.income_tax_api,
@@ -183,8 +183,8 @@ function AklLookup() {
 						.select(
 							`id, type, name,
 							akl:id_akl (id, brand_name, packaging, date, expiry_date, file_url),
-							hscode:id_hscode (hs_code, import_dutyfees, value_added_tax, income_tax_api, income_tax_non_api, lartas),
-							country:id_country (country_code, country)`
+							hscode:id_hscode (code, import_dutyfees, value_added_tax, income_tax_api, income_tax_non_api, lartas),
+							country:id_country (code, name)`
 						)
 						.eq('type', aklQuery);
 
@@ -270,7 +270,7 @@ function AklLookup() {
 													{result.akl.brand_name} / {result.name}
 												</p>
 												<p className="text-slate-700">
-													{result.type} - {result.country.country}
+													{result.type} - {result.country.name}
 												</p>
 												<p className="mt-3 text-sm text-slate-700">
 													<span className="font-semibold text-red-600">Expiry date:</span>{' '}
@@ -335,7 +335,7 @@ function AklLookup() {
 															{item.name}
 														</td>
 														<td className="hidden whitespace-nowrap px-6 py-4 text-left text-sm tracking-normal text-slate-700 lg:table-cell">
-															{item.country.country} &#40;{item.country.country_code}&#41;
+															{item.country.name} &#40;{item.country.code}&#41;
 														</td>
 														<td className="whitespace-nowrap px-6 py-4 text-left text-sm tracking-normal">
 															{new Date() > new Date(item.akl.expiry_date) ? (
@@ -382,7 +382,7 @@ function AklLookup() {
 																				HS Code
 																			</p>
 																			<p className="mt-1 text-sm text-slate-700">
-																				{item.hscode.hs_code}
+																				{item.hscode.code}
 																			</p>
 																		</div>
 																	</div>
@@ -418,7 +418,7 @@ function AklLookup() {
 																				Negara asal
 																			</p>
 																			<p className="mt-1 text-sm text-slate-700">
-																				{item.country.country}
+																				{item.country.name}
 																			</p>
 																		</div>
 																		<div className="col-span-3 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
@@ -426,7 +426,7 @@ function AklLookup() {
 																				Kode negara asal
 																			</p>
 																			<p className="mt-1 text-sm text-slate-700">
-																				{item.country.country_code}
+																				{item.country.code}
 																			</p>
 																		</div>
 																		<div className="col-span-3 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
