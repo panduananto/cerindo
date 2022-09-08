@@ -12,12 +12,14 @@ import {
 	HiExclamation,
 	HiExclamationCircle,
 	HiDotsVertical,
+	HiOutlineTrash,
 } from 'react-icons/hi';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDebounce } from 'use-debounce';
 import { utils, writeFile } from 'xlsx';
 
 import supabase from '../../supabase';
+import useOutsideClick from '../../hooks/useOutsideClick';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,6 +34,8 @@ function AklLookup() {
 	const handleClearQuery = () => {
 		setQuery('');
 	};
+
+	const searchbarRef = useOutsideClick(handleClearQuery);
 
 	const handleFetchAklFile = async (url) => {
 		return await supabase.storage.from('cerindo').download(`akl/${url}`);
@@ -81,6 +85,7 @@ function AklLookup() {
 					renter() {
 						return 'Maaf, ada kesalahan. Coba lagi.';
 					},
+					icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
 				},
 			});
 		} else {
@@ -192,7 +197,9 @@ function AklLookup() {
 
 					setQueryResult(itemAKL);
 				} catch (error) {
-					console.log(error); // TODO: show error message to user
+					toast.error('Koneksi bermasalah. Coba lagi.', {
+						icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
+					});
 				} finally {
 					setLoading(false);
 				}
@@ -222,7 +229,7 @@ function AklLookup() {
 					<p className="mt-1 text-sm font-medium text-slate-700">
 						Cari dan tinjau izin AKL yang Anda butuhkan
 					</p>
-					<div className="relative mt-4 flex w-full flex-col">
+					<div ref={searchbarRef} className="relative mt-4 flex w-full flex-col">
 						<label htmlFor="aklType" className="sr-only">
 							Tipe AKL
 						</label>
@@ -249,16 +256,16 @@ function AklLookup() {
 							)}
 						</div>
 						{loading ? (
-							<div className="absolute top-[4.125rem] left-1/2 z-50 -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 shadow-lg">
+							<div className="absolute top-[4.125rem] left-1/2 z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 text-center shadow-lg sm:w-max">
 								Sedang mencari izin AKL...
 							</div>
 						) : !loading && query !== '' && queryResult !== null ? (
 							queryResult.length === 0 ? (
-								<div className="absolute top-[4.125rem] left-1/2 z-50 -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 shadow-lg">
+								<div className="absolute top-[4.125rem] left-1/2 z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 text-center shadow-lg sm:w-max">
 									Izin AKL yang Anda cari tidak ditemukan
 								</div>
 							) : (
-								<ul className="absolute top-[4.125rem] z-50 flex w-full flex-col rounded border border-slate-200 bg-white py-4 shadow-xl">
+								<ul className="absolute top-[4.125rem] z-50 flex max-h-60 w-full flex-col overflow-y-auto rounded border border-slate-200 bg-white py-4 shadow-xl">
 									{queryResult.map((result) => {
 										return (
 											<li
@@ -284,37 +291,37 @@ function AklLookup() {
 						) : null}
 					</div>
 				</div>
-				<div className="max-h-96 max-w-full overflow-auto">
+				<div className="flex max-w-full flex-auto flex-col overflow-auto">
 					<table className="relative min-w-full">
 						<thead className="w-full shadow-sm">
 							<tr>
 								<th
 									scope="col"
-									className="sticky inset-x-0 top-0 z-40 hidden whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-[''] 2md:table-cell"
+									className="sticky inset-x-0 top-0 z-10 hidden whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-[''] 2md:table-cell"
 								>
 									Tipe
 								</th>
 								<th
 									scope="col"
-									className="sticky inset-x-0 top-0 z-40 whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
+									className="sticky inset-x-0 top-0 z-10 whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
 								>
 									Deskripsi
 								</th>
 								<th
 									scope="col"
-									className="sticky inset-x-0 top-0 z-40 hidden whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-[''] lg:table-cell"
+									className="sticky inset-x-0 top-0 z-10 hidden whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-[''] lg:table-cell"
 								>
 									Negara
 								</th>
 								<th
 									scope="col"
-									className="sticky inset-x-0 top-0 z-40 whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
+									className="sticky inset-x-0 top-0 z-10 whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
 								>
 									Status
 								</th>
 								<th
 									scope="col"
-									className="sticky inset-x-0 top-0 z-40 whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
+									className="sticky inset-x-0 top-0 z-10 whitespace-nowrap bg-slate-100 px-6 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
 								>
 									Details
 								</th>
@@ -496,6 +503,11 @@ function AklLookup() {
 																	</div>
 																</div>
 															</div>
+															<div className="flex flex-row border-t border-slate-300 px-6 py-4 shadow-lg">
+																<button className="inline-flex items-center justify-center rounded bg-white p-2 px-4 text-sm font-medium text-red-600 transition-colors duration-150 ease-in-out hover:bg-red-200/70 focus:bg-red-200/70 focus:outline-none focus:ring-0">
+																	Delete
+																</button>
+															</div>
 														</td>
 													</Disclosure.Panel>
 												</React.Fragment>
@@ -505,10 +517,10 @@ function AklLookup() {
 								})}
 							</tbody>
 						) : (
-							<tbody className="w-full overflow-y-auto">
+							<tbody>
 								<tr>
 									<td colSpan="5">
-										<div className="m-6 flex h-96 items-center justify-center rounded border-2 border-dashed border-slate-300 text-center">
+										<div className="m-6 rounded border-2 border-dashed border-slate-300 py-4 text-center">
 											<p className="font-medium">Anda belum memilih izin AKL</p>
 										</div>
 									</td>
