@@ -12,7 +12,6 @@ import {
 	HiExclamation,
 	HiExclamationCircle,
 	HiDotsVertical,
-	HiOutlineTrash,
 } from 'react-icons/hi';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDebounce } from 'use-debounce';
@@ -22,6 +21,7 @@ import supabase from '../../supabase';
 import useOutsideClick from '../../hooks/useOutsideClick';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { nanoid } from 'nanoid';
 
 function AklLookup() {
 	const [loading, setLoading] = useState(false);
@@ -58,13 +58,19 @@ function AklLookup() {
 	};
 
 	const handleSaveItemAndAkl = async (id) => {
-		const target = queryResult.filter((item) => item.id === id);
+		const target = queryResult
+			.filter((item) => item.id === id)
+			.map((item) => ({
+				...item,
+				id: item.id + nanoid(10),
+			}));
 
-		if (target === null) return null;
+		if (target === null) return;
 
 		setItems((prev) => [...prev, target[0]]);
 
 		const { akl: aklTarget } = target[0];
+
 		const aklCode = aklTarget.id.split('_').join(' ');
 		const checkDuplicateAkl = akl.some((a) => a.id === aklTarget.id);
 
@@ -95,6 +101,27 @@ function AklLookup() {
 		}
 	};
 
+	const handleDeleteItemAndAkl = (idItem, idAkl) => {
+		const groupItemByAkl = items.reduce((acc, obj) => {
+			if (obj.akl.id === idAkl) {
+				return acc + 1;
+			}
+
+			return acc;
+		}, 0);
+
+		const updatedItems = items.filter((item) => item.id !== idItem);
+
+		if (groupItemByAkl === 1) {
+			const updatedAkl = akl.filter((a) => a.id !== idAkl);
+
+			setItems([...updatedItems]);
+			setAkl([...updatedAkl]);
+		} else {
+			setItems([...updatedItems]);
+		}
+	};
+
 	const handleDownloadExcel = () => {
 		const headerItems = [
 			[
@@ -118,7 +145,7 @@ function AklLookup() {
 				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
 			});
 
-			return null;
+			return;
 		}
 
 		const rowsItems = items.map((item) => ({
@@ -161,7 +188,7 @@ function AklLookup() {
 				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
 			});
 
-			return null;
+			return;
 		}
 
 		const zip = new JSZip();
@@ -504,7 +531,10 @@ function AklLookup() {
 																</div>
 															</div>
 															<div className="flex flex-row border-t border-slate-300 px-6 py-4 shadow-lg">
-																<button className="inline-flex items-center justify-center rounded bg-white p-2 px-4 text-sm font-medium text-red-600 transition-colors duration-150 ease-in-out hover:bg-red-200/70 focus:bg-red-200/70 focus:outline-none focus:ring-0">
+																<button
+																	className="inline-flex items-center justify-center rounded bg-white p-2 px-4 text-sm font-medium text-red-600 transition-colors duration-150 ease-in-out hover:bg-red-200/70 focus:bg-red-200/70 focus:outline-none focus:ring-0"
+																	onClick={() => handleDeleteItemAndAkl(item.id, item.akl.id)}
+																>
 																	Delete
 																</button>
 															</div>
