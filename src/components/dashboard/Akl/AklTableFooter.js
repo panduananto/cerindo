@@ -21,6 +21,8 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 				'PPN',
 				'PPH-API',
 				'PPH-NONAPI',
+				'LARTAS',
+				'FASILITAS',
 			],
 		];
 		const headerAKL = [['KODE AKL', 'TANGGAL TERBIT', 'TANGGAL KADALUARSA']];
@@ -45,6 +47,8 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 			valueAddedTax: item.hscode.value_added_tax,
 			incomeTaxApi: item.hscode.income_tax_api,
 			incomeTaxNonApi: item.hscode.income_tax_non_api,
+			lartas: item.hscode.lartas,
+			facility: item.facility,
 		}));
 
 		const rowsAKL = aklCollection.map((a) => {
