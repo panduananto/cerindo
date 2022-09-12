@@ -96,7 +96,7 @@ function AklSearch({ items, aklCollection, setItems, setAklCollection }) {
 					let { data: itemAKL, error: errorAKL } = await supabase
 						.from('item_akl')
 						.select(
-							`id, type, name,
+							`id, type, name, facility,
 							akl:id_akl (id, brand_name, packaging, date, expiry_date, file_url),
 							hscode:id_hscode (code, import_dutyfees, value_added_tax, income_tax_api, income_tax_non_api, lartas),
 							country:id_country (code, name)`

@@ -12,6 +12,11 @@ function AklLookup() {
 	const [items, setItems] = useState([]);
 	const [aklCollection, setAklCollection] = useState([]);
 
+	const resetTable = () => {
+		setItems([]);
+		setAklCollection([]);
+	};
+
 	return (
 		<React.Fragment>
 			<ToastContainer
@@ -32,7 +37,7 @@ function AklLookup() {
 					setItems={setItems}
 					setAklCollection={setAklCollection}
 				/>
-				<AklTableFooter items={items} aklCollection={aklCollection} />
+				<AklTableFooter items={items} aklCollection={aklCollection} resetTable={resetTable} />
 			</div>
 		</React.Fragment>
 	);

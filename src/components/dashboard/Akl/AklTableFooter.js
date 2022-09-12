@@ -8,7 +8,7 @@ import { utils, writeFile } from 'xlsx';
 import { Popover, Transition } from '@headlessui/react';
 import { HiExclamationCircle, HiDotsVertical } from 'react-icons/hi';
 
-function AklTableFooter({ items, aklCollection }) {
+function AklTableFooter({ items, aklCollection, resetTable }) {
 	const handleDownloadExcel = () => {
 		const headerItems = [
 			[
@@ -112,7 +112,7 @@ function AklTableFooter({ items, aklCollection }) {
 						>
 							<Popover.Panel className="absolute -left-[67px] bottom-10 z-10 mb-2 w-[215px] max-w-[240px] -translate-x-1/2 transform">
 								<div className="overflow-hidden rounded border border-slate-200 shadow-lg">
-									<div className="bg-white py-2 text-slate-700">
+									<div className="space-y-2 divide-y divide-slate-200 bg-white py-2 text-slate-700">
 										<ul>
 											<li>
 												<button
@@ -133,6 +133,15 @@ function AklTableFooter({ items, aklCollection }) {
 												</button>
 											</li>
 										</ul>
+										<div className="pt-2">
+											<button
+												disabled={items.length === 0 || aklCollection.length === 0 ? true : false}
+												className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
+												onClick={resetTable}
+											>
+												<span className="pl-0">Reset tabel</span>
+											</button>
+										</div>
 									</div>
 								</div>
 							</Popover.Panel>
@@ -143,17 +152,25 @@ function AklTableFooter({ items, aklCollection }) {
 			<div className="hidden space-x-2 text-[13px] font-medium text-slate-700 2md:block">
 				<button
 					disabled={aklCollection.length === 0 ? true : false}
-					className="rounded border border-slate-300 px-2 py-1 hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
+					className="inline-flex items-center justify-center rounded border border-slate-300 px-2 py-1 transition-colors duration-150 ease-in-out hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
 					onClick={() => handleDownloadAKL()}
 				>
 					Download AKL &#40;.zip&#41;
 				</button>
 				<button
 					disabled={items.length === 0 ? true : false}
-					className="rounded border border-slate-300 px-2 py-1 hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
+					className="inline-flex items-center justify-center rounded border border-slate-300 px-2 py-1 transition-colors duration-150 ease-in-out hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
 					onClick={() => handleDownloadExcel()}
 				>
 					Download excel &#40;.xlsx&#41;
+				</button>
+				<span>|</span>
+				<button
+					disabled={items.length === 0 || aklCollection.length === 0 ? true : false}
+					className="inline-flex items-center justify-center rounded border border-red-300 bg-white px-2 py-1 text-red-600 transition-colors duration-150 ease-in-out focus:bg-red-200/70 focus:outline-none focus:ring-0 hover:enabled:bg-red-200/70 disabled:cursor-not-allowed disabled:text-red-300"
+					onClick={resetTable}
+				>
+					Reset tabel
 				</button>
 			</div>
 		</div>
