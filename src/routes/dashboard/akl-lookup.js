@@ -15,7 +15,7 @@ function AklLookup() {
 	return (
 		<React.Fragment>
 			<ToastContainer
-				className="w-[22rem]"
+				className="w-max"
 				toastClassName="min-w-full"
 				bodyClassName="text-slate-900 font-inter font-medium text-sm"
 				closeButton={false}

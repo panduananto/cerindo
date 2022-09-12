@@ -20,7 +20,7 @@ function ProjectSectionText({ title, totalShipment, description }) {
 					</p>
 				</div>
 			</div>
-			<p className="pt-4 text-sm swiper-md:text-base">{description}</p>
+			<p className="pt-4 text-sm !leading-7 swiper-md:text-base">{description}</p>
 		</div>
 	);
 }
