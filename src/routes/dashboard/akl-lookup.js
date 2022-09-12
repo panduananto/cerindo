@@ -15,11 +15,9 @@ function AklLookup() {
 	return (
 		<React.Fragment>
 			<ToastContainer
-				className="w-max"
-				toastClassName="min-w-full"
 				bodyClassName="text-slate-900 font-inter font-medium text-sm"
 				closeButton={false}
-				position="top-center"
+				position="top-right"
 			/>
 			<div className="relative flex h-[calc(100vh-65px)] w-full flex-auto flex-col overflow-y-auto bg-white">
 				<AklSearch
