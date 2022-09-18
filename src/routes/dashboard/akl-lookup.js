@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { ToastContainer } from 'react-toastify';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import AklSearch from '../../components/Dashboard/Akl/AklSearch';
 import AklTable from '../../components/Dashboard/Akl/AklTable';
@@ -11,6 +13,24 @@ import 'react-toastify/dist/ReactToastify.css';
 function AklLookup() {
 	const [items, setItems] = useState([]);
 	const [aklCollection, setAklCollection] = useState([]);
+
+	const findRowIndex = (arr, targetId) => {
+		return arr.findIndex((a) => a.id === targetId);
+	};
+
+	const reorderRow = useCallback(
+		(draggedRowId, targetRowId) => {
+			const reorderedItems = [...items];
+
+			const draggedRowIndex = findRowIndex(reorderedItems, draggedRowId);
+			const targetRowIndex = findRowIndex(reorderedItems, targetRowId);
+
+			reorderedItems.splice(targetRowIndex, 0, reorderedItems.splice(draggedRowIndex, 1)[0]);
+
+			setItems([...reorderedItems]);
+		},
+		[items]
+	);
 
 	const resetTable = () => {
 		setItems([]);
@@ -24,21 +44,24 @@ function AklLookup() {
 				closeButton={false}
 				position="top-right"
 			/>
-			<div className="relative flex h-[calc(100vh-65px)] w-full flex-auto flex-col overflow-y-auto bg-white">
-				<AklSearch
-					items={items}
-					aklCollection={aklCollection}
-					setItems={setItems}
-					setAklCollection={setAklCollection}
-				/>
-				<AklTable
-					items={items}
-					aklCollection={aklCollection}
-					setItems={setItems}
-					setAklCollection={setAklCollection}
-				/>
-				<AklTableFooter items={items} aklCollection={aklCollection} resetTable={resetTable} />
-			</div>
+			<DndProvider backend={HTML5Backend}>
+				<div className="relative flex h-[calc(100vh-65px)] w-full flex-auto flex-col overflow-y-auto bg-white">
+					<AklSearch
+						items={items}
+						aklCollection={aklCollection}
+						setItems={setItems}
+						setAklCollection={setAklCollection}
+					/>
+					<AklTable
+						items={items}
+						aklCollection={aklCollection}
+						setItems={setItems}
+						setAklCollection={setAklCollection}
+						reorderRow={reorderRow}
+					/>
+					<AklTableFooter items={items} aklCollection={aklCollection} resetTable={resetTable} />
+				</div>
+			</DndProvider>
 		</React.Fragment>
 	);
 }
