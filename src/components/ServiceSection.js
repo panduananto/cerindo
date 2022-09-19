@@ -18,7 +18,7 @@ function ServiceSection() {
 								key={service}
 								className={({ selected }) =>
 									classNames(
-										'w-full whitespace-nowrap rounded py-2.5 px-5 text-left text-sm font-semibold leading-5 text-white xl:py-4 xl:px-5',
+										'w-full whitespace-nowrap rounded py-2.5 px-5 text-left text-sm font-semibold leading-5 xl:py-4 xl:px-5',
 										'transition-colors duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300',
 										selected
 											? 'bg-red-600 text-white'
