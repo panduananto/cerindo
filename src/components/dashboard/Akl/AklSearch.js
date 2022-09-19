@@ -126,7 +126,7 @@ function AklSearch({ items, aklCollection, setItems, setAklCollection }) {
 
 	return (
 		<div className="bg-white px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
-			<h1 className="font-rubik text-3xl font-semibold leading-8">Pencarian AKL</h1>
+			<h1 className="text-xl font-semibold leading-8 sm:text-2xl 2md:text-3xl">Pencarian AKL</h1>
 			<p className="mt-1 text-sm font-medium text-slate-700">
 				Cari dan tinjau izin AKL yang Anda butuhkan
 			</p>
@@ -144,7 +144,7 @@ function AklSearch({ items, aklCollection, setItems, setAklCollection }) {
 						name="aklType"
 						value={query}
 						placeholder="Cari izin AKL berdasarkan tipe ART barang, ex: 4556666"
-						className="block w-full rounded border border-slate-300 bg-white p-3 pl-10 text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+						className="block w-full rounded border border-slate-300 bg-white p-3 pl-10 text-sm text-slate-900 placeholder-slate-400 shadow-sm placeholder:text-sm focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
 						autoComplete="off"
 						onChange={(event) => setQuery(event.target.value)}
 					/>

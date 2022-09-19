@@ -11,13 +11,13 @@ function HomeDashboard() {
 				{profile?.avatar_image ? (
 					<img
 						src={profile?.avatar_image}
-						className="h-16 w-16 rounded-full bg-no-repeat object-cover object-center"
+						className="h-10 w-10 shrink-0 rounded-full bg-no-repeat object-cover object-center sm:h-12 sm:w-12 2md:h-16 2md:w-16"
 						alt="User profile"
 					/>
 				) : (
 					<span>
 						<svg
-							className="h-16 w-16 rounded-full text-gray-300"
+							className="h-10 w-10 shrink-0 rounded-full text-gray-300 sm:h-12 sm:w-12 2md:h-16 2md:w-16"
 							fill="currentColor"
 							viewBox="0 0 24 24"
 						>
@@ -25,7 +25,7 @@ function HomeDashboard() {
 						</svg>
 					</span>
 				)}
-				<p className="ml-4 font-rubik text-3xl font-semibold leading-8">
+				<p className="ml-4 font-rubik text-xl font-semibold leading-8 sm:text-2xl 2md:text-3xl">
 					Welcome back, {profile?.first_name}
 				</p>
 			</div>

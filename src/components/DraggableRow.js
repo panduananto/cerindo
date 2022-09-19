@@ -40,10 +40,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 							<span>{row.type}</span>
 						</td>
 						<td className="max-w-[270px] truncate px-4 py-3 text-left text-sm uppercase tracking-normal text-slate-700">
-							<div className="flex flex-row 2md:hidden">
-								<span>{row.name}</span>
-							</div>
-							<span className="hidden 2md:inline">{row.name}</span>
+							<span>{row.name}</span>
 						</td>
 						<td className="hidden whitespace-nowrap px-4 py-3 text-left text-sm tracking-normal text-slate-700 lg:table-cell">
 							{row.country.name} &#40;{row.country.code}&#41;
