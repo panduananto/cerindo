@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react';
 
-import { toast } from 'react-toastify';
-import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDebounce } from 'use-debounce';
-import { HiSearch, HiX, HiCheckCircle, HiExclamation, HiExclamationCircle } from 'react-icons/hi';
+import { HiSearch, HiX } from 'react-icons/hi';
 
-import supabase from '../../../supabase';
+import {
+	fetchAkl,
+	selectAklsSearchIds,
+	aklsSearchClearAll,
+} from '../../../features/akl/search/aklSearchSlice';
+
+import AklSearchResult from './AklSearchResult';
+
 import useOutsideClick from '../../../hooks/useOutsideClick';
 
-function AklSearch({ items, aklCollection, setItems, setAklCollection }) {
-	const [loading, setLoading] = useState(false);
+function AklSearch() {
 	const [query, setQuery] = useState('');
 	const [debouncedQuery] = useDebounce(query, 800);
-	const [queryResult, setQueryResult] = useState(null);
+
+	const dispatch = useDispatch();
+
+	const aklsSearchIds = useSelector(selectAklsSearchIds);
+	const loadingStatus = useSelector((state) => state.aklsSearch.status);
 
 	const handleClearQuery = () => {
 		setQuery('');
@@ -20,109 +29,19 @@ function AklSearch({ items, aklCollection, setItems, setAklCollection }) {
 
 	const searchbarRef = useOutsideClick(handleClearQuery);
 
-	const handleFetchAklFile = async (url) => {
-		return await supabase.storage.from('cerindo').download(`akl/${url}`);
-	};
-
-	const handleSaveAkl = async (akl) => {
-		const { data, error } = await handleFetchAklFile(akl.file_url);
-
-		if (error) throw error;
-
-		const newAkl = {
-			id: akl.id,
-			date: akl.date,
-			expiry_date: akl.expiry_date,
-			file: data,
-		};
-
-		setAklCollection([...aklCollection, newAkl]);
-	};
-
-	const handleSaveItemAndAkl = async (id) => {
-		const target = queryResult
-			.filter((item) => item.id === id)
-			.map((item) => ({
-				...item,
-				id: item.id + nanoid(10),
-			}));
-
-		if (target === null) return;
-
-		const { akl: aklTarget } = target[0];
-
-		const aklCode = aklTarget.id.split('_').join(' ');
-		const checkDuplicateAkl = aklCollection.some((a) => a.id === aklTarget.id);
-
-		if (!checkDuplicateAkl) {
-			toast.promise(handleSaveAkl(aklTarget), {
-				pending: {
-					render() {
-						return `Mengunduh ${aklCode}`;
-					},
-				},
-				success: {
-					render() {
-						setItems([...items, ...target]);
-
-						return `${aklCode} berhasil ditambahkan`;
-					},
-					icon: <HiCheckCircle className="h-5 w-5 text-green-600" />,
-				},
-				error: {
-					renter() {
-						return 'Maaf, ada kesalahan. Coba lagi.';
-					},
-					icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
-				},
-			});
-		} else {
-			setItems([...items, ...target]);
-
-			toast.warn(`${aklCode} telah terdaftar`, {
-				icon: <HiExclamation className="h-5 w-5 text-yellow-600" />,
-			});
-		}
-	};
-
 	useEffect(() => {
 		let isSubscribed = true;
 
-		const fetchAKL = async (aklQuery) => {
-			setLoading(true);
-
-			if (isSubscribed && aklQuery !== '') {
-				try {
-					let { data: itemAKL, error: errorAKL } = await supabase
-						.from('item_akl')
-						.select(
-							`id, type, name, facility,
-							akl:id_akl (id, brand_name, packaging, date, expiry_date, file_url),
-							hscode:id_hscode (code, import_dutyfees, value_added_tax, income_tax_api, income_tax_non_api, lartas),
-							country:id_country (code, name)`
-						)
-						.eq('type', aklQuery);
-
-					if (errorAKL) throw errorAKL;
-
-					setQueryResult(itemAKL);
-				} catch (error) {
-					toast.error('Koneksi bermasalah. Coba lagi.', {
-						icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
-					});
-				} finally {
-					setLoading(false);
-				}
-			} else {
-				setLoading(false);
-				setQueryResult(null);
-			}
-		};
-
-		fetchAKL(debouncedQuery);
+		if (isSubscribed && debouncedQuery !== '') {
+			dispatch(fetchAkl(debouncedQuery));
+		}
 
 		return () => (isSubscribed = false);
-	}, [debouncedQuery]);
+	}, [dispatch, debouncedQuery]);
+
+	useEffect(() => {
+		dispatch(aklsSearchClearAll());
+	}, [dispatch, query]);
 
 	return (
 		<div className="bg-white px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
@@ -156,36 +75,22 @@ function AklSearch({ items, aklCollection, setItems, setAklCollection }) {
 						</div>
 					)}
 				</div>
-				{loading ? (
+				{loadingStatus === 'loading' ? (
 					<div className="absolute top-[4.125rem] left-1/2 z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 text-center shadow-lg sm:w-max">
 						Sedang mencari izin AKL...
 					</div>
-				) : !loading && query !== '' && queryResult !== null ? (
-					queryResult.length === 0 ? (
+				) : loadingStatus === 'idle' &&
+				  query !== '' &&
+				  debouncedQuery !== '' &&
+				  aklsSearchIds !== null ? (
+					aklsSearchIds.length === 0 ? (
 						<div className="absolute top-[4.125rem] left-1/2 z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 text-center shadow-lg sm:w-max">
 							Izin AKL yang Anda cari tidak ditemukan
 						</div>
 					) : (
 						<ul className="absolute top-[4.125rem] z-50 flex max-h-60 w-full flex-col overflow-y-auto rounded border border-slate-200 bg-white py-4 shadow-xl">
-							{queryResult.map((result) => {
-								return (
-									<li
-										key={result.id}
-										className="cursor-pointer px-4 py-2 hover:bg-slate-100"
-										onClick={() => handleSaveItemAndAkl(result.id)}
-									>
-										<p className="font-bold">
-											{result.akl.brand_name} / {result.name}
-										</p>
-										<p className="text-slate-700">
-											{result.type} - {result.country.name}
-										</p>
-										<p className="mt-3 text-sm text-slate-700">
-											<span className="font-semibold text-red-600">Expiry date:</span>{' '}
-											{new Date(result.akl.expiry_date).toLocaleDateString()}
-										</p>
-									</li>
-								);
+							{aklsSearchIds.map((aklId) => {
+								return <AklSearchResult key={aklId} id={aklId} />;
 							})}
 						</ul>
 					)

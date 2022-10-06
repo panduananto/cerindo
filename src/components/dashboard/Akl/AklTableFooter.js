@@ -1,14 +1,44 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { utils, writeFile } from 'xlsx';
 import { Popover, Transition } from '@headlessui/react';
-import { HiExclamationCircle, HiDotsVertical } from 'react-icons/hi';
+import { HiExclamationCircle, HiDotsVertical, HiCheckCircle } from 'react-icons/hi';
 
-function AklTableFooter({ items, aklCollection, resetTable }) {
+import {
+	aklClearAll,
+	selectAklsCollection,
+} from '../../../features/akl/collection/aklCollectionSlice';
+import { aklAPI } from '../../../api/akl';
+
+const DATE_OPTIONS = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+const downloadAklFile = async (fileUrl) => {
+	try {
+		const response = await aklAPI.downloadFile(fileUrl);
+		return response.data;
+	} catch (error) {
+		return error.message;
+	}
+};
+
+function AklTableFooter() {
+	const dispatch = useDispatch();
+	const aklsCollection = useSelector(selectAklsCollection);
+
+	const distinctAkl = useMemo(
+		() => [...new Set(aklsCollection.map((item) => item.akl))],
+		[aklsCollection]
+	);
+
+	const handleResetTable = () => {
+		dispatch(aklClearAll());
+	};
+
 	const handleDownloadExcel = () => {
 		const headerItems = [
 			[
@@ -29,7 +59,7 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 
 		const workbook = utils.book_new();
 
-		if (items.length === 0 || aklCollection.length === 0) {
+		if (aklsCollection.length === 0) {
 			toast.error('Barang atau AKL masih kosong', {
 				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
 			});
@@ -37,7 +67,7 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 			return;
 		}
 
-		const rowsItems = items.map((item) => ({
+		const rowsItems = aklsCollection.map((item) => ({
 			countryCode: item.country.code,
 			type: item.type,
 			brandName: item.akl.brand_name,
@@ -51,13 +81,11 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 			facility: item.facility,
 		}));
 
-		const rowsAKL = aklCollection.map((a) => {
-			const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
-
+		const rowsAKL = aklsCollection.map((item) => {
 			return {
-				aklCode: a.id.split('_').join(' '),
-				date: new Date(a.date).toLocaleDateString('id', dateOptions),
-				expiryDate: new Date(a.expiry_date).toLocaleDateString('id', dateOptions),
+				aklCode: item.akl.id.split('_').join(' '),
+				date: new Date(item.akl.date).toLocaleDateString('id', DATE_OPTIONS),
+				expiryDate: new Date(item.akl.expiry_date).toLocaleDateString('id', DATE_OPTIONS),
 			};
 		});
 
@@ -73,8 +101,8 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 		writeFile(workbook, 'TABEL BARANG.xlsx');
 	};
 
-	const handleDownloadAKL = () => {
-		if (aklCollection.length === 0) {
+	const handleDownloadZipAKL = async () => {
+		if (distinctAkl.length === 0) {
 			toast.error('AKL masih kosong', {
 				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
 			});
@@ -84,20 +112,53 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 
 		const zip = new JSZip();
 
-		aklCollection.forEach((a) => {
-			zip.file(`${a.id}.pdf`, a.file, { binary: true });
+		const requests = distinctAkl.map((akl) => {
+			return downloadAklFile(akl.file_url).then((file) => {
+				return {
+					id: akl.id,
+					data: file,
+				};
+			});
 		});
 
-		zip.generateAsync({ type: 'Blob' }).then((content) => {
-			FileSaver.saveAs(content, 'AKL.zip');
-		});
+		toast
+			.promise(Promise.all(requests), {
+				pending: {
+					render() {
+						return 'Mengunduh AKL...';
+					},
+				},
+				success: {
+					render() {
+						return 'AKL berhasil diunduh.';
+					},
+					icon: <HiCheckCircle className="h-5 w-5 text-green-600" />,
+				},
+				error: {
+					renter() {
+						return 'Maaf, ada kesalahan. Coba lagi.';
+					},
+					icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
+				},
+			})
+			.then((pdfs) => {
+				pdfs.map((pdf) => {
+					zip.file(`${pdf.id}.pdf`, pdf.data, { binary: true });
+					return null;
+				});
+			})
+			.then(() => {
+				zip.generateAsync({ type: 'Blob' }).then((content) => {
+					FileSaver.saveAs(content, 'AKL.zip');
+				});
+			});
 	};
 
 	return (
 		<div className="mt-auto flex items-center justify-between border-t border-slate-300 bg-white px-4 py-1 sm:px-6 lg:px-8 2md:py-3">
 			<p className="text-[13px] text-slate-700">
-				<span className="font-extrabold">{items.length}</span> barang dan{' '}
-				<span className="font-extrabold">{aklCollection.length}</span> izin AKL terpilih
+				<span className="font-extrabold">{aklsCollection.length}</span> barang dan{' '}
+				<span className="font-extrabold">{distinctAkl.length}</span> izin AKL terpilih
 			</p>
 			<div className="block 2md:hidden">
 				<Popover className="relative">
@@ -120,16 +181,16 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 										<ul>
 											<li>
 												<button
-													disabled={aklCollection.length === 0 ? true : false}
+													disabled={distinctAkl.length === 0 ? true : false}
 													className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
-													onClick={() => handleDownloadAKL()}
+													onClick={() => handleDownloadZipAKL()}
 												>
 													Download AKL &#40;.zip&#41;
 												</button>
 											</li>
 											<li>
 												<button
-													disabled={items.length === 0 ? true : false}
+													disabled={aklsCollection.length === 0 ? true : false}
 													className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
 													onClick={() => handleDownloadExcel()}
 												>
@@ -139,9 +200,11 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 										</ul>
 										<div className="pt-2">
 											<button
-												disabled={items.length === 0 || aklCollection.length === 0 ? true : false}
+												disabled={
+													aklsCollection.length === 0 || aklsCollection.length === 0 ? true : false
+												}
 												className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
-												onClick={resetTable}
+												onClick={handleResetTable}
 											>
 												<span className="pl-0">Reset tabel</span>
 											</button>
@@ -155,14 +218,14 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 			</div>
 			<div className="hidden space-x-2 text-[13px] font-medium text-slate-700 2md:block">
 				<button
-					disabled={aklCollection.length === 0 ? true : false}
+					disabled={distinctAkl.length === 0 ? true : false}
 					className="inline-flex items-center justify-center rounded border border-slate-300 px-2 py-1 transition-colors duration-150 ease-in-out hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
-					onClick={() => handleDownloadAKL()}
+					onClick={() => handleDownloadZipAKL()}
 				>
 					Download AKL &#40;.zip&#41;
 				</button>
 				<button
-					disabled={items.length === 0 ? true : false}
+					disabled={aklsCollection.length === 0 ? true : false}
 					className="inline-flex items-center justify-center rounded border border-slate-300 px-2 py-1 transition-colors duration-150 ease-in-out hover:enabled:bg-slate-100 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
 					onClick={() => handleDownloadExcel()}
 				>
@@ -170,9 +233,9 @@ function AklTableFooter({ items, aklCollection, resetTable }) {
 				</button>
 				<span>|</span>
 				<button
-					disabled={items.length === 0 || aklCollection.length === 0 ? true : false}
+					disabled={aklsCollection.length === 0 || aklsCollection.length === 0 ? true : false}
 					className="inline-flex items-center justify-center rounded border border-red-300 bg-white px-2 py-1 text-red-600 transition-colors duration-150 ease-in-out focus:bg-red-200/70 focus:outline-none focus:ring-0 hover:enabled:bg-red-200/70 disabled:cursor-not-allowed disabled:text-red-300"
-					onClick={resetTable}
+					onClick={handleResetTable}
 				>
 					Reset tabel
 				</button>

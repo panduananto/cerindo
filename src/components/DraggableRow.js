@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { Disclosure } from '@headlessui/react';
 import {
@@ -9,19 +10,33 @@ import {
 	HiOutlineMenuAlt4,
 } from 'react-icons/hi';
 
-function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
+import {
+	aklDeleted,
+	aklIdsReorder,
+	selectAklsCollectionById,
+} from '../features/akl/collection/aklCollectionSlice';
+
+function DraggableRow({ id }) {
+	const dispatch = useDispatch();
+
+	const akl = useSelector((state) => selectAklsCollectionById(state, id));
+
 	const [, dropRef] = useDrop({
-		accept: 'row',
-		drop: (draggedRow) => reorderRow(draggedRow.id, row.id),
+		accept: 'id',
+		drop: (draggedRow) => dispatch(aklIdsReorder(draggedRow, id)),
 	});
 
 	const [{ isDragging }, dragRef, previewRef] = useDrag({
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
-		item: () => row,
-		type: 'row',
+		item: { id },
+		type: 'id',
 	});
+
+	const handleDeleteItem = (id) => {
+		dispatch(aklDeleted(id));
+	};
 
 	return (
 		<Disclosure as={React.Fragment}>
@@ -37,16 +52,16 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 							</button>
 						</td>
 						<td className="hidden whitespace-nowrap py-3 pr-4 text-left text-sm uppercase tracking-normal text-slate-700 2md:table-cell">
-							<span>{row.type}</span>
+							<span>{akl.type}</span>
 						</td>
 						<td className="max-w-[270px] truncate px-4 py-3 text-left text-sm uppercase tracking-normal text-slate-700">
-							<span>{row.name}</span>
+							<span>{akl.name}</span>
 						</td>
 						<td className="hidden whitespace-nowrap px-4 py-3 text-left text-sm tracking-normal text-slate-700 lg:table-cell">
-							{row.country.name} &#40;{row.country.code}&#41;
+							{akl.country.name} &#40;{akl.country.code}&#41;
 						</td>
 						<td className="whitespace-nowrap px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-							{new Date() > new Date(row.akl.expiry_date) ? (
+							{new Date() > new Date(akl.akl.expiry_date) ? (
 								<div className="inline-flex flex-row items-center gap-x-0.5 rounded-full bg-red-100 px-2 py-0.5 text-red-600">
 									<HiExclamationCircle className="h-4 w-4" />
 									<span>Kadaluarsa</span>
@@ -78,20 +93,20 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 												Kode AKL
 											</p>
 											<p className="mt-1 text-sm text-slate-700">
-												{row.akl.id.split('_').join(' ')}
+												{akl.akl.id.split('_').join(' ')}
 											</p>
 										</div>
 										<div className="col-span-4 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												Tipe
 											</p>
-											<p className="mt-1 text-sm text-slate-700">{row.type}</p>
+											<p className="mt-1 text-sm text-slate-700">{akl.type}</p>
 										</div>
 										<div className="col-span-4 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												HS Code
 											</p>
-											<p className="mt-1 text-sm text-slate-700">{row.hscode.code}</p>
+											<p className="mt-1 text-sm text-slate-700">{akl.hscode.code}</p>
 										</div>
 									</div>
 									<div className="grid grid-cols-2 gap-x-4 gap-y-4">
@@ -99,13 +114,13 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												Merek
 											</p>
-											<p className="mt-1 truncate text-sm text-slate-700">{row.akl.brand_name}</p>
+											<p className="mt-1 truncate text-sm text-slate-700">{akl.akl.brand_name}</p>
 										</div>
 										<div className="col-span-2 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												Kemasan
 											</p>
-											<p className="mt-1 truncate text-sm text-slate-700">{row.akl.packaging}</p>
+											<p className="mt-1 truncate text-sm text-slate-700">{akl.akl.packaging}</p>
 										</div>
 									</div>
 									<div className="grid grid-cols-2 gap-x-4 gap-y-4">
@@ -113,13 +128,13 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												Negara asal
 											</p>
-											<p className="mt-1 text-sm text-slate-700">{row.country.name}</p>
+											<p className="mt-1 text-sm text-slate-700">{akl.country.name}</p>
 										</div>
 										<div className="col-span-2 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												Kode negara asal
 											</p>
-											<p className="mt-1 text-sm text-slate-700">{row.country.code}</p>
+											<p className="mt-1 text-sm text-slate-700">{akl.country.code}</p>
 										</div>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
@@ -127,7 +142,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											Deskripsi
 										</p>
 										<p className="mt-1 truncate text-sm text-slate-700">
-											{row.name !== null ? row.name : '-'}
+											{akl.name !== null ? akl.name : '-'}
 										</p>
 									</div>
 								</div>
@@ -137,7 +152,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											Biaya masuk
 										</p>
 										<p className="relative mt-1 text-sm text-slate-700">
-											{row.hscode.import_dutyfees}
+											{akl.hscode.import_dutyfees}
 											<span className="absolute right-0 text-slate-400">&#37;</span>
 										</p>
 									</div>
@@ -146,7 +161,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											PPN
 										</p>
 										<p className="relative mt-1 text-sm text-slate-700">
-											{row.hscode.value_added_tax}
+											{akl.hscode.value_added_tax}
 											<span className="absolute right-0 text-slate-400">&#37;</span>
 										</p>
 									</div>
@@ -155,7 +170,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											PPH &#40;API&#41;
 										</p>
 										<p className="relative mt-1 text-sm text-slate-700">
-											{row.hscode.income_tax_api}{' '}
+											{akl.hscode.income_tax_api}{' '}
 											<span className="absolute right-0 text-slate-400">&#37;</span>
 										</p>
 									</div>
@@ -164,7 +179,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											PPH &#40;Non-API&#41;
 										</p>
 										<p className="relative mt-1 block text-sm text-slate-700">
-											{row.hscode.income_tax_non_api}
+											{akl.hscode.income_tax_non_api}
 											<span className="absolute right-0 text-slate-400">&#37;</span>
 										</p>
 									</div>
@@ -175,7 +190,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											Tanggal AKL
 										</p>
 										<p className="mt-1 text-sm text-slate-700">
-											{new Date(row.akl.date).toLocaleDateString('id')}
+											{new Date(akl.akl.date).toLocaleDateString('id')}
 										</p>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
@@ -183,7 +198,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											Tanggal kadaluarsa AKL
 										</p>
 										<p className="mt-1 text-sm text-slate-700">
-											{new Date(row.akl.expiry_date).toLocaleDateString('id')}
+											{new Date(akl.akl.expiry_date).toLocaleDateString('id')}
 										</p>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
@@ -191,7 +206,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											Fasilitas
 										</p>
 										<p className="mt-1 text-sm text-slate-700">
-											{row.facility !== null ? row.facility : '-'}
+											{akl.facility !== null ? akl.facility : '-'}
 										</p>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
@@ -199,7 +214,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 											Lartas
 										</p>
 										<p className="mt-1 text-sm text-slate-700">
-											{row.hscode.lartas !== null ? row.hscode.lartas : '-'}
+											{akl.hscode.lartas !== null ? akl.hscode.lartas : '-'}
 										</p>
 									</div>
 								</div>
@@ -207,7 +222,7 @@ function DraggableRow({ row, reorderRow, handleDeleteItemAndAkl }) {
 							<div className="flex flex-row border-t border-slate-300 px-6 py-4 shadow-lg">
 								<button
 									className="inline-flex items-center justify-center rounded bg-white p-2 px-4 text-sm font-medium text-red-600 transition-colors duration-150 ease-in-out hover:bg-red-200/70 focus:bg-red-200/70 focus:outline-none focus:ring-0"
-									onClick={() => handleDeleteItemAndAkl(row.id, row.akl.id)}
+									onClick={() => handleDeleteItem(id)}
 								>
 									Delete
 								</button>

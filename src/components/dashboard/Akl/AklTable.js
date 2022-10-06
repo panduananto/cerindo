@@ -1,28 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectAklsCollectionIds } from '../../../features/akl/collection/aklCollectionSlice';
 
 import DraggableRow from '../../DraggableRow';
 
-function AklTable({ items, aklCollection, setItems, setAklCollection, reorderRow }) {
-	const handleDeleteItemAndAkl = (idItem, idAkl) => {
-		const groupItemByAkl = items.reduce((acc, obj) => {
-			if (obj.akl.id === idAkl) {
-				return acc + 1;
-			}
-
-			return acc;
-		}, 0);
-
-		const updatedItems = items.filter((item) => item.id !== idItem);
-
-		if (groupItemByAkl === 1) {
-			const updatedAkl = aklCollection.filter((a) => a.id !== idAkl);
-
-			setItems([...updatedItems]);
-			setAklCollection([...updatedAkl]);
-		} else {
-			setItems([...updatedItems]);
-		}
-	};
+function AklTable() {
+	const aklsCollectionIds = useSelector(selectAklsCollectionIds);
 
 	return (
 		<div className="flex max-w-full flex-auto flex-col overflow-auto">
@@ -65,17 +49,10 @@ function AklTable({ items, aklCollection, setItems, setAklCollection, reorderRow
 						</th>
 					</tr>
 				</thead>
-				{items.length !== 0 ? (
+				{aklsCollectionIds.length !== 0 ? (
 					<tbody className="w-full divide-y divide-slate-200 overflow-y-auto">
-						{items.map((item, index) => {
-							return (
-								<DraggableRow
-									key={item.id + index}
-									row={item}
-									reorderRow={reorderRow}
-									handleDeleteItemAndAkl={handleDeleteItemAndAkl}
-								></DraggableRow>
-							);
+						{aklsCollectionIds.map((id, index) => {
+							return <DraggableRow key={id + index} id={id} />;
 						})}
 					</tbody>
 				) : (
