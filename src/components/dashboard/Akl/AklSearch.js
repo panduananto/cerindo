@@ -46,9 +46,7 @@ function AklSearch() {
 	return (
 		<div className="bg-white px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
 			<h1 className="text-xl font-semibold leading-8 sm:text-2xl 2md:text-3xl">Pencarian AKL</h1>
-			<p className="mt-1 text-sm font-medium text-slate-700">
-				Cari dan tinjau izin AKL yang Anda butuhkan
-			</p>
+			<p className="mt-1 font-medium text-slate-700">Cari dan tinjau izin AKL yang Anda butuhkan</p>
 			<div ref={searchbarRef} className="relative mt-4 flex w-full flex-col">
 				<label htmlFor="aklType" className="sr-only">
 					Tipe AKL

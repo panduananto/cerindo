@@ -15,6 +15,7 @@ import Signup from './routes/signup';
 import HomeDashboard from './routes/dashboard/home';
 import AklLookup from './routes/dashboard/akl-lookup';
 import AKL from './routes/dashboard/data/akl';
+import SKPabean from './routes/dashboard/sk-pabean';
 import NotFound from './components/NotFound';
 import RequiredAuth from './components/RequiredAuth';
 
@@ -50,10 +51,11 @@ function App() {
 			<Route element={<RequiredAuth />}>
 				<Route path="/dashboard" element={<LayoutDashboard />}>
 					<Route index={true} element={<HomeDashboard />} />
-					<Route path="akl" element={<AklLookup />} />
 					<Route path="data">
 						<Route path="akl" element={<AKL />}></Route>
 					</Route>
+					<Route path="akl" element={<AklLookup />} />
+					<Route path="sk-pabean" element={<SKPabean />} />
 				</Route>
 			</Route>
 			<Route path="*" element={<NotFound />} />

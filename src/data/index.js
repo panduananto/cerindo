@@ -261,6 +261,13 @@ const sideBarNavigationItems = [
 		type: 'file',
 		icon: <HiOutlineDocumentSearch></HiOutlineDocumentSearch>,
 	},
+	{
+		text: 'SK Pabean',
+		link: 'sk-pabean',
+		isRoot: true,
+		type: 'file',
+		icon: <HiOutlineDocumentText></HiOutlineDocumentText>,
+	},
 ];
 
 export { clients, navigationItems, services, projects, sideBarNavigationItems };

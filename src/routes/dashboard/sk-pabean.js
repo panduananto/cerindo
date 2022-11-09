@@ -1,0 +1,319 @@
+import React from 'react';
+
+import { Tab } from '@headlessui/react';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { object, string, boolean, date } from 'yup';
+
+import classNames from '../../utils/classNames';
+
+const importirSchema = object().shape({
+	pic: string().required('Nama PIC harus diisi'),
+	title: string().required('Jabatan PIC harus diisi'),
+	company: string().required('Nama perusahaan importir harus diisi'),
+	npwp: string()
+		.required('NPWP perusahaan importir harus diisi')
+		.min(15, 'NPWP minimal harus 15 digit'),
+	address: string().required('Alamat perusahaan importir harus diisi'),
+});
+
+const ppjkSchema = object().shape({
+	type: boolean().required('Jenis shipment harus dipilih').oneOf([0, 1]),
+	goods: string()
+		.required('Deskripsi barang harus diisi')
+		.max(30, 'Deskripsi barang maksimal 30 karakter'),
+	container: string().nullable().notRequired(),
+	vessel: string().required('Nama vessel harus diisi'),
+	eta: date().required('ETA harus disebutkan'),
+	bl: string().required('Nomor B/L harus diisi'),
+	blDate: date().required('Tanggal B/L harus disebutkan'),
+});
+
+function SKPabean() {
+	return (
+		<div className="h-[calc(100vh-65px)] w-full overflow-y-auto bg-slate-100 px-8 py-8 sm:px-10 lg:px-12">
+			<h1 className="text-xl font-semibold leading-8 sm:text-2xl 2md:text-3xl">
+				Pembuatan Dokumen SK Pabean
+			</h1>
+			<p className="mt-1 font-medium text-slate-700">
+				Buat dokumen SK Pabean yang Anda butuhkan dengan mudah
+			</p>
+			<div className="mt-4">
+				<div className="grid grid-cols-3 gap-x-6">
+					<div className="col-span-3 md:col-span-1">
+						<h2 className="font-semibold leading-8">Importir</h2>
+						<p className="text-sm text-slate-600">
+							Pengisian data importir, harap pastikan data yang diisi adalah benar.
+						</p>
+					</div>
+					<div className="col-span-3 rounded bg-white shadow-sm md:col-span-2">
+						<Formik
+							initialValues={{ pic: '', title: '', company: '', npwp: '', address: '' }}
+							validationSchema={importirSchema}
+						>
+							{({ errors, touched }) => {
+								return (
+									<Form>
+										<div className="p-6">
+											<div className="grid grid-cols-6 gap-x-4 gap-y-6">
+												<div className="col-span-3">
+													<label
+														htmlFor="pic"
+														className="mb-2 block text-sm font-medium text-slate-900"
+													>
+														Nama Direksi
+														<span
+															className={classNames(
+																errors.pic && touched.pic ? 'text-red-600' : ''
+															)}
+														>
+															{' '}
+															*
+														</span>
+													</label>
+													<Field
+														type="pic"
+														id="pic"
+														name="pic"
+														placeholder="Masukkan nama direksi perusahaan importir..."
+														className={classNames(
+															'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+															errors.pic && touched.pic
+																? 'border-red-600 ring-red-600'
+																: 'border-slate-300'
+														)}
+														autoComplete="off"
+														aria-invalid={errors.pic && touched.pic ? false : true}
+														aria-describedby="picNote"
+													></Field>
+													<ErrorMessage
+														id="picNote"
+														name="pic"
+														component="span"
+														className="mt-1 text-xs font-semibold text-red-600"
+													/>
+												</div>
+												<div className="col-span-3">
+													<label
+														htmlFor="title"
+														className="mb-2 block text-sm font-medium text-slate-900"
+													>
+														Jabatan Direksi
+														<span
+															className={classNames(
+																errors.title && touched.title ? 'text-red-600' : ''
+															)}
+														>
+															{' '}
+															*
+														</span>
+													</label>
+													<Field
+														type="title"
+														id="title"
+														name="title"
+														placeholder="Masukkan jabatan pic perusahaan importir..."
+														className={classNames(
+															'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+															errors.title && touched.title
+																? 'border-red-600 ring-red-600'
+																: 'border-slate-300'
+														)}
+														autoComplete="off"
+														aria-invalid={errors.title && touched.title ? false : true}
+														aria-describedby="picNote"
+													></Field>
+													<ErrorMessage
+														id="titleNote"
+														name="title"
+														component="span"
+														className="mt-1 text-xs font-semibold text-red-600"
+													/>
+												</div>
+												<div className="col-span-6">
+													<label
+														htmlFor="company"
+														className="mb-2 block text-sm font-medium text-slate-900"
+													>
+														Nama Perusahaan Importir
+														<span
+															className={classNames(
+																errors.company && touched.company ? 'text-red-600' : ''
+															)}
+														>
+															{' '}
+															*
+														</span>
+													</label>
+													<Field
+														type="company"
+														id="company"
+														name="company"
+														placeholder="Masukkan nama direksi perusahaan importir..."
+														className={classNames(
+															'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+															errors.company && touched.company
+																? 'border-red-600 ring-red-600'
+																: 'border-slate-300'
+														)}
+														autoComplete="off"
+														aria-invalid={errors.company && touched.company ? false : true}
+														aria-describedby="picNote"
+													></Field>
+													<ErrorMessage
+														id="companyNote"
+														name="company"
+														component="span"
+														className="mt-1 text-xs font-semibold text-red-600"
+													/>
+												</div>
+												<div className="col-span-6">
+													<label
+														htmlFor="npwp"
+														className="mb-2 block text-sm font-medium text-slate-900"
+													>
+														NPWP Perusahaan Importir
+														<span
+															className={classNames(
+																errors.npwp && touched.npwp ? 'text-red-600' : ''
+															)}
+														>
+															{' '}
+															*
+														</span>
+													</label>
+													<Field
+														type="npwp"
+														id="npwp"
+														name="npwp"
+														placeholder="Masukkan npwp perusahaan importir..."
+														className={classNames(
+															'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+															errors.npwp && touched.npwp
+																? 'border-red-600 ring-red-600'
+																: 'border-slate-300'
+														)}
+														autoComplete="off"
+														aria-invalid={errors.npwp && touched.npwp ? false : true}
+														aria-describedby="picNote"
+													></Field>
+													<ErrorMessage
+														id="npwpNote"
+														name="npwp"
+														component="span"
+														className="mt-1 text-xs font-semibold text-red-600"
+													/>
+												</div>
+												<div className="col-span-6">
+													<label
+														htmlFor="address"
+														className="mb-2 block text-sm font-medium text-slate-900"
+													>
+														Alamat Perusahaan Importir
+														<span
+															className={classNames(
+																errors.address && touched.address ? 'text-red-600' : ''
+															)}
+														>
+															{' '}
+															*
+														</span>
+													</label>
+													<Field
+														as="textarea"
+														rows="4"
+														type="address"
+														id="address"
+														name="address"
+														placeholder="Masukkan alamat perusahaan importir..."
+														className={classNames(
+															'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+															errors.address && touched.address
+																? 'border-red-600 ring-red-600'
+																: 'border-slate-300'
+														)}
+														autoComplete="off"
+														aria-invalid={errors.address && touched.address ? false : true}
+														aria-describedby="picNote"
+													></Field>
+													<ErrorMessage
+														id="addressNote"
+														name="address"
+														component="span"
+														className="mt-1 text-xs font-semibold text-red-600"
+													/>
+												</div>
+											</div>
+										</div>
+										<div className="flex justify-end space-x-2 border-t border-slate-200 p-4">
+											<button
+												type="submit"
+												className="inline-flex items-center justify-center rounded border border-slate-200 bg-white py-2 px-4 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+											>
+												Reset
+											</button>
+											<button
+												type="submit"
+												className="inline-flex items-center justify-center rounded bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+											>
+												Update
+											</button>
+										</div>
+									</Form>
+								);
+							}}
+						</Formik>
+					</div>
+				</div>
+				<div className="hidden sm:block">
+					<div className="py-5">
+						<div className="border-t border-slate-200"></div>
+					</div>
+				</div>
+				<div className="grid grid-cols-3 gap-x-6">
+					<div className="col-span-3 md:col-span-1">
+						<h2 className="font-semibold leading-8">Shipment</h2>
+						<p className="text-sm text-slate-600">
+							Pengisian data shipment, harap pastikan data yang diisi adalah benar.
+						</p>
+					</div>
+					<div className="col-span-3 rounded bg-white shadow-sm md:col-span-2">
+						<Formik
+							initialValues={{
+								type: '',
+								goods: '',
+								container: '',
+								vessel: '',
+								eta: '',
+								bl: '',
+								blDate: '',
+							}}
+							validationSchema={ppjkSchema}
+						>
+							{({ errors, touched }) => {
+								return (
+									<Form>
+										<div className="p-6">
+											<div></div>
+										</div>
+									</Form>
+								);
+							}}
+						</Formik>
+					</div>
+				</div>
+			</div>
+			<div className="mt-12">
+				<Tab.Group>
+					<Tab.List className="flex justify-between">
+						<Tab>SKP</Tab>
+						<Tab>SKDO</Tab>
+						<Tab>DNP</Tab>
+						<Tab>SKDAI</Tab>
+					</Tab.List>
+				</Tab.Group>
+			</div>
+		</div>
+	);
+}
+
+export default SKPabean;
