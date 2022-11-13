@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { RadioGroup, Tab } from '@headlessui/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object, string, boolean, date } from 'yup';
 import { HiCheckCircle } from 'react-icons/hi';
+import ReactDatePicker from 'react-datepicker';
 
 import classNames from '../../utils/classNames';
-import ReactDatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -33,6 +33,12 @@ const ppjkSchema = object().shape({
 const TAB_SK_PABEAN = ['SKP', 'SKDO', 'DNP', 'SKDAI'];
 
 function SKPabean() {
+	const [importir, setImportir] = useState(null);
+
+	const handleSubmitImportir = (values, action) => {
+		setImportir(values);
+	};
+
 	return (
 		<div className="h-[calc(100vh-65px)] w-full overflow-y-auto bg-slate-100">
 			<div className="px-8 py-8 sm:px-10 lg:px-12">
@@ -54,6 +60,7 @@ function SKPabean() {
 							<Formik
 								initialValues={{ pic: '', title: '', company: '', npwp: '', address: '' }}
 								validationSchema={importirSchema}
+								onSubmit={(values, action) => handleSubmitImportir(values, action)}
 							>
 								{({ errors, touched }) => {
 									return (
@@ -587,7 +594,9 @@ function SKPabean() {
 						))}
 					</Tab.List>
 					<Tab.Panels className="px-8 py-4">
-						<Tab.Panel className="bg-white p-4">SKP</Tab.Panel>
+						<Tab.Panel className="bg-white p-4">
+							{importir !== null ? importir.pic : 'null'}
+						</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">SKDO</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">DNP</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">SKDAI</Tab.Panel>
