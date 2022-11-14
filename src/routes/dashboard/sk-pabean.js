@@ -9,6 +9,7 @@ import ReactDatePicker from 'react-datepicker';
 import classNames from '../../utils/classNames';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import SKP from '../../components/Dashboard/SKPabean/SKP';
 
 const importirSchema = object().shape({
 	pic: string().required('Nama PIC harus diisi'),
@@ -595,7 +596,7 @@ function SKPabean() {
 					</Tab.List>
 					<Tab.Panels className="px-8 py-4">
 						<Tab.Panel className="bg-white p-4">
-							{importir !== null ? importir.pic : 'null'}
+							<SKP />
 						</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">SKDO</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">DNP</Tab.Panel>
