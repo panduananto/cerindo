@@ -6,10 +6,12 @@ import { object, string, boolean, date } from 'yup';
 import { HiCheckCircle } from 'react-icons/hi';
 import ReactDatePicker from 'react-datepicker';
 
+import SKP from '../../components/Dashboard/SKPabean/SKP';
+import SKDO from '../../components/Dashboard/SKPabean/SKDO';
+
 import classNames from '../../utils/classNames';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import SKP from '../../components/Dashboard/SKPabean/SKP';
 
 const importirSchema = object().shape({
 	pic: string().required('Nama PIC harus diisi'),
@@ -19,6 +21,7 @@ const importirSchema = object().shape({
 		.required('NPWP perusahaan importir harus diisi')
 		.min(15, 'NPWP minimal harus 15 digit'),
 	address: string().required('Alamat perusahaan importir harus diisi'),
+	phone: string().required('Nomor telepon perusahaan importir harus diisi'),
 });
 
 const ppjkSchema = object().shape({
@@ -32,12 +35,33 @@ const ppjkSchema = object().shape({
 });
 
 const TAB_SK_PABEAN = ['SKP', 'SKDO', 'DNP', 'SKDAI'];
+const PPJK_DATA = {
+	company: 'PT. CERINDO PRIMA LOGISTIK',
+	address:
+		'Jalan Seulawah Raya Kompl. Puri Sentra Niaga B-37 LT.1 RT.12 RW.07 Cipinang Melayu, Makasar, Jakarta Timur',
+	npwp: '02.444.890.4-005.000',
+	type: {
+		sea: {
+			name: 'Gino / Dendi Irawan',
+			title: 'Staff Ops',
+		},
+		air: {
+			name: 'Eka Susilo',
+			title: 'Manager Operasional',
+		},
+	},
+};
 
 function SKPabean() {
 	const [importir, setImportir] = useState(null);
+	const [shipment, setShipment] = useState(null);
 
 	const handleSubmitImportir = (values, action) => {
 		setImportir(values);
+	};
+
+	const handleSubmitShipment = (values, action) => {
+		setShipment(values);
 	};
 
 	return (
@@ -59,9 +83,16 @@ function SKPabean() {
 						</div>
 						<div className="col-span-3 rounded bg-white shadow-sm md:col-span-2">
 							<Formik
-								initialValues={{ pic: '', title: '', company: '', npwp: '', address: '' }}
+								initialValues={{
+									pic: '',
+									title: '',
+									company: '',
+									npwp: '',
+									address: '',
+									phone: '',
+								}}
 								validationSchema={importirSchema}
-								onSubmit={(values, action) => handleSubmitImportir(values, action)}
+								onSubmt={(values, action) => handleSubmitImportir(values, action)}
 							>
 								{({ errors, touched }) => {
 									return (
@@ -179,7 +210,7 @@ function SKPabean() {
 															className="mt-1 text-xs font-semibold text-red-600"
 														/>
 													</div>
-													<div className="col-span-6">
+													<div className="col-span-6 2md:col-span-3">
 														<label
 															htmlFor="npwp"
 															className="mb-2 block text-sm font-medium text-slate-900"
@@ -212,6 +243,43 @@ function SKPabean() {
 														<ErrorMessage
 															id="npwpNote"
 															name="npwp"
+															component="span"
+															className="mt-1 text-xs font-semibold text-red-600"
+														/>
+													</div>
+													<div className="col-span-6 2md:col-span-3">
+														<label
+															htmlFor="phone"
+															className="mb-2 block text-sm font-medium text-slate-900"
+														>
+															Nomor Telepon Perusahaan Importir
+															<span
+																className={classNames(
+																	errors.phone && touched.phone ? 'text-red-600' : ''
+																)}
+															>
+																{' '}
+																*
+															</span>
+														</label>
+														<Field
+															type="phone"
+															id="phone"
+															name="phone"
+															placeholder="Masukkan phone perusahaan importir..."
+															className={classNames(
+																'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+																errors.phone && touched.phone
+																	? 'border-red-600 ring-red-600'
+																	: 'border-slate-300'
+															)}
+															autoComplete="off"
+															aria-invalid={errors.phone && touched.phone ? false : true}
+															aria-describedby="picNote"
+														></Field>
+														<ErrorMessage
+															id="phoneNote"
+															name="phone"
 															component="span"
 															className="mt-1 text-xs font-semibold text-red-600"
 														/>
@@ -301,6 +369,7 @@ function SKPabean() {
 									blDate: '',
 								}}
 								validationSchema={ppjkSchema}
+								onSubmit={(values, action) => handleSubmitShipment(values, action)}
 							>
 								{({ errors, touched, values, setFieldValue }) => {
 									return (
@@ -594,11 +663,13 @@ function SKPabean() {
 							</Tab>
 						))}
 					</Tab.List>
-					<Tab.Panels className="px-8 py-4">
-						<Tab.Panel className="bg-white p-4">
-							<SKP />
+					<Tab.Panels className="mx-auto w-min py-8">
+						<Tab.Panel className="w-[46rem] bg-white py-4 px-8">
+							<SKP importir={importir} shipment={shipment} ppjk={PPJK_DATA} />
 						</Tab.Panel>
-						<Tab.Panel className="bg-white p-4">SKDO</Tab.Panel>
+						<Tab.Panel className="w-[40rem] bg-white py-4 px-8">
+							<SKDO />
+						</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">DNP</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">SKDAI</Tab.Panel>
 					</Tab.Panels>
