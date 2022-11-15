@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { Tab } from '@headlessui/react';
 
-import SKP from '../../components/Dashboard/SKPabean/SKP';
-import SKDO from '../../components/Dashboard/SKPabean/SKDO';
+import SKP from '../../components/Dashboard/SKPabean/SKP/SKP';
+import SKDO from '../../components/Dashboard/SKPabean/SKDO/SKDO';
 import ImportirForm from '../../components/Dashboard/SKPabean/ImportirForm';
 import ShipmentForm from '../../components/Dashboard/SKPabean/ShipmentForm';
 
@@ -15,16 +15,18 @@ const PPJK_DATA = {
 	address:
 		'Jalan Seulawah Raya Kompl. Puri Sentra Niaga B-37 LT.1 RT.12 RW.07 Cipinang Melayu, Makasar, Jakarta Timur',
 	npwp: '02.444.890.4-005.000',
+	edi: 'PJK021060095',
 	type: {
-		sea: {
+		air: {
 			name: 'Gino / Dendi Irawan',
 			title: 'Staff Ops',
 		},
-		air: {
+		sea: {
 			name: 'Eka Susilo',
 			title: 'Manager Operasional',
 		},
 	},
+	telp: '021-8629000',
 };
 
 function SKPabean() {
@@ -102,8 +104,8 @@ function SKPabean() {
 						<Tab.Panel className="w-[46rem] bg-white py-4 px-8">
 							<SKP importir={importir} shipment={shipment} ppjk={PPJK_DATA} />
 						</Tab.Panel>
-						<Tab.Panel className="w-[40rem] bg-white py-4 px-8">
-							<SKDO />
+						<Tab.Panel className="w-[46rem] bg-white py-4 px-8">
+							<SKDO importir={importir} shipment={shipment} ppjk={PPJK_DATA} />
 						</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">DNP</Tab.Panel>
 						<Tab.Panel className="bg-white p-4">SKDAI</Tab.Panel>

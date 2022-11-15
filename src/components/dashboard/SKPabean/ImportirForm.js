@@ -28,7 +28,7 @@ function ImportirForm({ handleSubmitImportir }) {
 				phone: '',
 			}}
 			validationSchema={importirSchema}
-			onSubmt={(values, action) => handleSubmitImportir(values, action)}
+			onSubmit={(values, action) => handleSubmitImportir(values, action)}
 		>
 			{({ errors, touched }) => {
 				return (
@@ -86,7 +86,7 @@ function ImportirForm({ handleSubmitImportir }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.title && touched.title ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="titleNote"
 									></Field>
 									<ErrorMessage
 										id="titleNote"
@@ -123,7 +123,7 @@ function ImportirForm({ handleSubmitImportir }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.company && touched.company ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="companyNote"
 									></Field>
 									<ErrorMessage
 										id="companyNote"
@@ -153,7 +153,7 @@ function ImportirForm({ handleSubmitImportir }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.npwp && touched.npwp ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="npwpNote"
 									></Field>
 									<ErrorMessage
 										id="npwpNote"
@@ -185,7 +185,7 @@ function ImportirForm({ handleSubmitImportir }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.phone && touched.phone ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="phoneNote"
 									></Field>
 									<ErrorMessage
 										id="phoneNote"
@@ -224,7 +224,7 @@ function ImportirForm({ handleSubmitImportir }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.address && touched.address ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="addressNote"
 									></Field>
 									<ErrorMessage
 										id="addressNote"
@@ -236,10 +236,7 @@ function ImportirForm({ handleSubmitImportir }) {
 							</div>
 						</div>
 						<div className="flex justify-end space-x-2 border-t border-slate-200 p-4">
-							<button
-								type="submit"
-								className="inline-flex items-center justify-center rounded border border-slate-200 bg-white py-2 px-4 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
-							>
+							<button className="inline-flex items-center justify-center rounded border border-slate-200 bg-white py-2 px-4 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
 								Reset
 							</button>
 							<button

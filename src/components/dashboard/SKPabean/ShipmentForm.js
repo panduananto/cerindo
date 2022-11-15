@@ -4,20 +4,27 @@ import ReactDatePicker from 'react-datepicker';
 import { RadioGroup } from '@headlessui/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { HiCheckCircle } from 'react-icons/hi';
-import { object, string, boolean, date } from 'yup';
+import { object, string, mixed, date } from 'yup';
 
 import classNames from '../../../utils/classNames';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 const shipmentSchema = object().shape({
-	type: boolean().required('Jenis shipment harus dipilih').oneOf([0, 1]),
-	goods: string().required('Nama barang harus diisi').max(30, 'Nama barang maksimal 30 karakter'),
+	type: mixed().oneOf(['sea', 'air']).required('Jenis shipment harus dipilih'),
+	flight: string().when('type', {
+		is: 'air',
+		then: string().required('Kode penerbangan harus diisi'),
+	}),
+	goods: string().required('Nama barang harus diisi').max(50, 'Nama barang maksimal 50 karakter'),
 	container: string().nullable().notRequired(),
 	vessel: string().required('Nama vessel harus diisi'),
 	eta: date().required('ETA harus disebutkan'),
-	bl: string().required('Nomor B/L harus diisi'),
-	blDate: date().required('Tanggal B/L harus disebutkan'),
+	tracking: string().required('Nomor B/L atau AWB harus diisi'),
+	trackingDate: date().required('Tanggal B/L harus disebutkan'),
+	invoice: string().required('Nomor Invoice harus diisi'),
+	invoiceDate: date().required('Tanggal Invoice harus disebutkan'),
+	price: string().required('Harga barang harus diisi'),
 });
 
 function ShipmentForm({ handleSubmitShipment }) {
@@ -25,12 +32,16 @@ function ShipmentForm({ handleSubmitShipment }) {
 		<Formik
 			initialValues={{
 				type: '',
+				flight: '',
 				goods: '',
 				container: '',
 				vessel: '',
 				eta: '',
-				bl: '',
-				blDate: '',
+				tracking: '',
+				trackingDate: '',
+				invoice: '',
+				invoiceDate: '',
+				price: '',
 			}}
 			validationSchema={shipmentSchema}
 			onSubmit={(values, action) => handleSubmitShipment(values, action)}
@@ -91,11 +102,50 @@ function ShipmentForm({ handleSubmitShipment }) {
 									</RadioGroup>
 									<ErrorMessage
 										id="typeNote"
-										name="note"
+										name="type"
 										component="span"
 										className="mt-1 text-xs font-semibold text-red-600"
 									/>
 								</div>
+								{values.type === 'air' ? (
+									<div className="col-span-2">
+										<label
+											htmlFor="flight"
+											className="mb-2 block text-sm font-medium text-slate-900"
+										>
+											Kode Penerbangan
+											<span
+												className={classNames(
+													errors.flight && touched.flight ? 'text-red-600' : ''
+												)}
+											>
+												{' '}
+												*
+											</span>
+										</label>
+										<Field
+											type="flight"
+											id="flight"
+											name="flight"
+											placeholder="Masukkan kode penerbangan..."
+											className={classNames(
+												'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+												errors.flight && touched.flight
+													? 'border-red-600 ring-red-600'
+													: 'border-slate-300'
+											)}
+											autoComplete="off"
+											aria-invalid={errors.flight && touched.flight ? false : true}
+											aria-describedby="flightNote"
+										></Field>
+										<ErrorMessage
+											id="flightNote"
+											name="flight"
+											component="span"
+											className="mt-1 text-xs font-semibold text-red-600"
+										/>
+									</div>
+								) : null}
 								<div className="col-span-6">
 									<label htmlFor="goods" className="mb-2 block text-sm font-medium text-slate-900">
 										Nama Barang
@@ -121,7 +171,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.goods && touched.goods ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="goodsNote"
 									></Field>
 									<ErrorMessage
 										id="goodsNote"
@@ -150,7 +200,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.container && touched.container ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="containerNote"
 									></Field>
 									<ErrorMessage
 										id="containerNote"
@@ -182,7 +232,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 										)}
 										autoComplete="off"
 										aria-invalid={errors.vessel && touched.vessel ? false : true}
-										aria-describedby="picNote"
+										aria-describedby="vesselNote"
 									></Field>
 									<ErrorMessage
 										id="vesselNote"
@@ -192,10 +242,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 									/>
 								</div>
 								<div className="col-span-2">
-									<label
-										htmlFor="container"
-										className="mb-2 block text-sm font-medium text-slate-900"
-									>
+									<label htmlFor="eta" className="mb-2 block text-sm font-medium text-slate-900">
 										ETA
 									</label>
 									<ReactDatePicker
@@ -203,7 +250,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 										dateFormat="dd/MM/yy"
 										className="form-control block w-full rounded border border-slate-300 bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
 										name="eta"
-										onChange={(date) => setFieldValue('eta', date)}
+										onChange={(eta) => setFieldValue('eta', eta)}
 									/>
 									<ErrorMessage
 										id="etaNote"
@@ -213,50 +260,146 @@ function ShipmentForm({ handleSubmitShipment }) {
 									/>
 								</div>
 								<div className="col-span-4">
-									<label htmlFor="goods" className="mb-2 block text-sm font-medium text-slate-900">
-										B/L
-										<span className={classNames(errors.bl && touched.bl ? 'text-red-600' : '')}>
+									<label
+										htmlFor="tracking"
+										className="mb-2 block text-sm font-medium text-slate-900"
+									>
+										B/L atau AWB
+										<span
+											className={classNames(
+												errors.tracking && touched.tracking ? 'text-red-600' : ''
+											)}
+										>
 											{' '}
 											*
 										</span>
 									</label>
 									<Field
-										type="bl"
-										id="bl"
-										name="bl"
-										placeholder="Masukkan nomor B/L..."
+										type="tracking"
+										id="tracking"
+										name="tracking"
+										placeholder="Masukkan nomor B/L atau AWB..."
 										className={classNames(
 											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-											errors.bl && touched.bl ? 'border-red-600 ring-red-600' : 'border-slate-300'
+											errors.tracking && touched.tracking
+												? 'border-red-600 ring-red-600'
+												: 'border-slate-300'
 										)}
 										autoComplete="off"
-										aria-invalid={errors.bl && touched.bl ? false : true}
-										aria-describedby="picNote"
+										aria-invalid={errors.tracking && touched.tracking ? false : true}
+										aria-describedby="trackingNote"
 									></Field>
 									<ErrorMessage
-										id="blNote"
-										name="bl"
+										id="trackingNote"
+										name="tracking"
+										component="span"
+										className="mt-1 text-xs font-semibold text-red-600"
+									/>
+								</div>
+								<div className="col-span-2">
+									<label htmlFor="blDate" className="mb-2 block text-sm font-medium text-slate-900">
+										Tanggal
+									</label>
+									<ReactDatePicker
+										selected={values.trackingDate}
+										dateFormat="dd/MM/yy"
+										className="form-control block w-full rounded border border-slate-300 bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
+										name="trackingDate"
+										onChange={(trackingDate) => setFieldValue('trackingDate', trackingDate)}
+									/>
+									<ErrorMessage
+										id="trackingDateNote"
+										name="trackingDate"
+										component="span"
+										className="mt-1 text-xs font-semibold text-red-600"
+									/>
+								</div>
+								<div className="col-span-4">
+									<label
+										htmlFor="invoice"
+										className="mb-2 block text-sm font-medium text-slate-900"
+									>
+										Invoice
+										<span
+											className={classNames(
+												errors.invoice && touched.invoice ? 'text-red-600' : ''
+											)}
+										>
+											{' '}
+											*
+										</span>
+									</label>
+									<Field
+										type="invoice"
+										id="invoice"
+										name="invoice"
+										placeholder="Masukkan nomor invoice..."
+										className={classNames(
+											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.invoice && touched.invoice
+												? 'border-red-600 ring-red-600'
+												: 'border-slate-300'
+										)}
+										autoComplete="off"
+										aria-invalid={errors.invoice && touched.invoice ? false : true}
+										aria-describedby="invoiceNote"
+									></Field>
+									<ErrorMessage
+										id="invoiceNote"
+										name="invoice"
 										component="span"
 										className="mt-1 text-xs font-semibold text-red-600"
 									/>
 								</div>
 								<div className="col-span-2">
 									<label
-										htmlFor="container"
+										htmlFor="invoiceDate"
 										className="mb-2 block text-sm font-medium text-slate-900"
 									>
-										Tanggal B/L
+										Tanggal Invoice
 									</label>
 									<ReactDatePicker
-										selected={values.blDate}
+										selected={values.invoiceDate}
 										dateFormat="dd/MM/yy"
 										className="form-control block w-full rounded border border-slate-300 bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
-										name="eta"
-										onChange={(blDate) => setFieldValue('blDate', blDate)}
+										name="invoiceDate"
+										onChange={(invoiceDate) => setFieldValue('invoiceDate', invoiceDate)}
 									/>
 									<ErrorMessage
-										id="etaNote"
-										name="eta"
+										id="invoiceDateNote"
+										name="invoiceDate"
+										component="span"
+										className="mt-1 text-xs font-semibold text-red-600"
+									/>
+								</div>
+								<div className="col-span-3">
+									<label htmlFor="price" className="mb-2 block text-sm font-medium text-slate-900">
+										Harga Barang
+										<span
+											className={classNames(errors.price && touched.price ? 'text-red-600' : '')}
+										>
+											{' '}
+											*
+										</span>
+									</label>
+									<Field
+										type="price"
+										id="price"
+										name="price"
+										placeholder="Masukkan nomor harga barang..."
+										className={classNames(
+											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.price && touched.price
+												? 'border-red-600 ring-red-600'
+												: 'border-slate-300'
+										)}
+										autoComplete="off"
+										aria-invalid={errors.price && touched.price ? false : true}
+										aria-describedby="priceNote"
+									></Field>
+									<ErrorMessage
+										id="priceNote"
+										name="price"
 										component="span"
 										className="mt-1 text-xs font-semibold text-red-600"
 									/>
@@ -264,10 +407,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 							</div>
 						</div>
 						<div className="flex justify-end space-x-2 border-t border-slate-200 p-4">
-							<button
-								type="submit"
-								className="inline-flex items-center justify-center rounded border border-slate-200 bg-white py-2 px-4 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
-							>
+							<button className="inline-flex items-center justify-center rounded border border-slate-200 bg-white py-2 px-4 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
 								Reset
 							</button>
 							<button
