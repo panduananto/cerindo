@@ -8,6 +8,7 @@ import ImportirForm from '../../components/Dashboard/SKPabean/ImportirForm';
 import ShipmentForm from '../../components/Dashboard/SKPabean/ShipmentForm';
 
 import classNames from '../../utils/classNames';
+import { utils, writeFile } from 'xlsx-js-style';
 
 const TAB_SK_PABEAN = ['SKP', 'SKDO', 'DNP', 'SKDAI'];
 const PPJK_DATA = {
@@ -29,6 +30,17 @@ const PPJK_DATA = {
 	telp: '021-8629000',
 };
 
+const formatDate = (date) => {
+	return new Date(date)
+		.toLocaleString('id', {
+			year: 'numeric',
+			month: 'numeric',
+			day: 'numeric',
+		})
+		.split('/')
+		.join('-');
+};
+
 function SKPabean() {
 	const [importir, setImportir] = useState(null);
 	const [shipment, setShipment] = useState(null);
@@ -39,6 +51,207 @@ function SKPabean() {
 
 	const handleSubmitShipment = (values, action) => {
 		setShipment(values);
+	};
+
+	const getMergedRows = (merged) => {
+		return {
+			s: { r: merged.rowStart, c: merged.colStart },
+			e: { r: merged.rowEnd, c: merged.colEnd },
+		};
+	};
+
+	const generateImportirRows = () => {
+		const addressRow =
+			importir.address.length >= 80
+				? [['', 'Alamat', ':', importir.address], ['']]
+				: [['', 'Alamat', ':', importir.address]];
+
+		const rows = [
+			['Yang bertanda tangan di bawah ini'],
+			['', 'Nama', ':', importir.pic],
+			['', 'Jabatan', ':', importir.title],
+			['', 'Perusahaan', ':', importir.company],
+			['', 'NPWP', ':', importir.npwp],
+			...addressRow,
+			['', 'No. Tlp.', ':', importir.phone],
+		];
+
+		return {
+			rows: rows,
+		};
+	};
+
+	const generatePpjkRows = () => {
+		const rows = [
+			['Dengan ini memberikan kuasa kepada PPJK yang di sebutkan di bawah ini :'],
+			['', 'Nama', ':', PPJK_DATA.type[shipment.type].name],
+			['', 'Jabatan', ':', PPJK_DATA.type[shipment.type].title],
+			['', 'Perusahaan', ':', PPJK_DATA.company],
+			['', 'Alamat', ':', PPJK_DATA.address],
+			[''],
+			['', 'NPWP', ':', PPJK_DATA.npwp],
+			[''],
+		];
+
+		return {
+			rows: rows,
+		};
+	};
+
+	const generateShipmentRows = () => {
+		const rows = [
+			['Untuk melakukan Pengurusan pemberitahuan Pabean yaitu pembuatan konsep PIB,'],
+			['Pengajuan dan Pengiriman Data PIB, Pemeriksaan Fisik dan Pengeluaran Barang'],
+			['Impor tersebut di bawah ini :'],
+			['', 'Consignee', ':', importir.company.toUpperCase()],
+			[
+				'',
+				'No. Tgl.BL',
+				':',
+				shipment.tracking,
+				'',
+				'',
+				`TGL : ${formatDate(shipment.trackingDate)}`,
+			],
+			[
+				'',
+				'No. Tgl.Inv',
+				':',
+				shipment.invoice,
+				'',
+				'',
+				`TGL : ${formatDate(shipment.invoiceDate)}`,
+			],
+			['', 'Vesse/ETA', ':', shipment.vessel, '', '', `TGL : ${formatDate(shipment.eta)}`],
+			['', 'Party / Cont', ':', shipment.container],
+			['', 'Ket. Barang', ':', shipment.goods],
+			['', 'Harga Barang', ':', shipment.price],
+			[''],
+		];
+
+		return {
+			rows: rows,
+		};
+	};
+
+	const generateSignatureRows = () => {
+		const rows = [
+			['Demikian Surat Kuasa ini kami buat untuk di pergunakan sebagaimana mestinya'],
+			['dan kepada pihak yang bersangkutan dimohonkan bantuannya.'],
+			[''],
+			[
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'Jakarta,',
+				`${new Date()
+					.toLocaleString('id', {
+						year: 'numeric',
+						month: 'short',
+						day: 'numeric',
+					})
+					.split(' ')
+					.join('-')}`,
+			],
+			['Yang Menerima Kuasa,', '', '', '', '', '', '', 'Yang Memberi Kuasa,'],
+			[''],
+			[''],
+			[''],
+			[''],
+			[''],
+			[''],
+			[PPJK_DATA.type[shipment.type].name, '', '', '', '', '', '', importir.pic],
+		];
+
+		return {
+			rows: rows,
+		};
+	};
+
+	const generateMergedRows = () => {
+		let mergedRows = [];
+
+		if (importir.address.length >= 80) {
+			mergedRows.push(
+				getMergedRows({ rowStart: 13, colStart: 3, rowEnd: 14, colEnd: 8 }),
+				getMergedRows({ rowStart: 22, colStart: 3, rowEnd: 23, colEnd: 7 }),
+				getMergedRows({ rowStart: 30, colStart: 3, rowEnd: 30, colEnd: 5 }),
+				getMergedRows({ rowStart: 31, colStart: 3, rowEnd: 31, colEnd: 5 }),
+				getMergedRows({ rowStart: 32, colStart: 3, rowEnd: 32, colEnd: 5 }),
+				getMergedRows({ rowStart: 41, colStart: 0, rowEnd: 41, colEnd: 1 }),
+				getMergedRows({ rowStart: 48, colStart: 0, rowEnd: 48, colEnd: 1 })
+			);
+		} else {
+			mergedRows.push(
+				getMergedRows({ rowStart: 13, colStart: 3, rowEnd: 13, colEnd: 8 }),
+				getMergedRows({ rowStart: 21, colStart: 3, rowEnd: 22, colEnd: 7 }),
+				getMergedRows({ rowStart: 29, colStart: 3, rowEnd: 29, colEnd: 5 }),
+				getMergedRows({ rowStart: 30, colStart: 3, rowEnd: 30, colEnd: 5 }),
+				getMergedRows({ rowStart: 31, colStart: 3, rowEnd: 31, colEnd: 5 }),
+				getMergedRows({ rowStart: 40, colStart: 0, rowEnd: 40, colEnd: 1 }),
+				getMergedRows({ rowStart: 47, colStart: 0, rowEnd: 47, colEnd: 1 })
+			);
+		}
+
+		return mergedRows;
+	};
+
+	const handleDownloadSKP = () => {
+		const importirRows = generateImportirRows();
+		const ppjkRows = generatePpjkRows();
+		const shipmentRows = generateShipmentRows();
+		const signatureRows = generateSignatureRows();
+		const mergedRows = generateMergedRows();
+
+		const workbook = utils.book_new();
+		const worksheet = utils.aoa_to_sheet([
+			[''],
+			[''],
+			['', 'KOP SURAT', '', '', '', '', '', '', ''],
+			[''],
+			[''],
+			['SURAT KUASA', '', '', '', '', '', '', '', ''],
+			['', '', '', 'Nomor:', '', 'Tanggal:', '', '', ''],
+			[''],
+			...importirRows.rows,
+			[''],
+			[''],
+			...ppjkRows.rows,
+			...shipmentRows.rows,
+			...signatureRows.rows,
+		]);
+
+		worksheet['!merges'] = [
+			{ s: { r: 2, c: 1 }, e: { r: 2, c: 8 } },
+			{ s: { r: 5, c: 0 }, e: { r: 5, c: 8 } },
+			{ s: { r: 6, c: 3 }, e: { r: 6, c: 4 } },
+			{ s: { r: 6, c: 5 }, e: { r: 6, c: 7 } },
+			{ s: { r: 8, c: 0 }, e: { r: 8, c: 3 } },
+			...mergedRows,
+		];
+
+		worksheet['B3'].s = {
+			font: { name: 'Times New Roman' },
+			alignment: { vertical: 'center', horizontal: 'center' },
+		};
+
+		worksheet['A6'].s = {
+			font: { name: 'Times New Roman', sz: 16, bold: true, underline: true },
+			alignment: { vertical: 'center', horizontal: 'center' },
+		};
+
+		worksheet['D7'].s = { font: { name: 'Times New Roman', sz: 10 } };
+		worksheet['F7'].s = { font: { name: 'Times New Roman', sz: 10 } };
+
+		worksheet['A9'].s = { font: { name: 'Times New Roman', sz: 12 } };
+
+		utils.book_append_sheet(workbook, worksheet, 'SKP');
+
+		writeFile(workbook, 'SKP.xlsx');
 	};
 
 	return (
@@ -102,6 +315,7 @@ function SKPabean() {
 					</Tab.List>
 					<Tab.Panels className="mx-auto w-min py-8">
 						<Tab.Panel className="w-[46rem] bg-white py-4 px-8">
+							<button onClick={handleDownloadSKP}>download SKP</button>
 							<SKP importir={importir} shipment={shipment} ppjk={PPJK_DATA} />
 						</Tab.Panel>
 						<Tab.Panel className="w-[46rem] bg-white py-4 px-8">

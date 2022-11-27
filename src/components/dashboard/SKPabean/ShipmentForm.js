@@ -108,7 +108,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 									/>
 								</div>
 								{values.type === 'air' ? (
-									<div className="col-span-2">
+									<div className="col-span-6 2md:col-span-4">
 										<label
 											htmlFor="flight"
 											className="mb-2 block text-sm font-medium text-slate-900"
@@ -372,7 +372,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 										className="mt-1 text-xs font-semibold text-red-600"
 									/>
 								</div>
-								<div className="col-span-3">
+								<div className="col-span-6 2md:col-span-4">
 									<label htmlFor="price" className="mb-2 block text-sm font-medium text-slate-900">
 										Harga Barang
 										<span
@@ -386,7 +386,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 										type="price"
 										id="price"
 										name="price"
-										placeholder="Masukkan nomor harga barang..."
+										placeholder="Masukkan harga barang..."
 										className={classNames(
 											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
 											errors.price && touched.price
