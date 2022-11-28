@@ -247,7 +247,110 @@ function SKPabean() {
 		worksheet['D7'].s = { font: { name: 'Times New Roman', sz: 10 } };
 		worksheet['F7'].s = { font: { name: 'Times New Roman', sz: 10 } };
 
-		worksheet['A9'].s = { font: { name: 'Times New Roman', sz: 12 } };
+		const tnrAndSize12 = [
+			'A9',
+			'A19',
+			'A27',
+			'A28',
+			'A29',
+			'A38',
+			'A39',
+			'H41',
+			'I41',
+			'A42',
+			'H42',
+			'A49',
+			'H49',
+			'B10',
+			'C10',
+			'D10',
+			'B11',
+			'C11',
+			'D11',
+			'B12',
+			'C12',
+			'D12',
+			'B13',
+			'C13',
+			'D13',
+			'B14',
+			'C14',
+			'B16',
+			'C16',
+			'D16',
+			'B20',
+			'C20',
+			'D20',
+			'B21',
+			'C21',
+			'D21',
+			'B22',
+			'C22',
+			'D22',
+			'B23',
+			'C23',
+			'D23',
+			'B25',
+			'C25',
+			'D25',
+			'B30',
+			'C30',
+			'D30',
+			'B31',
+			'C31',
+			'D31',
+			'G31',
+			'B32',
+			'C32',
+			'D32',
+			'G32',
+			'B33',
+			'C33',
+			'D33',
+			'G33',
+			'B34',
+			'C34',
+			'D34',
+			'B35',
+			'C35',
+			'D35',
+			'B36',
+			'C36',
+			'D36',
+		];
+
+		tnrAndSize12.forEach((cell) => {
+			worksheet[cell].s = { font: { name: 'Times New Roman', sz: 12 } };
+		});
+
+		worksheet['D14'].s = {
+			font: { name: 'Times New Roman', sz: 12 },
+			alignment: { wrapText: true },
+		};
+
+		if (importir.address.length >= 80) {
+			worksheet['D23'].s = {
+				font: { name: 'Times New Roman', sz: 12 },
+				alignment: { wrapText: true },
+			};
+		} else {
+			worksheet['D22'].s = {
+				font: { name: 'Times New Roman', sz: 12 },
+				alignment: { wrapText: true },
+			};
+		}
+
+		worksheet['!cols'] = [
+			{ width: 2.83 },
+			{ width: 12.92 },
+			{ width: 1 },
+			{ width: 15.08 },
+			{ width: 7.58 },
+			{ width: 8.42 },
+			{ width: 8.42 },
+			{ width: 8.42 },
+			{ width: 14.58 },
+		];
 
 		utils.book_append_sheet(workbook, worksheet, 'SKP');
 
