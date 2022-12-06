@@ -7,8 +7,9 @@ import SKDO from '../../components/Dashboard/SKPabean/SKDO/SKDO';
 import ImportirForm from '../../components/Dashboard/SKPabean/ImportirForm';
 import ShipmentForm from '../../components/Dashboard/SKPabean/ShipmentForm';
 
-import classNames from '../../utils/classNames';
 import { utils, writeFile } from 'xlsx-js-style';
+
+import classNames from '../../utils/classNames';
 
 const TAB_SK_PABEAN = ['SKP', 'SKDO', 'DNP', 'SKDAI'];
 const PPJK_DATA = {
@@ -234,112 +235,6 @@ function SKPabean() {
 			...mergedRows,
 		];
 
-		worksheet['B3'].s = {
-			font: { name: 'Times New Roman' },
-			alignment: { vertical: 'center', horizontal: 'center' },
-		};
-
-		worksheet['A6'].s = {
-			font: { name: 'Times New Roman', sz: 16, bold: true, underline: true },
-			alignment: { vertical: 'center', horizontal: 'center' },
-		};
-
-		worksheet['D7'].s = { font: { name: 'Times New Roman', sz: 10 } };
-		worksheet['F7'].s = { font: { name: 'Times New Roman', sz: 10 } };
-
-		const tnrAndSize12 = [
-			'A9',
-			'A19',
-			'A27',
-			'A28',
-			'A29',
-			'A38',
-			'A39',
-			'H41',
-			'I41',
-			'A42',
-			'H42',
-			'A49',
-			'H49',
-			'B10',
-			'C10',
-			'D10',
-			'B11',
-			'C11',
-			'D11',
-			'B12',
-			'C12',
-			'D12',
-			'B13',
-			'C13',
-			'D13',
-			'B14',
-			'C14',
-			'B16',
-			'C16',
-			'D16',
-			'B20',
-			'C20',
-			'D20',
-			'B21',
-			'C21',
-			'D21',
-			'B22',
-			'C22',
-			'D22',
-			'B23',
-			'C23',
-			'D23',
-			'B25',
-			'C25',
-			'D25',
-			'B30',
-			'C30',
-			'D30',
-			'B31',
-			'C31',
-			'D31',
-			'G31',
-			'B32',
-			'C32',
-			'D32',
-			'G32',
-			'B33',
-			'C33',
-			'D33',
-			'G33',
-			'B34',
-			'C34',
-			'D34',
-			'B35',
-			'C35',
-			'D35',
-			'B36',
-			'C36',
-			'D36',
-		];
-
-		tnrAndSize12.forEach((cell) => {
-			worksheet[cell].s = { font: { name: 'Times New Roman', sz: 12 } };
-		});
-
-		worksheet['D14'].s = {
-			font: { name: 'Times New Roman', sz: 12 },
-			alignment: { wrapText: true },
-		};
-
-		if (importir.address.length >= 80) {
-			worksheet['D23'].s = {
-				font: { name: 'Times New Roman', sz: 12 },
-				alignment: { wrapText: true },
-			};
-		} else {
-			worksheet['D22'].s = {
-				font: { name: 'Times New Roman', sz: 12 },
-				alignment: { wrapText: true },
-			};
-		}
-
 		worksheet['!cols'] = [
 			{ width: 2.83 },
 			{ width: 12.92 },
@@ -351,6 +246,47 @@ function SKPabean() {
 			{ width: 8.42 },
 			{ width: 14.58 },
 		];
+
+		const range = utils.decode_range(worksheet['!ref'] ?? '');
+		const rowCount = range.e.r;
+		const columnCount = range.e.c;
+
+		for (let row = 0; row <= rowCount; row++) {
+			for (let col = 0; col <= columnCount; col++) {
+				const cellRef = String(utils.encode_cell({ r: row, c: col }));
+				// Add center alignment to every cell
+				if (worksheet[cellRef] !== undefined) {
+					worksheet[cellRef].s = { font: { name: 'Times New Roman', sz: 12 } };
+
+					if (importir.address.length >= 80) {
+						if (cellRef === 'D14' || cellRef === 'D23') {
+							worksheet[cellRef].s = {
+								font: { name: 'Times New Roman', sz: 12 },
+								alignment: { wrapText: true },
+							};
+						}
+					} else {
+						if (cellRef === 'D22') {
+							worksheet[cellRef].s = {
+								font: { name: 'Times New Roman', sz: 12 },
+								alignment: { wrapText: true },
+							};
+						}
+					}
+
+					if (cellRef === 'B3') {
+						worksheet[cellRef].s = { alignment: { vertical: 'center', horizontal: 'center' } };
+					} else if (cellRef === 'A6') {
+						worksheet[cellRef].s = {
+							font: { name: 'Times New Roman', sz: 16, bold: true, underline: true },
+							alignment: { vertical: 'center', horizontal: 'center' },
+						};
+					} else if (cellRef === 'D7' || cellRef === 'F7') {
+						worksheet[cellRef].s = { font: { name: 'Times New Roman', sz: 10 } };
+					}
+				}
+			}
+		}
 
 		utils.book_append_sheet(workbook, worksheet, 'SKP');
 
