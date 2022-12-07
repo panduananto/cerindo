@@ -99,7 +99,18 @@ function SKPabean() {
 		};
 	};
 
+	const generateGoodsRow = () => {
+		return shipment.goods.split('\n').map((good, index) => {
+			if (index === 0) {
+				return ['', 'Ket. Barang', ':', good];
+			} else {
+				return ['', '', '', good];
+			}
+		});
+	};
+
 	const generateShipmentRows = () => {
+		const goodsRow = generateGoodsRow();
 		const rows = [
 			['Untuk melakukan Pengurusan pemberitahuan Pabean yaitu pembuatan konsep PIB,'],
 			['Pengajuan dan Pengiriman Data PIB, Pemeriksaan Fisik dan Pengeluaran Barang'],
@@ -125,7 +136,7 @@ function SKPabean() {
 			],
 			['', 'Vesse/ETA', ':', shipment.vessel, '', '', `TGL : ${formatDate(shipment.eta)}`],
 			['', 'Party / Cont', ':', shipment.container],
-			['', 'Ket. Barang', ':', shipment.goods],
+			...goodsRow,
 			['', 'Harga Barang', ':', shipment.price],
 			[''],
 		];
@@ -183,7 +194,7 @@ function SKPabean() {
 				getMergedRows({ rowStart: 30, colStart: 3, rowEnd: 30, colEnd: 5 }),
 				getMergedRows({ rowStart: 31, colStart: 3, rowEnd: 31, colEnd: 5 }),
 				getMergedRows({ rowStart: 32, colStart: 3, rowEnd: 32, colEnd: 5 }),
-				getMergedRows({ rowStart: 41, colStart: 0, rowEnd: 41, colEnd: 1 }),
+				getMergedRows({ rowStart: 41, colStart: 0, rowEnd: 41, colEnd: 3 }),
 				getMergedRows({ rowStart: 48, colStart: 0, rowEnd: 48, colEnd: 1 })
 			);
 		} else {
@@ -193,7 +204,7 @@ function SKPabean() {
 				getMergedRows({ rowStart: 29, colStart: 3, rowEnd: 29, colEnd: 5 }),
 				getMergedRows({ rowStart: 30, colStart: 3, rowEnd: 30, colEnd: 5 }),
 				getMergedRows({ rowStart: 31, colStart: 3, rowEnd: 31, colEnd: 5 }),
-				getMergedRows({ rowStart: 40, colStart: 0, rowEnd: 40, colEnd: 1 }),
+				getMergedRows({ rowStart: 40, colStart: 0, rowEnd: 40, colEnd: 3 }),
 				getMergedRows({ rowStart: 47, colStart: 0, rowEnd: 47, colEnd: 1 })
 			);
 		}
@@ -236,15 +247,15 @@ function SKPabean() {
 		];
 
 		worksheet['!cols'] = [
-			{ width: 2.83 },
-			{ width: 12.92 },
-			{ width: 1 },
-			{ width: 15.08 },
-			{ width: 7.58 },
-			{ width: 8.42 },
-			{ width: 8.42 },
-			{ width: 8.42 },
-			{ width: 14.58 },
+			{ width: 3.7 },
+			{ width: 13.7 },
+			{ width: 1.9 },
+			{ width: 19.7 },
+			{ width: 8.5 },
+			{ width: 9.2 },
+			{ width: 9.2 },
+			{ width: 9.2 },
+			{ width: 15.6 },
 		];
 
 		const range = utils.decode_range(worksheet['!ref'] ?? '');
@@ -254,9 +265,16 @@ function SKPabean() {
 		for (let row = 0; row <= rowCount; row++) {
 			for (let col = 0; col <= columnCount; col++) {
 				const cellRef = String(utils.encode_cell({ r: row, c: col }));
-				// Add center alignment to every cell
+
 				if (worksheet[cellRef] !== undefined) {
 					worksheet[cellRef].s = { font: { name: 'Times New Roman', sz: 12 } };
+
+					if (col === 2) {
+						worksheet[cellRef].s = {
+							font: { name: 'Times New Roman', sz: 12 },
+							alignment: { vertical: 'center', horizontal: 'center' },
+						};
+					}
 
 					if (importir.address.length >= 80) {
 						if (cellRef === 'D14' || cellRef === 'D23') {
@@ -264,12 +282,30 @@ function SKPabean() {
 								font: { name: 'Times New Roman', sz: 12 },
 								alignment: { wrapText: true },
 							};
+						} else if (cellRef === 'H41') {
+							worksheet[cellRef].s = {
+								font: { name: 'Times New Roman', sz: 12 },
+								alignment: { horizontal: 'right' },
+							};
+						} else if (cellRef === 'A49' || cellRef === 'H49') {
+							worksheet[cellRef].s = {
+								font: { name: 'Times New Roman', sz: 12, bold: true },
+							};
 						}
 					} else {
-						if (cellRef === 'D22') {
+						if (cellRef === 'D13' || cellRef === 'D22') {
 							worksheet[cellRef].s = {
 								font: { name: 'Times New Roman', sz: 12 },
 								alignment: { wrapText: true },
+							};
+						} else if (cellRef === 'H40') {
+							worksheet[cellRef].s = {
+								font: { name: 'Times New Roman', sz: 12 },
+								alignment: { horizontal: 'right' },
+							};
+						} else if (cellRef === 'A48' || cellRef === 'H48') {
+							worksheet[cellRef].s = {
+								font: { name: 'Times New Roman', sz: 12, bold: true },
 							};
 						}
 					}
