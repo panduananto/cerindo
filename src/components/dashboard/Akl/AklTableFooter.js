@@ -1,43 +1,36 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from 'react'
 
-import JSZip from 'jszip';
-import FileSaver from 'file-saver';
+import { Popover, Transition } from '@headlessui/react'
+import FileSaver from 'file-saver'
+import JSZip from 'jszip'
+import { HiCheckCircle, HiDotsVertical, HiExclamationCircle } from 'react-icons/hi'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { utils, writeFile } from 'xlsx'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { utils, writeFile } from 'xlsx';
-import { Popover, Transition } from '@headlessui/react';
-import { HiExclamationCircle, HiDotsVertical, HiCheckCircle } from 'react-icons/hi';
+import { aklAPI } from '../../../api/akl'
+import { aklClearAll, selectAklsCollection } from '../../../features/akl/collection/aklCollectionSlice'
 
-import {
-	aklClearAll,
-	selectAklsCollection,
-} from '../../../features/akl/collection/aklCollectionSlice';
-import { aklAPI } from '../../../api/akl';
-
-const DATE_OPTIONS = { year: 'numeric', month: '2-digit', day: '2-digit' };
+const DATE_OPTIONS = { year: 'numeric', month: '2-digit', day: '2-digit' }
 
 const downloadAklFile = async (fileUrl) => {
 	try {
-		const response = await aklAPI.downloadFile(fileUrl);
-		return response.data;
+		const response = await aklAPI.downloadFile(fileUrl)
+		return response.data
 	} catch (error) {
-		return error.message;
+		return error.message
 	}
-};
+}
 
 function AklTableFooter() {
-	const dispatch = useDispatch();
-	const aklsCollection = useSelector(selectAklsCollection);
+	const dispatch = useDispatch()
+	const aklsCollection = useSelector(selectAklsCollection)
 
-	const distinctAkl = useMemo(
-		() => [...new Set(aklsCollection.map((item) => item.akl))],
-		[aklsCollection]
-	);
+	const distinctAkl = useMemo(() => [...new Set(aklsCollection.map((item) => item.akl))], [aklsCollection])
 
 	const handleResetTable = () => {
-		dispatch(aklClearAll());
-	};
+		dispatch(aklClearAll())
+	}
 
 	const handleDownloadExcel = () => {
 		const headerItems = [
@@ -54,17 +47,17 @@ function AklTableFooter() {
 				'LARTAS',
 				'FASILITAS',
 			],
-		];
-		const headerAKL = [['KODE AKL', 'TANGGAL TERBIT', 'TANGGAL KADALUARSA']];
+		]
+		const headerAKL = [['KODE AKL', 'TANGGAL TERBIT', 'TANGGAL KADALUARSA']]
 
-		const workbook = utils.book_new();
+		const workbook = utils.book_new()
 
 		if (aklsCollection.length === 0) {
 			toast.error('Barang atau AKL masih kosong', {
 				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
-			});
+			})
 
-			return;
+			return
 		}
 
 		const rowsItems = aklsCollection.map((item) => ({
@@ -79,83 +72,83 @@ function AklTableFooter() {
 			incomeTaxNonApi: item.hscode.income_tax_non_api,
 			lartas: item.hscode.lartas,
 			facility: item.facility,
-		}));
+		}))
 
 		const rowsAKL = aklsCollection.map((item) => {
 			return {
 				aklCode: item.akl.id.split('_').join(' '),
 				date: new Date(item.akl.date).toLocaleDateString('id', DATE_OPTIONS),
 				expiryDate: new Date(item.akl.expiry_date).toLocaleDateString('id', DATE_OPTIONS),
-			};
-		});
+			}
+		})
 
-		const worksheetItems = utils.json_to_sheet(rowsItems);
-		const worksheetAKL = utils.json_to_sheet(rowsAKL);
+		const worksheetItems = utils.json_to_sheet(rowsItems)
+		const worksheetAKL = utils.json_to_sheet(rowsAKL)
 
-		utils.book_append_sheet(workbook, worksheetItems, 'BARANG');
-		utils.book_append_sheet(workbook, worksheetAKL, 'AKL');
+		utils.book_append_sheet(workbook, worksheetItems, 'BARANG')
+		utils.book_append_sheet(workbook, worksheetAKL, 'AKL')
 
-		utils.sheet_add_aoa(worksheetItems, headerItems, { origin: 'A1' });
-		utils.sheet_add_aoa(worksheetAKL, headerAKL, { origin: 'A1' });
+		utils.sheet_add_aoa(worksheetItems, headerItems, { origin: 'A1' })
+		utils.sheet_add_aoa(worksheetAKL, headerAKL, { origin: 'A1' })
 
-		writeFile(workbook, 'TABEL BARANG.xlsx');
-	};
+		writeFile(workbook, 'TABEL BARANG.xlsx')
+	}
 
 	const handleDownloadZipAKL = async () => {
 		if (distinctAkl.length === 0) {
 			toast.error('AKL masih kosong', {
 				icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
-			});
+			})
 
-			return;
+			return
 		}
 
-		const zip = new JSZip();
+		const zip = new JSZip()
 
 		const requests = distinctAkl.map((akl) => {
 			return downloadAklFile(akl.file_url).then((file) => {
 				return {
 					id: akl.id,
 					data: file,
-				};
-			});
-		});
+				}
+			})
+		})
 
 		toast
 			.promise(Promise.all(requests), {
 				pending: {
 					render() {
-						return 'Mengunduh AKL...';
+						return 'Mengunduh AKL...'
 					},
 				},
 				success: {
 					render() {
-						return 'AKL berhasil diunduh.';
+						return 'AKL berhasil diunduh.'
 					},
 					icon: <HiCheckCircle className="h-5 w-5 text-green-600" />,
 				},
 				error: {
 					renter() {
-						return 'Maaf, ada kesalahan. Coba lagi.';
+						return 'Maaf, ada kesalahan. Coba lagi.'
 					},
 					icon: <HiExclamationCircle className="h-5 w-5 text-red-600" />,
 				},
 			})
 			.then((pdfs) => {
 				pdfs.map((pdf) => {
-					zip.file(`${pdf.id}.pdf`, pdf.data, { binary: true });
-					return null;
-				});
+					zip.file(`${pdf.id}.pdf`, pdf.data, { binary: true })
+					return null
+				})
 			})
 			.then(() => {
 				zip.generateAsync({ type: 'Blob' }).then((content) => {
-					FileSaver.saveAs(content, 'AKL.zip');
-				});
-			});
-	};
+					FileSaver.saveAs(content, 'AKL.zip')
+				})
+			})
+	}
 
 	return (
-		<div className="mt-auto flex items-center justify-between border-t border-slate-300 bg-white px-4 py-1 sm:px-6 lg:px-8 2md:py-3">
+		<div className="mt-auto flex items-center justify-between border-t border-slate-300 bg-white px-4 py-1 sm:px-6 2md:py-3 lg:px-8">
 			<p className="text-[13px] text-slate-700">
 				<span className="font-extrabold">{aklsCollection.length}</span> barang dan{' '}
 				<span className="font-extrabold">{distinctAkl.length}</span> izin AKL terpilih
@@ -200,9 +193,7 @@ function AklTableFooter() {
 										</ul>
 										<div className="pt-2">
 											<button
-												disabled={
-													aklsCollection.length === 0 || aklsCollection.length === 0 ? true : false
-												}
+												disabled={aklsCollection.length === 0 || aklsCollection.length === 0 ? true : false}
 												className="flex w-full items-center rounded px-4 py-2 text-sm font-medium leading-5 hover:enabled:bg-red-50 hover:enabled:text-red-600 disabled:cursor-not-allowed disabled:text-slate-300"
 												onClick={handleResetTable}
 											>
@@ -241,7 +232,7 @@ function AklTableFooter() {
 				</button>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default AklTableFooter;
+export default AklTableFooter

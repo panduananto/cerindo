@@ -1,50 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useDebounce } from 'use-debounce';
-import { HiSearch, HiX } from 'react-icons/hi';
+import { HiSearch, HiX } from 'react-icons/hi'
+import { useDispatch, useSelector } from 'react-redux'
+import { useDebounce } from 'use-debounce'
 
-import {
-	fetchAkl,
-	selectAklsSearchIds,
-	aklsSearchClearAll,
-} from '../../../features/akl/search/aklSearchSlice';
-
-import AklSearchResult from './AklSearchResult';
-
-import useOutsideClick from '../../../hooks/useOutsideClick';
+import { aklsSearchClearAll, fetchAkl, selectAklsSearchIds } from '../../../features/akl/search/aklSearchSlice'
+import useOutsideClick from '../../../hooks/useOutsideClick'
+import AklSearchResult from './AklSearchResult'
 
 function AklSearch() {
-	const [query, setQuery] = useState('');
-	const [debouncedQuery] = useDebounce(query, 800);
+	const [query, setQuery] = useState('')
+	const [debouncedQuery] = useDebounce(query, 800)
 
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
-	const aklsSearchIds = useSelector(selectAklsSearchIds);
-	const loadingStatus = useSelector((state) => state.aklsSearch.status);
+	const aklsSearchIds = useSelector(selectAklsSearchIds)
+	const loadingStatus = useSelector((state) => state.aklsSearch.status)
 
 	const handleClearQuery = () => {
-		setQuery('');
-	};
+		setQuery('')
+	}
 
-	const searchbarRef = useOutsideClick(handleClearQuery);
+	const searchbarRef = useOutsideClick(handleClearQuery)
 
 	useEffect(() => {
-		let isSubscribed = true;
+		let isSubscribed = true
 
 		if (isSubscribed && debouncedQuery !== '') {
-			dispatch(fetchAkl(debouncedQuery));
+			dispatch(fetchAkl(debouncedQuery))
 		}
 
-		return () => (isSubscribed = false);
-	}, [dispatch, debouncedQuery]);
+		return () => (isSubscribed = false)
+	}, [dispatch, debouncedQuery])
 
 	useEffect(() => {
-		dispatch(aklsSearchClearAll());
-	}, [dispatch, query]);
+		dispatch(aklsSearchClearAll())
+	}, [dispatch, query])
 
 	return (
-		<div className="bg-white px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
+		<div className="size-8 bg-white text-slate-900 sm:px-10 lg:px-12">
 			<h1 className="text-xl font-semibold leading-8 sm:text-2xl 2md:text-3xl">Pencarian AKL</h1>
 			<p className="mt-1 font-medium text-slate-700">Cari dan tinjau izin AKL yang Anda butuhkan</p>
 			<div ref={searchbarRef} className="relative mt-4 flex w-full flex-col">
@@ -74,28 +68,25 @@ function AklSearch() {
 					)}
 				</div>
 				{loadingStatus === 'loading' ? (
-					<div className="absolute top-[4.125rem] left-1/2 z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 text-center shadow-lg sm:w-max">
+					<div className="absolute left-1/2 top-[4.125rem] z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white px-4 py-4 text-center shadow-lg sm:w-max">
 						Sedang mencari izin AKL...
 					</div>
-				) : loadingStatus === 'idle' &&
-				  query !== '' &&
-				  debouncedQuery !== '' &&
-				  aklsSearchIds !== null ? (
+				) : loadingStatus === 'idle' && query !== '' && debouncedQuery !== '' && aklsSearchIds !== null ? (
 					aklsSearchIds.length === 0 ? (
-						<div className="absolute top-[4.125rem] left-1/2 z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white py-4 px-4 text-center shadow-lg sm:w-max">
+						<div className="absolute left-1/2 top-[4.125rem] z-50 w-full -translate-x-1/2 rounded border border-slate-200 bg-white px-4 py-4 text-center shadow-lg sm:w-max">
 							Izin AKL yang Anda cari tidak ditemukan
 						</div>
 					) : (
 						<ul className="absolute top-[4.125rem] z-50 flex max-h-60 w-full flex-col overflow-y-auto rounded border border-slate-200 bg-white py-4 shadow-xl">
 							{aklsSearchIds.map((aklId) => {
-								return <AklSearchResult key={aklId} id={aklId} />;
+								return <AklSearchResult key={aklId} id={aklId} />
 							})}
 						</ul>
 					)
 				) : null}
 			</div>
 		</div>
-	);
+	)
 }
 
-export default AklSearch;
+export default AklSearch

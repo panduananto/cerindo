@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import { HiOutlineBell, HiOutlineMenu } from 'react-icons/hi';
+import { HiOutlineBell, HiOutlineMenu } from 'react-icons/hi'
 
-import DashboardNavigationPopover from './DashboardNavigationPopover';
+import DashboardNavigationPopover from './DashboardNavigationPopover'
 
 function DashboardNavigationBar({ user, sidebarOpen, setSidebarOpen }) {
 	return (
@@ -26,7 +26,7 @@ function DashboardNavigationBar({ user, sidebarOpen, setSidebarOpen }) {
 				</div>
 			</div>
 		</nav>
-	);
+	)
 }
 
-export default DashboardNavigationBar;
+export default DashboardNavigationBar

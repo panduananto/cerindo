@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const formatDate = (date) => {
 	return new Date(date)
@@ -8,8 +8,8 @@ const formatDate = (date) => {
 			day: 'numeric',
 		})
 		.split('/')
-		.join('-');
-};
+		.join('-')
+}
 
 function SKPAir({ importir, shipment, ppjk }) {
 	let now = new Date()
@@ -19,7 +19,7 @@ function SKPAir({ importir, shipment, ppjk }) {
 			day: 'numeric',
 		})
 		.split(' ')
-		.join('-');
+		.join('-')
 
 	return (
 		<div className="font-serif">
@@ -35,41 +35,31 @@ function SKPAir({ importir, shipment, ppjk }) {
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Nama</p>
-								<p className="col-span-4 col-start-3">
-									: {importir !== null ? importir.pic : '__'}
-								</p>
+								<p className="col-span-4 col-start-3">: {importir !== null ? importir.pic : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Jabatan</p>
-								<p className="col-span-4 col-start-3">
-									: {importir !== null ? importir.title : '__'}
-								</p>
+								<p className="col-span-4 col-start-3">: {importir !== null ? importir.title : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Perusahaan</p>
-								<p className="col-span-6 col-start-3">
-									: {importir !== null ? importir.company : '__'}
-								</p>
+								<p className="col-span-6 col-start-3">: {importir !== null ? importir.company : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>NPWP</p>
-								<p className="col-span-4 col-start-3">
-									: {importir !== null ? importir.npwp : '__'}
-								</p>
+								<p className="col-span-4 col-start-3">: {importir !== null ? importir.npwp : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Alamat</p>
-								<p className="col-span-12 col-start-3">
-									: {importir !== null ? importir.address : '__'}
-								</p>
+								<p className="col-span-12 col-start-3">: {importir !== null ? importir.address : '__'}</p>
 							</div>
 						</li>
 					</ol>
@@ -104,9 +94,7 @@ function SKPAir({ importir, shipment, ppjk }) {
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Telp/Fax</p>
-								<p className="col-span-3 col-start-3">
-									: {importir !== null ? importir.phone : '__'}
-								</p>
+								<p className="col-span-3 col-start-3">: {importir !== null ? importir.phone : '__'}</p>
 							</div>
 						</li>
 					</ol>
@@ -119,33 +107,25 @@ function SKPAir({ importir, shipment, ppjk }) {
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Pemasok</p>
-								<p className="col-span-6 col-start-3 uppercase">
-									: {importir !== null ? importir.company : '__'}
-								</p>
+								<p className="col-span-6 col-start-3 uppercase">: {importir !== null ? importir.company : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Nama Barang</p>
-								<p className="col-span-6 col-start-3 uppercase">
-									: {shipment !== null ? shipment.goods : '__'}
-								</p>
+								<p className="col-span-6 col-start-3 uppercase">: {shipment !== null ? shipment.goods : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Party / GW</p>
-								<p className="col-span-7 col-start-3">
-									: {shipment !== null ? shipment.container : '__'}
-								</p>
+								<p className="col-span-7 col-start-3">: {shipment !== null ? shipment.container : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Flight</p>
-								<p className="col-span-7 col-start-3">
-									: {shipment !== null ? shipment.flight : '__'}
-								</p>
+								<p className="col-span-7 col-start-3">: {shipment !== null ? shipment.flight : '__'}</p>
 							</div>
 						</li>
 						<li>
@@ -183,14 +163,14 @@ function SKPAir({ importir, shipment, ppjk }) {
 					<ul className="list-decimal pl-4">
 						<li className="text-justify">
 							<p>
-								BERTANGGUNG JAWAB SEPENUHNYA ATAS SEGALA KEWAJIBAN KEPABEANAN SEBAGAIMANA DIMAKSUD
-								DALAM UNDANG-UNDANG NO.10 TAHUN 1995 TENTANG KEPABEANAN.
+								BERTANGGUNG JAWAB SEPENUHNYA ATAS SEGALA KEWAJIBAN KEPABEANAN SEBAGAIMANA DIMAKSUD DALAM UNDANG-UNDANG
+								NO.10 TAHUN 1995 TENTANG KEPABEANAN.
 							</p>
 						</li>
 						<li className="text-justify">
 							<p>
-								KEBENARAN DAN KEABSAHAN DOKUMEN MELIPUTI : HARGA DAN FISIK BARANG YANG DIIMPOR
-								ADALAH SEPENUHNYA MENJADI TANGGUNG JAWAB KAMI SEBAGAI IMPORTIR DAN MEMBEBASKAN
+								KEBENARAN DAN KEABSAHAN DOKUMEN MELIPUTI : HARGA DAN FISIK BARANG YANG DIIMPOR ADALAH SEPENUHNYA MENJADI
+								TANGGUNG JAWAB KAMI SEBAGAI IMPORTIR DAN MEMBEBASKAN
 							</p>
 						</li>
 					</ul>
@@ -202,9 +182,7 @@ function SKPAir({ importir, shipment, ppjk }) {
 						<div className="flex justify-between">
 							<div>
 								<p>Yang Menerima Kuasa,</p>
-								<p className="mt-32 font-bold">
-									{shipment !== null ? ppjk.type[shipment.type].name : '__'}
-								</p>
+								<p className="mt-32 font-bold">{shipment !== null ? ppjk.type[shipment.type].name : '__'}</p>
 							</div>
 							<div>
 								<p>Yang Memberi Kuasa,</p>
@@ -215,7 +193,7 @@ function SKPAir({ importir, shipment, ppjk }) {
 				</div>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default SKPAir;
+export default SKPAir

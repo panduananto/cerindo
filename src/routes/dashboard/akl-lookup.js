@@ -1,14 +1,14 @@
-import React from 'react';
+import 'react-toastify/dist/ReactToastify.css'
 
-import { ToastContainer } from 'react-toastify';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import React from 'react'
 
-import AklSearch from '../../components/Dashboard/Akl/AklSearch';
-import AklTable from '../../components/Dashboard/Akl/AklTable';
-import AklTableFooter from '../../components/Dashboard/Akl/AklTableFooter';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { ToastContainer } from 'react-toastify'
 
-import 'react-toastify/dist/ReactToastify.css';
+import AklSearch from '../../components/dashboard/Akl/AklSearch'
+import AklTable from '../../components/dashboard/Akl/AklTable'
+import AklTableFooter from '../../components/dashboard/Akl/AklTableFooter'
 
 function AklLookup() {
 	return (
@@ -26,7 +26,7 @@ function AklLookup() {
 				</div>
 			</DndProvider>
 		</React.Fragment>
-	);
+	)
 }
 
-export default AklLookup;
+export default AklLookup

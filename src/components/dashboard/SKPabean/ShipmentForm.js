@@ -1,14 +1,14 @@
-import React from 'react';
+import 'react-datepicker/dist/react-datepicker.css'
 
-import ReactDatePicker from 'react-datepicker';
-import { RadioGroup } from '@headlessui/react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { HiCheckCircle } from 'react-icons/hi';
-import { object, string, mixed, date } from 'yup';
+import React from 'react'
 
-import classNames from '../../../utils/classNames';
+import { RadioGroup } from '@headlessui/react'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import ReactDatePicker from 'react-datepicker'
+import { HiCheckCircle } from 'react-icons/hi'
+import { date, mixed, object, string } from 'yup'
 
-import 'react-datepicker/dist/react-datepicker.css';
+import classNames from '../../../utils/classNames'
 
 const shipmentSchema = object().shape({
 	type: mixed().oneOf(['sea', 'air']).required('Jenis shipment harus dipilih'),
@@ -25,7 +25,7 @@ const shipmentSchema = object().shape({
 	invoice: string().required('Nomor Invoice harus diisi'),
 	invoiceDate: date().required('Tanggal Invoice harus disebutkan'),
 	price: string().required('Harga barang harus diisi'),
-});
+})
 
 function ShipmentForm({ handleSubmitShipment }) {
 	return (
@@ -53,10 +53,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 							<div className="grid grid-cols-6 gap-x-4 gap-y-6">
 								<div className="col-span-6">
 									<RadioGroup value={values.type} onChange={(type) => setFieldValue('type', type)}>
-										<RadioGroup.Label
-											htmlFor="type"
-											className="mb-2 block text-sm font-medium text-slate-900"
-										>
+										<RadioGroup.Label htmlFor="type" className="mb-2 block text-sm font-medium text-slate-900">
 											Jenis Shipment
 										</RadioGroup.Label>
 										<div className="flex items-center justify-between space-x-2">
@@ -109,19 +106,9 @@ function ShipmentForm({ handleSubmitShipment }) {
 								</div>
 								{values.type === 'air' ? (
 									<div className="col-span-6 2md:col-span-4">
-										<label
-											htmlFor="flight"
-											className="mb-2 block text-sm font-medium text-slate-900"
-										>
+										<label htmlFor="flight" className="mb-2 block text-sm font-medium text-slate-900">
 											Kode Penerbangan
-											<span
-												className={classNames(
-													errors.flight && touched.flight ? 'text-red-600' : ''
-												)}
-											>
-												{' '}
-												*
-											</span>
+											<span className={classNames(errors.flight && touched.flight ? 'text-red-600' : '')}> *</span>
 										</label>
 										<Field
 											type="flight"
@@ -129,10 +116,8 @@ function ShipmentForm({ handleSubmitShipment }) {
 											name="flight"
 											placeholder="Masukkan kode penerbangan..."
 											className={classNames(
-												'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-												errors.flight && touched.flight
-													? 'border-red-600 ring-red-600'
-													: 'border-slate-300'
+												'block w-full rounded border bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+												errors.flight && touched.flight ? 'border-red-600 ring-red-600' : 'border-slate-300',
 											)}
 											autoComplete="off"
 											aria-invalid={errors.flight && touched.flight ? false : true}
@@ -149,12 +134,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 								<div className="col-span-6">
 									<label htmlFor="goods" className="mb-2 block text-sm font-medium text-slate-900">
 										Nama Barang
-										<span
-											className={classNames(errors.goods && touched.goods ? 'text-red-600' : '')}
-										>
-											{' '}
-											*
-										</span>
+										<span className={classNames(errors.goods && touched.goods ? 'text-red-600' : '')}> *</span>
 									</label>
 									<Field
 										as="textarea"
@@ -164,10 +144,8 @@ function ShipmentForm({ handleSubmitShipment }) {
 										name="goods"
 										placeholder="Masukkan nama barang..."
 										className={classNames(
-											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-											errors.goods && touched.goods
-												? 'border-red-600 ring-red-600'
-												: 'border-slate-300'
+											'block w-full rounded border bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.goods && touched.goods ? 'border-red-600 ring-red-600' : 'border-slate-300',
 										)}
 										autoComplete="off"
 										aria-invalid={errors.goods && touched.goods ? false : true}
@@ -181,10 +159,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 									/>
 								</div>
 								<div className="col-span-6">
-									<label
-										htmlFor="container"
-										className="mb-2 block text-sm font-medium text-slate-900"
-									>
+									<label htmlFor="container" className="mb-2 block text-sm font-medium text-slate-900">
 										Party / Cont
 									</label>
 									<Field
@@ -193,10 +168,8 @@ function ShipmentForm({ handleSubmitShipment }) {
 										name="container"
 										placeholder="Masukkan deskripsi container..."
 										className={classNames(
-											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-											errors.container && touched.container
-												? 'border-red-600 ring-red-600'
-												: 'border-slate-300'
+											'block w-full rounded border bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.container && touched.container ? 'border-red-600 ring-red-600' : 'border-slate-300',
 										)}
 										autoComplete="off"
 										aria-invalid={errors.container && touched.container ? false : true}
@@ -212,12 +185,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 								<div className="col-span-4">
 									<label htmlFor="vessel" className="mb-2 block text-sm font-medium text-slate-900">
 										Vessel
-										<span
-											className={classNames(errors.vessel && touched.vessel ? 'text-red-600' : '')}
-										>
-											{' '}
-											*
-										</span>
+										<span className={classNames(errors.vessel && touched.vessel ? 'text-red-600' : '')}> *</span>
 									</label>
 									<Field
 										type="vessel"
@@ -225,10 +193,8 @@ function ShipmentForm({ handleSubmitShipment }) {
 										name="vessel"
 										placeholder="Masukkan nama vessel pengangkut barang..."
 										className={classNames(
-											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-											errors.vessel && touched.vessel
-												? 'border-red-600 ring-red-600'
-												: 'border-slate-300'
+											'block w-full rounded border bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.vessel && touched.vessel ? 'border-red-600 ring-red-600' : 'border-slate-300',
 										)}
 										autoComplete="off"
 										aria-invalid={errors.vessel && touched.vessel ? false : true}
@@ -248,7 +214,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 									<ReactDatePicker
 										selected={values.eta}
 										dateFormat="dd/MM/yy"
-										className="form-control block w-full rounded border border-slate-300 bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
+										className="form-control block w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
 										name="eta"
 										onChange={(eta) => setFieldValue('eta', eta)}
 									/>
@@ -260,19 +226,9 @@ function ShipmentForm({ handleSubmitShipment }) {
 									/>
 								</div>
 								<div className="col-span-4">
-									<label
-										htmlFor="tracking"
-										className="mb-2 block text-sm font-medium text-slate-900"
-									>
+									<label htmlFor="tracking" className="mb-2 block text-sm font-medium text-slate-900">
 										B/L atau AWB
-										<span
-											className={classNames(
-												errors.tracking && touched.tracking ? 'text-red-600' : ''
-											)}
-										>
-											{' '}
-											*
-										</span>
+										<span className={classNames(errors.tracking && touched.tracking ? 'text-red-600' : '')}> *</span>
 									</label>
 									<Field
 										type="tracking"
@@ -280,10 +236,8 @@ function ShipmentForm({ handleSubmitShipment }) {
 										name="tracking"
 										placeholder="Masukkan nomor B/L atau AWB..."
 										className={classNames(
-											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-											errors.tracking && touched.tracking
-												? 'border-red-600 ring-red-600'
-												: 'border-slate-300'
+											'block w-full rounded border bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.tracking && touched.tracking ? 'border-red-600 ring-red-600' : 'border-slate-300',
 										)}
 										autoComplete="off"
 										aria-invalid={errors.tracking && touched.tracking ? false : true}
@@ -303,7 +257,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 									<ReactDatePicker
 										selected={values.trackingDate}
 										dateFormat="dd/MM/yy"
-										className="form-control block w-full rounded border border-slate-300 bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
+										className="form-control block w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
 										name="trackingDate"
 										onChange={(trackingDate) => setFieldValue('trackingDate', trackingDate)}
 									/>
@@ -315,19 +269,9 @@ function ShipmentForm({ handleSubmitShipment }) {
 									/>
 								</div>
 								<div className="col-span-4">
-									<label
-										htmlFor="invoice"
-										className="mb-2 block text-sm font-medium text-slate-900"
-									>
+									<label htmlFor="invoice" className="mb-2 block text-sm font-medium text-slate-900">
 										Invoice
-										<span
-											className={classNames(
-												errors.invoice && touched.invoice ? 'text-red-600' : ''
-											)}
-										>
-											{' '}
-											*
-										</span>
+										<span className={classNames(errors.invoice && touched.invoice ? 'text-red-600' : '')}> *</span>
 									</label>
 									<Field
 										type="invoice"
@@ -335,10 +279,8 @@ function ShipmentForm({ handleSubmitShipment }) {
 										name="invoice"
 										placeholder="Masukkan nomor invoice..."
 										className={classNames(
-											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-											errors.invoice && touched.invoice
-												? 'border-red-600 ring-red-600'
-												: 'border-slate-300'
+											'block w-full rounded border bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.invoice && touched.invoice ? 'border-red-600 ring-red-600' : 'border-slate-300',
 										)}
 										autoComplete="off"
 										aria-invalid={errors.invoice && touched.invoice ? false : true}
@@ -352,16 +294,13 @@ function ShipmentForm({ handleSubmitShipment }) {
 									/>
 								</div>
 								<div className="col-span-2">
-									<label
-										htmlFor="invoiceDate"
-										className="mb-2 block text-sm font-medium text-slate-900"
-									>
+									<label htmlFor="invoiceDate" className="mb-2 block text-sm font-medium text-slate-900">
 										Tanggal Invoice
 									</label>
 									<ReactDatePicker
 										selected={values.invoiceDate}
 										dateFormat="dd/MM/yy"
-										className="form-control block w-full rounded border border-slate-300 bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
+										className="form-control block w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50"
 										name="invoiceDate"
 										onChange={(invoiceDate) => setFieldValue('invoiceDate', invoiceDate)}
 									/>
@@ -375,12 +314,7 @@ function ShipmentForm({ handleSubmitShipment }) {
 								<div className="col-span-6 2md:col-span-4">
 									<label htmlFor="price" className="mb-2 block text-sm font-medium text-slate-900">
 										Harga Barang
-										<span
-											className={classNames(errors.price && touched.price ? 'text-red-600' : '')}
-										>
-											{' '}
-											*
-										</span>
+										<span className={classNames(errors.price && touched.price ? 'text-red-600' : '')}> *</span>
 									</label>
 									<Field
 										type="price"
@@ -388,10 +322,8 @@ function ShipmentForm({ handleSubmitShipment }) {
 										name="price"
 										placeholder="Masukkan harga barang..."
 										className={classNames(
-											'block w-full rounded border bg-white py-2 px-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
-											errors.price && touched.price
-												? 'border-red-600 ring-red-600'
-												: 'border-slate-300'
+											'block w-full rounded border bg-white px-3 py-2 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
+											errors.price && touched.price ? 'border-red-600 ring-red-600' : 'border-slate-300',
 										)}
 										autoComplete="off"
 										aria-invalid={errors.price && touched.price ? false : true}
@@ -407,21 +339,21 @@ function ShipmentForm({ handleSubmitShipment }) {
 							</div>
 						</div>
 						<div className="flex justify-end space-x-2 border-t border-slate-200 p-4">
-							<button className="inline-flex items-center justify-center rounded border border-slate-200 bg-white py-2 px-4 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+							<button className="inline-flex items-center justify-center rounded border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
 								Reset
 							</button>
 							<button
 								type="submit"
-								className="inline-flex items-center justify-center rounded bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+								className="inline-flex items-center justify-center rounded bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
 							>
 								Update
 							</button>
 						</div>
 					</Form>
-				);
+				)
 			}}
 		</Formik>
-	);
+	)
 }
 
-export default ShipmentForm;
+export default ShipmentForm

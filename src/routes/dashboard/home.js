@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom'
 
 function HomeDashboard() {
-	const [profile] = useOutletContext();
+	const [profile] = useOutletContext()
 
 	return (
 		<div className="h-[calc(100vh-65px)] w-full overflow-y-auto bg-slate-50 px-8 py-8 text-slate-900 sm:px-10 lg:px-12">
@@ -25,12 +25,12 @@ function HomeDashboard() {
 						</svg>
 					</span>
 				)}
-				<p className="ml-4 font-rubik text-xl font-semibold leading-8 sm:text-2xl 2md:text-3xl">
+				<p className="font-rubik ml-4 text-xl font-semibold leading-8 sm:text-2xl 2md:text-3xl">
 					Welcome back, {profile?.first_name}
 				</p>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default HomeDashboard;
+export default HomeDashboard

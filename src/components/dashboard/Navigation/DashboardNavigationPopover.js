@@ -1,17 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-import { useNavigate } from 'react-router-dom';
+import { Popover, Transition } from '@headlessui/react'
+import { HiOutlineLogout, HiOutlineUserCircle } from 'react-icons/hi'
+import { IconContext } from 'react-icons/lib'
+import { useNavigate } from 'react-router-dom'
 
-import { IconContext } from 'react-icons/lib';
-import { HiOutlineUserCircle, HiOutlineLogout } from 'react-icons/hi';
-import { Popover, Transition } from '@headlessui/react';
-
-import { useAuthContext } from '../../../contexts/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext'
 
 function DashboardNavigationPopover({ user }) {
-	const { auth, signOut } = useAuthContext();
+	const { auth, signOut } = useAuthContext()
 
-	const navigate = useNavigate();
+	const navigate = useNavigate()
 
 	return (
 		<Popover className="relative">
@@ -24,11 +23,7 @@ function DashboardNavigationPopover({ user }) {
 							alt="User profile"
 						/>
 					) : (
-						<svg
-							className="h-8 w-8 rounded-full text-gray-300"
-							fill="currentColor"
-							viewBox="0 0 24 24"
-						>
+						<svg className="h-8 w-8 rounded-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
 							<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
 						</svg>
 					)}
@@ -70,8 +65,8 @@ function DashboardNavigationPopover({ user }) {
 										<button
 											className="flex w-full items-center rounded px-4 py-2 text-[14px] font-medium leading-5 hover:bg-red-50 hover:text-red-600"
 											onClick={() => {
-												signOut();
-												navigate('/login', { replace: true });
+												signOut()
+												navigate('/login', { replace: true })
 											}}
 										>
 											<span className="mr-3 shrink-0">
@@ -87,7 +82,7 @@ function DashboardNavigationPopover({ user }) {
 				</Transition>
 			</>
 		</Popover>
-	);
+	)
 }
 
-export default DashboardNavigationPopover;
+export default DashboardNavigationPopover

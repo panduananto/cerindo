@@ -1,45 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { Dialog, Transition } from '@headlessui/react';
-import { object, string } from 'yup';
+import { Dialog, Transition } from '@headlessui/react'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { object, string } from 'yup'
 
-import LoadingSpinner from './LoadingSpinner';
-
-import { useAuthContext } from '../contexts/AuthContext';
-import { setProfile } from '../store/actions/authActions';
-
-import classNames from '../utils/classNames';
-import readImageAsDataURL from '../utils/readImageAsDataUrl';
+import { useAuthContext } from '../contexts/AuthContext'
+import { setProfile } from '../store/actions/authActions'
+import classNames from '../utils/classNames'
+import readImageAsDataURL from '../utils/readImageAsDataUrl'
+import LoadingSpinner from './LoadingSpinner'
 
 const profileSchema = object().shape({
 	firstName: string().required('First name is required'),
 	lastName: string().required('Last name is required'),
-});
+})
 
 function ProfileForm({ user, setProfileFormOpen }) {
-	const { authDispatch, createProfile, readProfile, uploadAvatar, downloadAvatar } =
-		useAuthContext();
+	const { authDispatch, createProfile, readProfile, uploadAvatar, downloadAvatar } = useAuthContext()
 
-	const [loading, setLoading] = useState(false);
-	const [previewAvatar, setPreviewAvatar] = useState(null);
+	const [loading, setLoading] = useState(false)
+	const [previewAvatar, setPreviewAvatar] = useState(null)
 
 	const handleChangeAvatar = (event) => {
-		const file = event.target.files[0];
-		const fileExt = file.name.split('.').pop();
-		const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
-		const filePath = `${fileName}`;
+		const file = event.target.files[0]
+		const fileExt = file.name.split('.').pop()
+		const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`
+		const filePath = `${fileName}`
 
-		readImageAsDataURL(file, setPreviewAvatar);
+		readImageAsDataURL(file, setPreviewAvatar)
 
-		return { filePath, file };
-	};
+		return { filePath, file }
+	}
 
 	const handleSubmit = async (values, actions) => {
-		const { firstName, lastName, avatar } = values;
+		const { firstName, lastName, avatar } = values
 
 		try {
-			setLoading(true);
+			setLoading(true)
 
 			const new_profile = {
 				id: user.id,
@@ -47,31 +44,28 @@ function ProfileForm({ user, setProfileFormOpen }) {
 				first_name: firstName,
 				last_name: lastName,
 				avatar_url: avatar.filePath,
-			};
+			}
 
-			const { error: createProfileError } = await createProfile(new_profile);
-			const { error: uploadAvatarError } = await uploadAvatar(avatar);
+			const { error: createProfileError } = await createProfile(new_profile)
+			const { error: uploadAvatarError } = await uploadAvatar(avatar)
 
-			if (createProfileError || uploadAvatarError)
-				throw createProfileError ? createProfileError : uploadAvatarError;
+			if (createProfileError || uploadAvatarError) throw createProfileError ? createProfileError : uploadAvatarError
 
-			const { data: profile, error: profileError } = await readProfile(user.id);
+			const { data: profile, error: profileError } = await readProfile(user.id)
 
-			if (profileError) throw profileError;
+			if (profileError) throw profileError
 
-			const { data: downloadedAvatar, error: avatarError } = await downloadAvatar(
-				profile.avatar_url
-			);
+			const { data: downloadedAvatar, error: avatarError } = await downloadAvatar(profile.avatar_url)
 
-			if (avatarError) throw avatarError;
+			if (avatarError) throw avatarError
 
-			authDispatch(setProfile({ ...profile, downloadedAvatar }));
+			authDispatch(setProfile({ ...profile, downloadedAvatar }))
 
 			// TODO: show success message to users
 		} catch (error) {
-			console.log(error); // TODO: show error message to users
+			console.log(error) // TODO: show error message to users
 		} finally {
-			setLoading(false);
+			setLoading(false)
 
 			actions.resetForm({
 				values: {
@@ -79,11 +73,11 @@ function ProfileForm({ user, setProfileFormOpen }) {
 					lastName: '',
 					avatar: {},
 				},
-			});
+			})
 
-			setProfileFormOpen(false);
+			setProfileFormOpen(false)
 		}
-	};
+	}
 
 	return (
 		<Dialog as="div" onClose={() => setProfileFormOpen(false)} className="relative z-50">
@@ -120,17 +114,13 @@ function ProfileForm({ user, setProfileFormOpen }) {
 										<Form>
 											<div className="overflow-hidden rounded">
 												<div className="bg-white px-6 py-6">
-													<Dialog.Title className="font-rubik text-3xl font-bold">
-														Who are you?
-													</Dialog.Title>
+													<Dialog.Title className="font-rubik text-3xl font-bold">Who are you?</Dialog.Title>
 													<Dialog.Description className="text-xl font-light">
 														Let us know a little bit about you
 													</Dialog.Description>
 													<div className="mt-4 grid w-96 grid-cols-6 gap-4 md:w-[28rem]">
 														<div className="col-span-6">
-															<label className="block text-sm font-medium text-slate-700">
-																Photo
-															</label>
+															<label className="block text-sm font-medium text-slate-700">Photo</label>
 															<div className="mt-1 flex items-center space-x-6">
 																<span className="flex h-12 w-12 shrink-0 items-center overflow-hidden rounded-full bg-gray-100">
 																	{previewAvatar ? (
@@ -152,24 +142,17 @@ function ProfileForm({ user, setProfileFormOpen }) {
 																		id="avatar"
 																		name="avatar"
 																		accept="image/*"
-																		className="block w-full rounded text-sm text-transparent file:mr-4 file:rounded-full file:border-0 file:bg-red-50 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-red-600 hover:file:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-4"
-																		onChange={(event) =>
-																			setFieldValue('avatar', handleChangeAvatar(event))
-																		}
+																		className="block w-full rounded text-sm text-transparent file:mr-4 file:rounded-full file:border-0 file:bg-red-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-red-600 hover:file:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-4"
+																		onChange={(event) => setFieldValue('avatar', handleChangeAvatar(event))}
 																	/>
 																</label>
 															</div>
 														</div>
 														<div className="col-span-3">
-															<label
-																htmlFor="firstName"
-																className="mb-2 block text-sm font-medium text-slate-900"
-															>
+															<label htmlFor="firstName" className="mb-2 block text-sm font-medium text-slate-900">
 																First name
 																<span
-																	className={classNames(
-																		errors.firstName && touched.firstName ? 'text-red-600' : ''
-																	)}
+																	className={classNames(errors.firstName && touched.firstName ? 'text-red-600' : '')}
 																>
 																	{' '}
 																	*
@@ -184,7 +167,7 @@ function ProfileForm({ user, setProfileFormOpen }) {
 																	'block w-full rounded border bg-white p-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
 																	errors.firstName && touched.firstName
 																		? 'border-red-600 ring-red-600'
-																		: 'border-slate-300'
+																		: 'border-slate-300',
 																)}
 																autoComplete="off"
 																aria-invalid={errors.firstName && touched.firstName ? false : true}
@@ -198,16 +181,9 @@ function ProfileForm({ user, setProfileFormOpen }) {
 															/>
 														</div>
 														<div className="col-span-3">
-															<label
-																htmlFor="lastName"
-																className="mb-2 block text-sm font-medium text-slate-900"
-															>
+															<label htmlFor="lastName" className="mb-2 block text-sm font-medium text-slate-900">
 																Last name
-																<span
-																	className={classNames(
-																		errors.lastName && touched.lastName ? 'text-red-600' : ''
-																	)}
-																>
+																<span className={classNames(errors.lastName && touched.lastName ? 'text-red-600' : '')}>
 																	{' '}
 																	*
 																</span>
@@ -221,7 +197,7 @@ function ProfileForm({ user, setProfileFormOpen }) {
 																	'block w-full rounded border bg-white p-3 text-sm text-slate-900 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:bg-slate-50',
 																	errors.lastName && touched.lastName
 																		? 'border-red-600 ring-red-600'
-																		: 'border-slate-300'
+																		: 'border-slate-300',
 																)}
 																autoComplete="off"
 																aria-invalid={errors.lastName && touched.lastName ? false : true}
@@ -260,7 +236,7 @@ function ProfileForm({ user, setProfileFormOpen }) {
 												</div>
 											</div>
 										</Form>
-									);
+									)
 								}}
 							</Formik>
 						</Dialog.Panel>
@@ -268,7 +244,7 @@ function ProfileForm({ user, setProfileFormOpen }) {
 				</div>
 			</div>
 		</Dialog>
-	);
+	)
 }
 
-export default ProfileForm;
+export default ProfileForm

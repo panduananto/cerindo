@@ -1,27 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
-import { IconContext } from 'react-icons/lib';
+import { IconContext } from 'react-icons/lib'
 
-import Tree from './Tree/Tree';
-
-import classNames from '../../utils/classNames';
-
-import { sideBarNavigationItems } from '../../data/index';
+import { sideBarNavigationItems } from '../../data/index'
+import classNames from '../../utils/classNames'
+import Tree from './Tree/Tree'
 
 function Sidebar({ sidebarOpen, setSidebarOpen, windowWidth }) {
 	useEffect(() => {
-		windowWidth <= 768 ? setSidebarOpen(false) : setSidebarOpen(true);
-	}, [windowWidth, setSidebarOpen]);
+		windowWidth <= 768 ? setSidebarOpen(false) : setSidebarOpen(true)
+	}, [windowWidth, setSidebarOpen])
 
 	return (
 		<div
 			className={classNames(
 				sidebarOpen ? 'translate-x-0' : '-translate-x-full',
-				'sticky top-0 z-50 h-full transform border-r border-slate-300 bg-white transition duration-300 ease-in-out'
+				'sticky top-0 z-50 h-full transform border-r border-slate-300 bg-white transition duration-300 ease-in-out',
 			)}
 		>
 			<div className="w-[280px] max-w-[280px]">
-				<div className="flex h-20 items-center py-4 px-6 pb-0">
+				<div className="flex h-20 items-center px-6 py-4 pb-0">
 					<img src="/images/cerindo_logo.svg" className="h-14 w-auto" alt="Cerindo text logo" />
 				</div>
 				<div className="select-none overflow-y-auto py-4">
@@ -31,7 +29,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, windowWidth }) {
 				</div>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default Sidebar;
+export default Sidebar

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import SKPAir from './SKPAir';
-import SKPSea from './SKPSea';
+import SKPAir from './SKPAir'
+import SKPSea from './SKPSea'
 
 function SKP({ importir, shipment, ppjk }) {
 	return shipment !== null && importir !== null ? (
@@ -12,7 +12,7 @@ function SKP({ importir, shipment, ppjk }) {
 		)
 	) : (
 		<p className="text-center">Data importir dan shipment belum terisi dengan benar.</p>
-	);
+	)
 }
 
-export default SKP;
+export default SKP

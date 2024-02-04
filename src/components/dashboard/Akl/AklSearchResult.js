@@ -1,39 +1,36 @@
-import React from 'react';
+import React from 'react'
 
-import { nanoid } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { HiCheckCircle, HiExclamation } from 'react-icons/hi';
+import { nanoid } from '@reduxjs/toolkit'
+import { HiCheckCircle, HiExclamation } from 'react-icons/hi'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
-import { selectAklsSearchById } from '../../../features/akl/search/aklSearchSlice';
-import {
-	aklAdded,
-	selectAklsCollection,
-} from '../../../features/akl/collection/aklCollectionSlice';
+import { aklAdded, selectAklsCollection } from '../../../features/akl/collection/aklCollectionSlice'
+import { selectAklsSearchById } from '../../../features/akl/search/aklSearchSlice'
 
 function AklSearchResult({ id }) {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
-	const aklsCollection = useSelector(selectAklsCollection);
-	const akl = useSelector((state) => selectAklsSearchById(state, id));
+	const aklsCollection = useSelector(selectAklsCollection)
+	const akl = useSelector((state) => selectAklsSearchById(state, id))
 
 	const handleSaveItemAndAkl = () => {
-		const aklIdFormatted = akl.akl.id.split('_').join(' ');
-		const duplicateAkl = aklsCollection.some((a) => a.akl.id === akl.akl.id);
-		const aklWithModifiedId = { ...akl, id: akl.id + nanoid(10) };
+		const aklIdFormatted = akl.akl.id.split('_').join(' ')
+		const duplicateAkl = aklsCollection.some((a) => a.akl.id === akl.akl.id)
+		const aklWithModifiedId = { ...akl, id: akl.id + nanoid(10) }
 
-		dispatch(aklAdded(aklWithModifiedId));
+		dispatch(aklAdded(aklWithModifiedId))
 
 		if (duplicateAkl) {
 			toast.warn(`${aklIdFormatted} telah terdaftar`, {
 				icon: <HiExclamation className="h-5 w-5 text-yellow-600" />,
-			});
+			})
 		} else {
 			toast.success(`${aklIdFormatted} Berhasil ditambahkan`, {
 				icon: <HiCheckCircle className="h-5 w-5 text-green-600" />,
-			});
+			})
 		}
-	};
+	}
 
 	return (
 		<li
@@ -52,7 +49,7 @@ function AklSearchResult({ id }) {
 				{new Date(akl.akl.expiry_date).toLocaleDateString()}
 			</p>
 		</li>
-	);
+	)
 }
 
-export default AklSearchResult;
+export default AklSearchResult

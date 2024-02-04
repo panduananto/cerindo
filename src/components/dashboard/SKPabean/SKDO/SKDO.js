@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import SKDOAir from './SKDOAir';
-import SKDOSea from './SKDOSea';
+import SKDOAir from './SKDOAir'
+import SKDOSea from './SKDOSea'
 
 function SKDO({ importir, shipment, ppjk }) {
 	return shipment !== null && importir !== null ? (
@@ -12,7 +12,7 @@ function SKDO({ importir, shipment, ppjk }) {
 		)
 	) : (
 		<p className="text-center">Data importir dan shipment belum terisi dengan benar.</p>
-	);
+	)
 }
 
-export default SKDO;
+export default SKDO

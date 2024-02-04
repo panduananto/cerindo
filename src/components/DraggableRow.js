@@ -1,30 +1,21 @@
-import React from 'react';
+import React from 'react'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useDrag, useDrop } from 'react-dnd';
-import { Disclosure } from '@headlessui/react';
-import {
-	HiCheckCircle,
-	HiChevronDown,
-	HiExclamationCircle,
-	HiOutlineMenuAlt4,
-} from 'react-icons/hi';
+import { Disclosure } from '@headlessui/react'
+import { useDrag, useDrop } from 'react-dnd'
+import { HiCheckCircle, HiChevronDown, HiExclamationCircle, HiOutlineMenuAlt4 } from 'react-icons/hi'
+import { useDispatch, useSelector } from 'react-redux'
 
-import {
-	aklDeleted,
-	aklIdsReorder,
-	selectAklsCollectionById,
-} from '../features/akl/collection/aklCollectionSlice';
+import { aklDeleted, aklIdsReorder, selectAklsCollectionById } from '../features/akl/collection/aklCollectionSlice'
 
 function DraggableRow({ id }) {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
-	const akl = useSelector((state) => selectAklsCollectionById(state, id));
+	const akl = useSelector((state) => selectAklsCollectionById(state, id))
 
 	const [, dropRef] = useDrop({
 		accept: 'id',
 		drop: (draggedRow) => dispatch(aklIdsReorder(draggedRow, id)),
-	});
+	})
 
 	const [{ isDragging }, dragRef, previewRef] = useDrag({
 		collect: (monitor) => ({
@@ -32,11 +23,11 @@ function DraggableRow({ id }) {
 		}),
 		item: { id },
 		type: 'id',
-	});
+	})
 
 	const handleDeleteItem = (id) => {
-		dispatch(aklDeleted(id));
-	};
+		dispatch(aklDeleted(id))
+	}
 
 	return (
 		<Disclosure as={React.Fragment}>
@@ -74,11 +65,9 @@ function DraggableRow({ id }) {
 							)}
 						</td>
 						<td className="flex items-center justify-start whitespace-nowrap px-4 py-3 text-left text-sm uppercase tracking-normal text-slate-700">
-							<Disclosure.Button className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white py-1 px-2 text-slate-500 transition-colors duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-600 focus:bg-slate-100 focus:outline-none focus:ring-0">
+							<Disclosure.Button className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-2 py-1 text-slate-500 transition-colors duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-600 focus:bg-slate-100 focus:outline-none focus:ring-0">
 								<HiChevronDown
-									className={`${
-										open && 'rotate-180 transform'
-									} h-5 w-5 transition-transform duration-200 ease-in-out`}
+									className={`${open && 'rotate-180 transform'} h-5 w-5 transition-transform duration-200 ease-in-out`}
 								/>
 							</Disclosure.Button>
 						</td>
@@ -92,9 +81,7 @@ function DraggableRow({ id }) {
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												Kode AKL
 											</p>
-											<p className="mt-1 text-sm text-slate-700">
-												{akl.akl.id.split('_').join(' ')}
-											</p>
+											<p className="mt-1 text-sm text-slate-700">{akl.akl.id.split('_').join(' ')}</p>
 										</div>
 										<div className="col-span-4 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
@@ -141,9 +128,7 @@ function DraggableRow({ id }) {
 										<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 											Deskripsi
 										</p>
-										<p className="mt-1 truncate text-sm text-slate-700">
-											{akl.name !== null ? akl.name : '-'}
-										</p>
+										<p className="mt-1 truncate text-sm text-slate-700">{akl.name !== null ? akl.name : '-'}</p>
 									</div>
 								</div>
 								<div className="col-span-12 space-y-4 xl:col-span-3">
@@ -157,9 +142,7 @@ function DraggableRow({ id }) {
 										</p>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
-										<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
-											PPN
-										</p>
+										<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">PPN</p>
 										<p className="relative mt-1 text-sm text-slate-700">
 											{akl.hscode.value_added_tax}
 											<span className="absolute right-0 text-slate-400">&#37;</span>
@@ -170,8 +153,7 @@ function DraggableRow({ id }) {
 											PPH &#40;API&#41;
 										</p>
 										<p className="relative mt-1 text-sm text-slate-700">
-											{akl.hscode.income_tax_api}{' '}
-											<span className="absolute right-0 text-slate-400">&#37;</span>
+											{akl.hscode.income_tax_api} <span className="absolute right-0 text-slate-400">&#37;</span>
 										</p>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
@@ -189,9 +171,7 @@ function DraggableRow({ id }) {
 										<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 											Tanggal AKL
 										</p>
-										<p className="mt-1 text-sm text-slate-700">
-											{new Date(akl.akl.date).toLocaleDateString('id')}
-										</p>
+										<p className="mt-1 text-sm text-slate-700">{new Date(akl.akl.date).toLocaleDateString('id')}</p>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
 										<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
@@ -205,9 +185,7 @@ function DraggableRow({ id }) {
 										<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 											Fasilitas
 										</p>
-										<p className="mt-1 text-sm text-slate-700">
-											{akl.facility !== null ? akl.facility : '-'}
-										</p>
+										<p className="mt-1 text-sm text-slate-700">{akl.facility !== null ? akl.facility : '-'}</p>
 									</div>
 									<div className="rounded border border-slate-300 px-2.5 py-2 shadow">
 										<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
@@ -232,7 +210,7 @@ function DraggableRow({ id }) {
 				</React.Fragment>
 			)}
 		</Disclosure>
-	);
+	)
 }
 
-export default DraggableRow;
+export default DraggableRow

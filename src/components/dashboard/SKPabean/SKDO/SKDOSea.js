@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const formatDate = (date) => {
 	return new Date(date)
@@ -8,8 +8,8 @@ const formatDate = (date) => {
 			day: 'numeric',
 		})
 		.split('/')
-		.join('-');
-};
+		.join('-')
+}
 
 function SKDOSea({ shipment, importir, ppjk }) {
 	let now = new Date()
@@ -19,7 +19,7 @@ function SKDOSea({ shipment, importir, ppjk }) {
 			day: 'numeric',
 		})
 		.split(' ')
-		.join('-');
+		.join('-')
 
 	return (
 		<div className="font-serif">
@@ -33,49 +33,37 @@ function SKDOSea({ shipment, importir, ppjk }) {
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Nama</p>
-								<p className="col-span-4 col-start-3">
-									: {importir !== null ? importir.pic : '__'}
-								</p>
+								<p className="col-span-4 col-start-3">: {importir !== null ? importir.pic : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Jabatan</p>
-								<p className="col-span-4 col-start-3">
-									: {importir !== null ? importir.title : '__'}
-								</p>
+								<p className="col-span-4 col-start-3">: {importir !== null ? importir.title : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Perusahaan</p>
-								<p className="col-span-6 col-start-3">
-									: {importir !== null ? importir.company : '__'}
-								</p>
+								<p className="col-span-6 col-start-3">: {importir !== null ? importir.company : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>NPWP</p>
-								<p className="col-span-4 col-start-3">
-									: {importir !== null ? importir.npwp : '__'}
-								</p>
+								<p className="col-span-4 col-start-3">: {importir !== null ? importir.npwp : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Alamat</p>
-								<p className="col-span-12 col-start-3">
-									: {importir !== null ? importir.address : '__'}
-								</p>
+								<p className="col-span-12 col-start-3">: {importir !== null ? importir.address : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">No. Tlp.</p>
-								<p className="col-span-3 col-start-3">
-									: {importir !== null ? importir.phone : '__'}
-								</p>
+								<p className="col-span-3 col-start-3">: {importir !== null ? importir.phone : '__'}</p>
 							</div>
 						</li>
 					</ol>
@@ -104,17 +92,13 @@ function SKDOSea({ shipment, importir, ppjk }) {
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Nama</p>
-								<p className="col-span-6 col-start-3">
-									: {shipment !== null ? ppjk.type[shipment.type].name : '__'}
-								</p>
+								<p className="col-span-6 col-start-3">: {shipment !== null ? ppjk.type[shipment.type].name : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p>Jabatan</p>
-								<p className="col-span-6 col-start-3">
-									: {shipment !== null ? ppjk.type[shipment.type].title : '__'}
-								</p>
+								<p className="col-span-6 col-start-3">: {shipment !== null ? ppjk.type[shipment.type].title : '__'}</p>
 							</div>
 						</li>
 					</ol>
@@ -126,25 +110,19 @@ function SKDOSea({ shipment, importir, ppjk }) {
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Pemasok</p>
-								<p className="col-span-6 col-start-3 uppercase">
-									: {importir !== null ? importir.company : '__'}
-								</p>
+								<p className="col-span-6 col-start-3 uppercase">: {importir !== null ? importir.company : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Nama Barang</p>
-								<p className="col-span-6 col-start-3 uppercase">
-									: {shipment !== null ? shipment.goods : '__'}
-								</p>
+								<p className="col-span-6 col-start-3 uppercase">: {shipment !== null ? shipment.goods : '__'}</p>
 							</div>
 						</li>
 						<li>
 							<div className="grid grid-cols-12">
 								<p className="col-span-2">Party / Cont</p>
-								<p className="col-span-7 col-start-3">
-									: {shipment !== null ? shipment.container : '__'}
-								</p>
+								<p className="col-span-7 col-start-3">: {shipment !== null ? shipment.container : '__'}</p>
 							</div>
 						</li>
 						<li>
@@ -175,9 +153,7 @@ function SKDOSea({ shipment, importir, ppjk }) {
 						<div className="flex justify-between">
 							<div>
 								<p>Yang Menerima Kuasa,</p>
-								<p className="mt-32 font-bold">
-									{shipment !== null ? ppjk.type[shipment.type].name : '__'}
-								</p>
+								<p className="mt-32 font-bold">{shipment !== null ? ppjk.type[shipment.type].name : '__'}</p>
 							</div>
 							<div>
 								<p>Yang Memberi Kuasa,</p>
@@ -188,7 +164,7 @@ function SKDOSea({ shipment, importir, ppjk }) {
 				</div>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default SKDOSea;
+export default SKDOSea
