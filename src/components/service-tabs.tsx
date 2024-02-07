@@ -27,9 +27,6 @@ type ServiceTabsProps = {
 
 const ServiceTabs = ({ services }: ServiceTabsProps) => {
 	const tabKeys = Object.keys(services) as Array<keyof typeof services>
-	const [readMore, setReadMore] = useState<{ [key: string]: boolean }>(
-		Object.fromEntries(tabKeys.map((key) => [key, false])),
-	)
 
 	return (
 		<Tabs defaultValue={tabKeys[0]} orientation="vertical">
@@ -67,21 +64,7 @@ const ServiceTabs = ({ services }: ServiceTabsProps) => {
 											/>
 											<div className="col-span-8 rounded-b border-x border-b border-slate-300 bg-white p-4 text-sm text-slate-900 md:col-span-4 md:rounded-bl-none md:rounded-tr md:border-l-0 md:border-t md:px-6 md:py-8">
 												<h3 className={`${rubik.className} text-lg font-bold md:text-xl`}>{service.title}</h3>
-												<div>
-													<p className="mt-2 !leading-7 md:mt-4 md:text-base">
-														{readMore[key] ? service.description : `${service.description.substring(0, 80)}...`}
-													</p>
-													<button
-														onClick={() => {
-															setReadMore((prevState) => {
-																return { ...prevState, [key]: !prevState[key] }
-															})
-														}}
-														className="font-semibold text-red-600"
-													>
-														{readMore[key] ? 'show less' : 'read more'}
-													</button>
-												</div>
+												<ReadMoreText text={service.description} />
 												<ul className="mt-4 space-y-2 md:mt-6">
 													{service.benefits.map((benefit) => (
 														<li key={benefit.text} className="flex flex-row items-center space-x-3">
@@ -107,8 +90,17 @@ type ReadMoreTextProps = {
 	text: string
 }
 
-const ReadMoreText = ({text}: ReadMoreTextProps) => {
-	
+const ReadMoreText = ({ text }: ReadMoreTextProps) => {
+	const [isOpen, setIsOpen] = useState<boolean>(false)
+
+	return (
+		<div>
+			<p className="mt-2 !leading-7 md:mt-4 md:text-base">{isOpen ? text : `${text.substring(0, 80)}...`}</p>
+			<button onClick={() => setIsOpen(!isOpen)} className="font-semibold text-red-600">
+				{isOpen ? 'show less' : 'read more'}
+			</button>
+		</div>
+	)
 }
 
 export default ServiceTabs
