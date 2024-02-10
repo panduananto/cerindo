@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
+
+import useHash from '@/hooks/use-hash'
 
 import Logo from '../logo'
 
@@ -15,7 +15,7 @@ type MainNavProps = {
 }
 
 const MainNav = ({ items }: MainNavProps) => {
-	const pathname = usePathname()
+	const hash = useHash()
 
 	return (
 		<div className="hidden gap-6 2md:flex">
@@ -28,15 +28,15 @@ const MainNav = ({ items }: MainNavProps) => {
 					<ul className="flex space-x-8">
 						{items[0].items.map((item) => (
 							<li key={`menu-item-${item.title}`}>
-								<Link
-									href={`/${item.href}`}
+								<a
+									href={item.href}
 									className={cn(
 										'block transition-colors duration-150 ease-in-out first-letter:uppercase hover:text-red-600',
-										pathname === item.href && 'text-red-600',
+										item.href?.includes(String(hash)) && String(hash) !== '' && 'text-primary',
 									)}
 								>
 									{item.title}
-								</Link>
+								</a>
 							</li>
 						))}
 					</ul>

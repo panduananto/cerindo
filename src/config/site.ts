@@ -13,11 +13,6 @@ export const siteConfig = {
 			title: 'Lobby',
 			items: [
 				{
-					title: 'home',
-					href: '/',
-					items: [],
-				},
-				{
 					title: 'client',
 					href: '#client',
 					items: [],

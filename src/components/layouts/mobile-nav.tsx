@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import Link from 'next/link'
-import { usePathname, useSelectedLayoutSegment } from 'next/navigation'
+
+import { AccordionHeader } from '@radix-ui/react-accordion'
 
 import { cn } from '@/lib/utils'
 
@@ -30,7 +30,7 @@ const MobileNav = ({ mainNavItems }: MobileNavProps) => {
 			<SheetTrigger asChild>
 				<Button
 					variant="ghost"
-					className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 2md:hidden lg:hidden"
+					className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 2md:hidden"
 				>
 					<Icons.hamburgerMenu className="size-6" />
 					<span className="sr-only">Toggle menu</span>
@@ -46,23 +46,25 @@ const MobileNav = ({ mainNavItems }: MobileNavProps) => {
 							{mainNavItems?.map((item, index) => {
 								return (
 									<AccordionItem value={item.title} key={index}>
-										<AccordionTrigger className="text-sm capitalize">{item.title}</AccordionTrigger>
+										<AccordionHeader className="flex">
+											<AccordionTrigger className="text-sm capitalize">{item.title}</AccordionTrigger>
+										</AccordionHeader>
 										<AccordionContent>
 											<div className="flex flex-col space-y-2">
 												{item.items?.map((subItem, index) =>
 													subItem.href ? (
-														<Link
+														<a
 															key={subItem.title}
 															href={subItem.href}
 															className={cn(
 																'text-foreground/70 transition-colors hover:text-foreground',
-																subItem.href.includes(String(hash)) && 'text-primary',
+																subItem.href.includes(String(hash)) && String(hash) !== '' && 'text-primary',
 																subItem.disabled && 'pointer-events-none opacity-60',
 															)}
 															onClick={() => setIsOpen(false)}
 														>
 															{subItem.title}
-														</Link>
+														</a>
 													) : (
 														<div key={index} className="text-foreground/70 transition-colors">
 															{item.title}

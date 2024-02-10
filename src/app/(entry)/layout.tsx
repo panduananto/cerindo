@@ -1,5 +1,6 @@
 import React from 'react'
 import { cookies } from 'next/headers'
+import { notFound } from 'next/navigation'
 
 import { getSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -16,6 +17,10 @@ export default async function EntryLayout({ children }: EntryLayoutProps) {
 	const {
 		data: { user },
 	} = await supabase.auth.getUser()
+
+	if (!user) {
+		return notFound()
+	}
 
 	return (
 		<div className="flex min-h-full flex-col">

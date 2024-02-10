@@ -1,9 +1,12 @@
+import Icons from '@/components/ui/icons'
+
 export type OAuthStrategy = 'google' | 'discord'
 
 export type NavItem = {
 	title: string
 	href?: string
 	disabled?: boolean
+	icon?: keyof typeof Icons
 }
 
 export interface NavItemWithChildren extends NavItem {
@@ -15,6 +18,8 @@ export interface NavItemWithOptionalChildren extends NavItem {
 }
 
 export type MainNavItem = NavItemWithOptionalChildren
+
+export type SidebarNavItem = NavItemWithChildren
 
 export type ServiceItem = {
 	id: text

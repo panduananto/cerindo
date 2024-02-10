@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 
@@ -15,10 +14,10 @@ function Logo({
 	...props
 }: LogoProps & React.HTMLAttributes<HTMLAnchorElement>) {
 	return (
-		<Link href={link} className={cn(className)} {...props}>
+		<a href={link} className={cn(className)} {...props}>
 			<img src={source} className="inline-block h-10 w-auto text-[#9d001b]" alt="Logo" />
 			<span className="sr-only">Home</span>
-		</Link>
+		</a>
 	)
 }
 

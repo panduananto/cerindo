@@ -1,84 +1,43 @@
-// const sideBarNavigationItems = [
-// 	{
-// 		text: 'Dashboard',
-// 		link: '',
-// 		isRoot: true,
-// 		type: 'file',
-// 		icon: <HiOutlineHome></HiOutlineHome>,
-// 	},
-// 	{
-// 		text: 'Master Data',
-// 		link: 'data',
-// 		isRoot: true,
-// 		type: 'folder',
-// 		icon: <HiOutlineDatabase></HiOutlineDatabase>,
-// 		children: [
-// 			// {
-// 			// 	text: 'Shipper',
-// 			// 	link: 'data/shipper',
-// 			// 	isRoot: false,
-// 			// 	type: 'file',
-// 			// },
-// 			// {
-// 			// 	text: 'Consignee',
-// 			// 	link: 'data/consignee',
-// 			// 	isRoot: false,
-// 			// 	type: 'file',
-// 			// },
-// 			// {
-// 			// 	text: 'Agent',
-// 			// 	link: 'data/agent',
-// 			// 	isRoot: false,
-// 			// 	type: 'file',
-// 			// },
-// 			{
-// 				text: 'AKL',
-// 				link: 'data/akl',
-// 				isRoot: false,
-// 				type: 'file',
-// 			},
-// 		],
-// 	},
-// 	// {
-// 	// 	text: 'Checklist Shipment',
-// 	// 	link: 'checklist-shipment',
-// 	// 	isRoot: true,
-// 	// 	type: 'file',
-// 	// 	icon: <HiOutlineDocumentText></HiOutlineDocumentText>,
-// 	// },
-// 	// {
-// 	// 	text: 'Cash Bank Requisition',
-// 	// 	link: 'cbr',
-// 	// 	isRoot: true,
-// 	// 	type: 'file',
-// 	// 	icon: <HiOutlineCash></HiOutlineCash>,
-// 	// },
-// 	// {
-// 	// 	text: 'Shipment Report',
-// 	// 	link: 'shipment-report',
-// 	// 	isRoot: true,
-// 	// 	type: 'file',
-// 	// 	icon: <HiOutlineDocumentReport></HiOutlineDocumentReport>,
-// 	// },
-// 	// {
-// 	// 	text: 'Pertanggungjawaban',
-// 	// 	link: 'ptj',
-// 	// 	isRoot: true,
-// 	// 	type: 'file',
-// 	// 	icon: <HiOutlineClipboardList></HiOutlineClipboardList>,
-// 	// },
-// 	{
-// 		text: 'Pencarian AKL',
-// 		link: 'akl',
-// 		isRoot: true,
-// 		type: 'file',
-// 		icon: <HiOutlineDocumentSearch></HiOutlineDocumentSearch>,
-// 	},
-// 	{
-// 		text: 'SK Pabean',
-// 		link: 'sk-pabean',
-// 		isRoot: true,
-// 		type: 'file',
-// 		icon: <HiOutlineDocumentText></HiOutlineDocumentText>,
-// 	},
-// ];
+import type { SidebarNavItem } from '@/types'
+
+export type DashboardConfig = {
+	sidebarNav: SidebarNavItem[]
+}
+
+export const dashboardConfig: DashboardConfig = {
+	sidebarNav: [
+		{
+			title: 'Dashboard',
+			href: '/dashboard',
+			icon: 'dashboard',
+			items: [],
+		},
+		{
+			title: 'Master Data',
+			icon: 'database',
+			items: [
+				{
+					title: 'Shipper',
+					href: '/dashboard/master-data/shipper',
+					items: [],
+				},
+				{
+					title: 'Consignee',
+					href: '/dashboard/master-data/consignee',
+					items: [],
+				},
+				{
+					title: 'Alat Kesehatan Luar Negeri',
+					href: '/dashboard/master-data/akl',
+					items: [],
+				},
+			],
+		},
+		{
+			title: 'Pencarian AKL',
+			href: '/dashboard/search-akl',
+			icon: 'heartPulse',
+			items: [],
+		},
+	],
+}
