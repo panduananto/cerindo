@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { env } from '@/env.mjs'
 
+import { rubik } from '@/config/font'
 import { getSupabaseServerClient } from '@/lib/supabase/server'
 
 import type { Metadata } from 'next'
@@ -25,6 +26,9 @@ export default async function DashboardPage() {
 	}
 
 	return (
-		<div className="h-[calc(100vh-64px)] w-full overflow-y-auto bg-slate-50 p-8 text-slate-900 sm:px-10 lg:px-12"></div>
+		<div className="flex h-full flex-col items-center justify-center">
+			<h1 className={`${rubik.className} text-5xl font-semibold leading-8 2md:text-6xl`}>Work in progress</h1>
+			<p className="mt-4 text-lg font-light text-slate-700">We are preparing to serve you better</p>
+		</div>
 	)
 }

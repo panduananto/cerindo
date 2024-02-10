@@ -9,11 +9,11 @@ import DashboardMainArea from '@/components/layouts/dashboard-main-area'
 import { SidebarNav, SidebarNavButtonToggler, SidebarNavProvider } from '@/components/layouts/sidebar-nav'
 import UserAccountNav from '@/components/user-account-nav'
 
-type DashboardLayoutProps = {
+type DashboardRootLayoutProps = {
 	children: React.ReactNode
 }
 
-export default async function DashboardLayout({ children }: DashboardLayoutProps) {
+export default async function DashboardRootLayout({ children }: DashboardRootLayoutProps) {
 	const supabase = getSupabaseServerClient()
 
 	const {
