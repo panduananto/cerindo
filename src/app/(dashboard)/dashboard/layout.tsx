@@ -1,9 +1,15 @@
 import React from 'react'
 
+import StoreProvider from '@/lib/store/store-provider'
+
 type DashboardLayoutProps = {
 	children: React.ReactNode
 }
 
 export default async function DashboardLayout({ children }: DashboardLayoutProps) {
-	return <div className="h-[calc(100vh-64px)] w-full overflow-y-auto bg-slate-50 text-slate-900">{children}</div>
+	return (
+		<StoreProvider>
+			<div className="relative h-[calc(100vh-65px)] w-full">{children}</div>
+		</StoreProvider>
+	)
 }

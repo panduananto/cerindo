@@ -31,17 +31,7 @@ export type ServiceItem = {
 	benefits: { text: string }[]
 }
 
-export type SearchAklQuery = Pick<Tables<'akl_items'>, 'id' | 'type' | 'name' | 'facility'> &
-	{
-		akl: Pick<Tables<'akl'>, 'brand_name' | 'created_at' | 'date' | 'expiry_date' | 'file_url' | 'id' | 'packaging'>
-		countries: Pick<Tables<'countries'>, 'code' | 'name'>
-		hscode: Pick<
-			Tables<'hscode'>,
-			'code' | 'import_dutyfees' | 'income_tax_api' | 'income_tax_non_api' | 'lartas' | 'value_added_tax'
-		>
-	}[]
-
-export type SearchAklResult = {
+export type Akl = {
 	id: string
 	type: string | null
 	name: string | null
@@ -65,4 +55,16 @@ export type SearchAklResult = {
 		lartas: string | null
 		value_added_tax: number | null
 	}
-}[]
+}
+
+export type SearchAklQuery = Pick<Tables<'akl_items'>, 'id' | 'type' | 'name' | 'facility'> &
+	{
+		akl: Pick<Tables<'akl'>, 'brand_name' | 'created_at' | 'date' | 'expiry_date' | 'file_url' | 'id' | 'packaging'>
+		countries: Pick<Tables<'countries'>, 'code' | 'name'>
+		hscode: Pick<
+			Tables<'hscode'>,
+			'code' | 'import_dutyfees' | 'income_tax_api' | 'income_tax_non_api' | 'lartas' | 'value_added_tax'
+		>
+	}[]
+
+export type SearchAklResult = Akl[]
