@@ -3,11 +3,9 @@ import { notFound } from 'next/navigation'
 
 import { dashboardConfig } from '@/config/dashboard'
 import { getSupabaseServerClient } from '@/lib/supabase/server'
-import { cn } from '@/lib/utils'
 
 import DashboardMainArea from '@/components/layouts/dashboard-main-area'
-import { SidebarNav, SidebarNavButtonToggler, SidebarNavProvider } from '@/components/layouts/sidebar-nav'
-import UserAccountNav from '@/components/user-account-nav'
+import { SidebarNav, SidebarNavProvider } from '@/components/layouts/sidebar-nav'
 
 type DashboardRootLayoutProps = {
 	children: React.ReactNode

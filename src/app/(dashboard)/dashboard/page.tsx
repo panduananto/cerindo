@@ -27,8 +27,8 @@ export default async function DashboardPage() {
 
 	return (
 		<div className="flex h-full flex-col items-center justify-center">
-			<h1 className={`${rubik.className} text-5xl font-semibold leading-8 2md:text-6xl`}>Work in progress</h1>
-			<p className="mt-4 text-lg font-light text-slate-700">We are preparing to serve you better</p>
+			<h1 className={`${rubik.className} text-5xl font-semibold leading-8 2md:text-6xl`}>Halaman sedang dikerjakan</h1>
+			<p className="mt-4 text-lg font-normal text-slate-700">Kami sedang mempersiapkan fitur yang lebih baik</p>
 		</div>
 	)
 }
