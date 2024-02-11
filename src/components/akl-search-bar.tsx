@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState, useTransition } from 'react'
 import { useDebounceValue, useOnClickOutside } from 'usehooks-ts'
 
 import { searchAkl } from '@/lib/actions/akl'
-import { aklAdded } from '@/lib/store/features/akl/akl-slice'
+import { addAkl } from '@/lib/store/features/akl/akl-slice'
 import { useAppDispatch, useAppSelector } from '@/lib/store/store'
 import { cn, getErrorMessage } from '@/lib/utils'
 
@@ -58,7 +58,7 @@ const AklSearchBar = () => {
 	}
 
 	const handleSaveItemAkl = (data: Akl) => {
-		dispatch(aklAdded(data))
+		dispatch(addAkl(data))
 	}
 
 	useOnClickOutside(ref, handleReset)

@@ -2,7 +2,8 @@
 
 import React from 'react'
 
-import { useAppSelector } from '@/lib/store/store'
+import { deleteAkl } from '@/lib/store/features/akl/akl-slice'
+import { useAppDispatch, useAppSelector } from '@/lib/store/store'
 
 import { Button } from './ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
@@ -10,6 +11,7 @@ import Icons from './ui/icons'
 
 const AklTable = () => {
 	const akl = useAppSelector((state) => state.akl)
+	const dispatch = useAppDispatch()
 
 	return (
 		<div className="flex max-w-full flex-auto flex-col overflow-auto">
@@ -56,7 +58,7 @@ const AklTable = () => {
 					<tbody className="w-full divide-y divide-slate-200 overflow-y-auto">
 						{akl.map((item) => {
 							return (
-								<Collapsible asChild>
+								<Collapsible asChild key={item.id}>
 									<React.Fragment>
 										<tr>
 											<td className="whitespace-nowrap pl-4 pr-3 text-left text-sm uppercase tracking-normal text-slate-700">
@@ -234,9 +236,9 @@ const AklTable = () => {
 														</div>
 													</div>
 													<div className="flex flex-row border-t border-slate-300 px-6 py-4 shadow-lg">
-														<button className="inline-flex items-center justify-center rounded bg-white p-2 px-4 text-sm font-medium text-red-600 transition-colors duration-150 ease-in-out hover:bg-red-200/70 focus:bg-red-200/70 focus:outline-none focus:ring-0">
-															Delete
-														</button>
+														<Button variant="destructive" onClick={() => dispatch(deleteAkl({ id: item.id }))}>
+															Hapus
+														</Button>
 													</div>
 												</td>
 											</tr>
