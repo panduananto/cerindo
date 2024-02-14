@@ -33,13 +33,8 @@ const RegisterForm = () => {
 		if (!validatedFields.success) {
 			const errorMessage = getErrorMessage(validatedFields.error)
 
-			toast.custom((t) => {
-				return (
-					<div>
-						<h1>Oops!</h1>
-						<p>{errorMessage}</p>
-					</div>
-				)
+			toast.error('Oops!', {
+				description: errorMessage,
 			})
 
 			return
@@ -54,13 +49,8 @@ const RegisterForm = () => {
 		const response = await registerWithEmail(formData)
 
 		if (response?.error) {
-			toast.custom((t) => {
-				return (
-					<div>
-						<h1>Oops!</h1>
-						<p>{response.error}</p>
-					</div>
-				)
+			toast.error('Oops!', {
+				description: response.error,
 			})
 
 			return

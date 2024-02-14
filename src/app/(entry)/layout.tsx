@@ -1,5 +1,4 @@
 import React from 'react'
-import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { getSupabaseServerClient } from '@/lib/supabase/server'

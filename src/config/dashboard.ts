@@ -39,5 +39,11 @@ export const dashboardConfig: DashboardConfig = {
 			icon: 'heartPulse',
 			items: [],
 		},
+		{
+			title: 'Surat Keputusan Pabean',
+			href: '/dashboard/skpabean',
+			icon: 'bookCheck',
+			items: [],
+		},
 	],
 }

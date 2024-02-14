@@ -1,11 +1,11 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { AccordionHeader } from '@radix-ui/react-accordion'
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
+import { motion, MotionConfig } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { useMediaQuery } from 'usehooks-ts'
 
