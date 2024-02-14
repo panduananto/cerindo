@@ -2,10 +2,11 @@
 
 import React, { useEffect, useRef, useState, useTransition } from 'react'
 
+import { toast } from 'sonner'
 import { useDebounceValue, useOnClickOutside } from 'usehooks-ts'
 
 import { searchAkl } from '@/lib/actions/akl'
-import { addAkl } from '@/lib/store/features/akl/akl-slice'
+import { addAkl, selectAllAkl } from '@/lib/store/features/akl/akl-slice'
 import { useAppDispatch, useAppSelector } from '@/lib/store/store'
 import { cn, getErrorMessage } from '@/lib/utils'
 
@@ -14,13 +15,11 @@ import { Card, CardContent } from './ui/card'
 import Icons from './ui/icons'
 import { Input } from './ui/input'
 import { ScrollArea } from './ui/scroll-area'
-import { useToast } from './ui/use-toast'
+import { Skeleton } from './ui/skeleton'
 
 import type { Akl, SearchAklResult } from '@/types'
 
 const AklSearchBar = () => {
-	const { toast } = useToast()
-
 	const [query, setQuery] = useState<string>('')
 	const [debouncedQuery, setDebouncedQuery] = useDebounceValue(query, 300)
 	const [data, setData] = useState<SearchAklResult | null>(null)
@@ -28,6 +27,8 @@ const AklSearchBar = () => {
 
 	const ref = useRef(null)
 	const dispatch = useAppDispatch()
+
+	const allAkl = useAppSelector(selectAllAkl)
 
 	useEffect(() => {
 		if (debouncedQuery === '') {
@@ -40,10 +41,13 @@ const AklSearchBar = () => {
 				const data = await searchAkl(debouncedQuery)
 				setData(data)
 			} catch (error: unknown) {
-				toast({
-					variant: 'destructive',
-					title: 'Something went wrong',
-					description: getErrorMessage(error),
+				toast.custom((t) => {
+					return (
+						<div>
+							<h1>Oops!</h1>
+							<p>{getErrorMessage(error)}</p>
+						</div>
+					)
 				})
 			}
 		}
@@ -58,7 +62,16 @@ const AklSearchBar = () => {
 	}
 
 	const handleSaveItemAkl = (data: Akl) => {
+		const aklIdFormatted = data.id_akl.split('_').join(' ')
+		const duplicateAkl = allAkl.some((akl) => akl.id_akl === data.id_akl)
+
 		dispatch(addAkl(data))
+
+		if (duplicateAkl) {
+			toast.warning(`${aklIdFormatted} telah terdaftar`)
+		} else {
+			toast.success(`${aklIdFormatted} berhasil ditambahkan`)
+		}
 	}
 
 	useOnClickOutside(ref, handleReset)
@@ -92,12 +105,15 @@ const AklSearchBar = () => {
 				<Card
 					className={cn(
 						'absolute left-1/2 top-14 z-50 -translate-x-1/2 shadow-lg',
-						isPending || (data?.length === 0 && 'w-full sm:w-max'),
-						data && data.length !== 0 && 'w-full',
+						data?.length === 0 && 'w-full sm:w-max',
+						(isPending || (data && data.length !== 0)) && 'w-full',
 					)}
 				>
 					{isPending ? (
-						<CardContent className="p-4">Sedang mencari izin AKL...</CardContent>
+						<CardContent className="p-4">
+							<Skeleton className="h-6 w-full rounded-md" />
+							<Skeleton className="mt-2 h-6 w-72 rounded-md" />
+						</CardContent>
 					) : data && data.length !== 0 ? (
 						<CardContent className="w-full p-0">
 							<ScrollArea className="max-h-60">

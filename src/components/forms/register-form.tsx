@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import { useRouter } from 'next/navigation'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import * as z from 'zod'
 
 import { registerWithEmail } from '@/lib/actions/auth'
@@ -14,14 +14,10 @@ import { authSchema } from '@/lib/validations/auth'
 import LoadingButton from '../loading-button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
-import { useToast } from '../ui/use-toast'
 
 type Inputs = z.infer<typeof authSchema>
 
 const RegisterForm = () => {
-	const { toast } = useToast()
-
-	const router = useRouter()
 	const form = useForm<Inputs>({
 		mode: 'onTouched',
 		resolver: zodResolver(authSchema),
@@ -36,9 +32,14 @@ const RegisterForm = () => {
 
 		if (!validatedFields.success) {
 			const errorMessage = getErrorMessage(validatedFields.error)
-			toast({
-				title: 'Registration failed!',
-				description: errorMessage,
+
+			toast.custom((t) => {
+				return (
+					<div>
+						<h1>Oops!</h1>
+						<p>{errorMessage}</p>
+					</div>
+				)
 			})
 
 			return
@@ -53,9 +54,13 @@ const RegisterForm = () => {
 		const response = await registerWithEmail(formData)
 
 		if (response?.error) {
-			toast({
-				title: 'Registration failed!',
-				description: response.error,
+			toast.custom((t) => {
+				return (
+					<div>
+						<h1>Oops!</h1>
+						<p>{response.error}</p>
+					</div>
+				)
 			})
 
 			return

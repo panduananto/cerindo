@@ -38,7 +38,7 @@ export const SidebarNavProvider = ({ children }: SidebarNavProviderProps) => {
 	const [open, setOpen] = useState<boolean>(true)
 	const [mode, setMode] = useState<SidebarNavMode>('side')
 
-	const isSmall = useMediaQuery('(max-width: 768px)', { initializeWithValue: false })
+	const isSmall = useMediaQuery('(max-width: 860px)', { initializeWithValue: false })
 
 	useEffect(() => {
 		if (isSmall) {

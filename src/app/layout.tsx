@@ -8,7 +8,7 @@ import { env } from '@/env.mjs'
 import { inter } from '@/config/font'
 import { siteConfig } from '@/config/site'
 
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/components/ui/sonner'
 
 export const viewport: Viewport = {
 	themeColor: [
@@ -70,7 +70,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 			<head />
 			<body className="h-full bg-white text-slate-900">
 				{children}
-				<Toaster />
+				<Toaster position="top-right" richColors />
 			</body>
 		</html>
 	)
