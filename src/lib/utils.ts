@@ -1,3 +1,5 @@
+import { ReadonlyURLSearchParams } from 'next/navigation'
+
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import * as z from 'zod'
@@ -50,4 +52,11 @@ export function getErrorMessage(error: unknown): string {
 
 export function getHash(): string | undefined {
 	return typeof window !== 'undefined' ? decodeURIComponent(window.location.hash.replace('#', '')) : undefined
+}
+
+export function createUrl(pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) {
+	const paramsString = params.toString()
+	const queryString = `${paramsString.length ? '?' : ''}${paramsString}`
+
+	return `${pathname}${queryString}`
 }

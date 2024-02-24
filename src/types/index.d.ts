@@ -68,3 +68,7 @@ export type SearchAklQuery = Pick<Tables<'akl_items'>, 'id' | 'type' | 'name' | 
 	}[]
 
 export type SearchAklResult = Akl[]
+
+export type Importer = Tables<'importers'>
+
+export type ImporterList = Pick<Importer, 'id' | 'company_name' | 'npwp'>[]

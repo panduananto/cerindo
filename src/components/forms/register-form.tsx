@@ -66,7 +66,7 @@ const RegisterForm = () => {
 					render={({ field }) => {
 						return (
 							<FormItem>
-								<FormLabel>Email</FormLabel>
+								<FormLabel htmlFor="email">Email</FormLabel>
 								<FormControl>
 									<Input type="email" placeholder="youremail@emailservice.com" {...field} />
 								</FormControl>
@@ -81,7 +81,7 @@ const RegisterForm = () => {
 					render={({ field }) => {
 						return (
 							<FormItem>
-								<FormLabel>Password</FormLabel>
+								<FormLabel htmlFor="password">Password</FormLabel>
 								<FormControl>
 									<Input type="password" placeholder="********" {...field} />
 								</FormControl>

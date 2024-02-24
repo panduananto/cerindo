@@ -4,9 +4,9 @@ import React, { useRef } from 'react'
 
 import { Provider } from 'react-redux'
 
-import { makeStore } from './store'
+import { makeStore } from '../../lib/store/store'
 
-import type { AppStore } from './store'
+import type { AppStore } from '../../lib/store/store'
 
 type StoreProviderProps = {
 	children: React.ReactNode

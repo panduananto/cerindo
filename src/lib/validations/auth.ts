@@ -21,6 +21,7 @@ function hasSpecialCharacter(value: string) {
 }
 
 export const validProviders = ['google', 'twitter', 'discord'] as const
+
 export const oauthSchema = z.object({
 	provider: z.enum(validProviders).refine((value) => validProviders.includes(value), {
 		message: 'Invalid oauth provider',

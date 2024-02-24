@@ -124,10 +124,12 @@ export const SidebarNav = ({ items }: SidebarNavProps) => {
 									<AccordionItem value={item.title} key={index} className="border-b-0">
 										{item.items.length !== 0 ? (
 											<React.Fragment>
-												<div className="mx-2 flex items-center px-4">
+												<div className="mx-2 flex items-center px-4 text-foreground/70 hover:text-foreground">
 													<Icon className="mr-2 size-5" />
 													<AccordionHeader className="flex flex-1">
-														<AccordionTrigger className="py-2 text-sm capitalize">{item.title}</AccordionTrigger>
+														<AccordionTrigger className="py-2 text-sm capitalize hover:no-underline">
+															{item.title}
+														</AccordionTrigger>
 													</AccordionHeader>
 												</div>
 												<AccordionContent className="py-2">
@@ -138,15 +140,18 @@ export const SidebarNav = ({ items }: SidebarNavProps) => {
 																	key={subItem.title}
 																	href={subItem.href}
 																	className={cn(
-																		'mx-2 px-4 text-foreground/70 transition-colors hover:text-foreground',
-																		subItem.href === pathname && 'text-primary',
+																		'mx-2 px-4 font-medium text-foreground/70 transition-colors hover:text-foreground',
+																		subItem.href === pathname && 'text-primary hover:text-primary',
 																		subItem.disabled && 'pointer-events-none opacity-60',
 																	)}
 																>
 																	{subItem.title}
 																</Link>
 															) : (
-																<div key={index} className="text-foreground/70 transition-colors">
+																<div
+																	key={index}
+																	className="font-medium text-foreground/70 transition-colors hover:text-foreground"
+																>
 																	{item.title}
 																</div>
 															)
@@ -158,8 +163,8 @@ export const SidebarNav = ({ items }: SidebarNavProps) => {
 											<Link
 												href={item.href}
 												className={cn(
-													'mx-2 flex items-center px-4 py-2 text-sm capitalize',
-													item.href === pathname && 'text-primary',
+													'mx-2 flex items-center px-4 py-2 text-sm font-medium capitalize text-foreground/70 transition-colors hover:text-foreground',
+													item.href === pathname && 'text-primary hover:text-primary',
 												)}
 											>
 												<Icon className="mr-2 size-5" />

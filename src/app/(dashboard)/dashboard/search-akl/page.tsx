@@ -13,7 +13,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
 	metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-	title: 'Dashboard: Search AKL',
+	title: 'Cerindo | Dashboard',
 	description: "Cerindo's powerful dashboard for efficient task management and insightful analytics",
 }
 

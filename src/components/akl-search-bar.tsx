@@ -80,7 +80,7 @@ const AklSearchBar = () => {
 		<div ref={ref} className="relative mt-4 flex flex-col items-center justify-center rounded bg-white">
 			<div className="relative w-full flex-1">
 				<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<Icons.search className="size-4 text-slate-400" />
+					<Icons.search className="size-4 text-slate-400" aria-hidden="true" />
 				</div>
 				<Input
 					autoComplete="off"
@@ -94,10 +94,16 @@ const AklSearchBar = () => {
 				/>
 				{query !== '' && (
 					<div className="absolute inset-y-0 right-0 flex items-center pr-3">
-						<Button variant="ghost" size="icon" onClick={handleReset}>
-							<Icons.x className="size-4" />
-							<span className="sr-only">Clear search query</span>
-						</Button>
+						{isPending ? (
+							<React.Fragment>
+								<Icons.loader className="size-4 animate-spin" />
+							</React.Fragment>
+						) : (
+							<Button variant="ghost" size="icon" disabled={isPending ? true : false} onClick={handleReset}>
+								<Icons.x className="size-4" />
+								<span className="sr-only">Clear search query</span>
+							</Button>
+						)}
 					</div>
 				)}
 			</div>

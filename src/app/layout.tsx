@@ -8,6 +8,7 @@ import { env } from '@/env.mjs'
 import { inter } from '@/config/font'
 import { siteConfig } from '@/config/site'
 
+import ReactQueryClientProvider from '@/components/providers/react-query-client-provider'
 import { Toaster } from '@/components/ui/sonner'
 
 export const viewport: Viewport = {
@@ -68,10 +69,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang="en" className={`${inter.className} h-full scroll-smooth`}>
 			<head />
-			<body className="h-full bg-white text-slate-900">
-				{children}
-				<Toaster position="top-right" richColors />
-			</body>
+			<ReactQueryClientProvider>
+				<body className="h-full bg-white text-slate-900">
+					{children}
+					<Toaster position="top-right" richColors />
+				</body>
+			</ReactQueryClientProvider>
 		</html>
 	)
 }
