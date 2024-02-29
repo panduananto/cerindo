@@ -29,7 +29,7 @@ const SiteHeader = ({ user }: SiteHeaderProps) => {
 			style={{
 				translateY: useMotionTemplate`calc(${useTransform(scrollYBoundedProgressDelayed, [0, 1], [0, -100])} * 1%)`,
 			}}
-			className="sticky inset-x-0 top-0 z-40 w-full border-b border-slate-900/10 bg-white"
+			className="sticky inset-x-0 top-0 z-40 w-full border-b border-secondary-foreground/10 bg-background"
 		>
 			<div className="relative mx-auto flex h-16 max-w-6xl items-center px-4 sm:px-6 lg:px-8">
 				<div className="flex items-center">

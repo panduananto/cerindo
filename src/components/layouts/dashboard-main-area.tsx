@@ -48,7 +48,7 @@ const DashboardMainArea = ({ children, user }: DashboardMainAreaProps) => {
 					open ? 'w-full md:w-[calc(100%-280px)]' : 'w-full',
 				)}
 			>
-				<header className="sticky inset-x-0 top-0 z-30 w-full border-b border-slate-300 bg-white shadow">
+				<header className="sticky inset-x-0 top-0 z-30 w-full border-b border-slate-300 bg-background shadow">
 					<div className="relative mx-auto flex h-16 max-w-full items-center justify-between px-4 sm:px-6 lg:px-8">
 						<SidebarNavButtonToggler />
 						<UserAccountNav user={user} />

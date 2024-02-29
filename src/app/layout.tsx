@@ -70,7 +70,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 		<html lang="en" className={`${inter.className} h-full scroll-smooth`}>
 			<head />
 			<ReactQueryClientProvider>
-				<body className="h-full bg-white text-slate-900">
+				<body className="h-full bg-background text-secondary-foreground">
 					{children}
 					<Toaster position="top-right" richColors />
 				</body>

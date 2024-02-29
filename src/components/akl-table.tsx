@@ -22,42 +22,42 @@ const AklTable = () => {
 					<tr>
 						<th
 							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-slate-100 py-3 pl-4 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
+							className="sticky top-0 z-10 whitespace-nowrap bg-muted py-3 pl-4 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
 						></th>
 						<th
 							scope="col"
-							className="sticky top-0 z-10 hidden whitespace-nowrap bg-slate-100 py-3 pr-4 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-[''] 2md:table-cell"
+							className="sticky top-0 z-10 hidden whitespace-nowrap bg-muted py-3 pr-4 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-[''] 2md:table-cell"
 						>
 							Tipe
 						</th>
 						<th
 							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-slate-100 px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
+							className="sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
 						>
 							Deskripsi
 						</th>
 						<th
 							scope="col"
-							className="sticky top-0 z-10 hidden whitespace-nowrap bg-slate-100 px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-[''] lg:table-cell"
+							className="sticky top-0 z-10 hidden whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-[''] lg:table-cell"
 						>
 							Negara
 						</th>
 						<th
 							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-slate-100 px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
+							className="sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
 						>
 							Status
 						</th>
 						<th
 							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-slate-100 px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
+							className="sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
 						>
 							Details
 						</th>
 					</tr>
 				</thead>
 				{aklIds.length !== 0 ? (
-					<tbody className="w-full divide-y divide-slate-200 overflow-y-auto">
+					<tbody className="w-full divide-y divide-border overflow-y-auto">
 						{aklIds.map((id) => {
 							return <AklTableRow key={id} id={id} />
 						})}
@@ -142,7 +142,7 @@ const AklTableRow = ({ id }: AklTableRowProps) => {
 					</td>
 					<td className="flex items-center justify-start whitespace-nowrap px-4 py-3 text-left text-sm uppercase tracking-normal text-slate-700">
 						<CollapsibleTrigger asChild>
-							<Button variant="ghost" size="icon" className="border border-slate-300 hover:bg-slate-100">
+							<Button variant="ghost" size="icon" className="border border-slate-300 hover:bg-muted">
 								<Icons.chevronDown className="size-5" />
 								<span className="sr-only">Drag to reorder</span>
 							</Button>

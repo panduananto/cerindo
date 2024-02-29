@@ -23,7 +23,7 @@ const MainNav = ({ items }: MainNavProps) => {
 			{items?.[0]?.items ? (
 				<nav
 					aria-label="Main"
-					className="flex items-center text-sm font-semibold leading-6 text-slate-900 first-letter:uppercase"
+					className="flex items-center text-sm font-semibold leading-6 text-secondary-foreground first-letter:uppercase"
 				>
 					<ul className="flex space-x-8">
 						{items[0].items.map((item) => (
@@ -31,7 +31,7 @@ const MainNav = ({ items }: MainNavProps) => {
 								<a
 									href={item.href}
 									className={cn(
-										'block transition-colors duration-150 ease-in-out first-letter:uppercase hover:text-red-600',
+										'block transition-colors duration-150 ease-in-out first-letter:uppercase hover:text-primary',
 										item.href?.includes(String(hash)) && String(hash) !== '' && 'text-primary',
 									)}
 								>

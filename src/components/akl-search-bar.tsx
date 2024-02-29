@@ -77,7 +77,7 @@ const AklSearchBar = () => {
 	useOnClickOutside(ref, handleReset)
 
 	return (
-		<div ref={ref} className="relative mt-4 flex flex-col items-center justify-center rounded bg-white">
+		<div ref={ref} className="relative mt-4 flex flex-col items-center justify-center rounded bg-background">
 			<div className="relative w-full flex-1">
 				<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<Icons.search className="size-4 text-slate-400" aria-hidden="true" />
@@ -138,7 +138,7 @@ const AklSearchBar = () => {
 													{akl.type} - {akl.countries.name}
 												</p>
 												<p className="mt-3 text-sm text-slate-700">
-													<span className="font-semibold text-red-600">Expiry date:</span>{' '}
+													<span className="font-semibold text-primary">Expiry date:</span>{' '}
 													{new Date(akl.expiry_date ? akl.expiry_date : Date.now()).toLocaleDateString()}
 												</p>
 											</li>

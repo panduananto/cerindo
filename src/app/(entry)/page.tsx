@@ -27,12 +27,12 @@ export default async function IndexPage() {
 							className="bg-no-repeat object-cover object-center"
 						/>
 					</div>
-					<div className="z-20 mx-auto flex size-full max-w-6xl flex-col items-center justify-center px-4 py-7 text-white sm:px-6 md:items-start lg:px-8">
+					<div className="z-20 mx-auto flex size-full max-w-6xl flex-col items-center justify-center px-4 py-7 text-background sm:px-6 md:items-start lg:px-8">
 						<h1 className={`${rubik.className} text-5xl font-bold md:text-7xl`}>Trusted!</h1>
 						<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">Done by experienced people.</p>
 					</div>
 				</header>
-				<aside className="bg-red-600 text-white">
+				<aside className="bg-primary text-background">
 					<div className="mx-auto flex max-w-6xl flex-col items-center justify-between space-y-0 divide-y divide-red-700/90 px-4 py-10 sm:px-6 2md:flex-row 2md:space-y-0 2md:divide-y-0 lg:px-8 lg:py-14">
 						{marketingConfig.overviews.map((overview) => {
 							const Icon = Icons[overview.icon as keyof typeof Icons]
@@ -48,7 +48,7 @@ export default async function IndexPage() {
 										{overview.asLink ? (
 											<a
 												href={`${overview.linkType}:${overview.text}`}
-												className="block rounded text-base font-medium hover:underline hover:decoration-2 hover:underline-offset-4 focus:outline-dashed focus:outline-2 focus:outline-offset-4 focus:outline-white 2md:text-lg"
+												className="block rounded text-base font-medium hover:underline hover:decoration-2 hover:underline-offset-4 focus:outline-dashed focus:outline-2 focus:outline-offset-4 focus:outline-background 2md:text-lg"
 											>
 												{overview.text}
 											</a>
@@ -62,11 +62,13 @@ export default async function IndexPage() {
 					</div>
 				</aside>
 			</div>
-			<section id="client" className="w-full bg-white">
+			<section id="client" className="w-full bg-background">
 				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
 					<div className="text-center">
-						<h1 className={`${rubik.className} text-xl font-extrabold text-slate-900 sm:text-2xl md:text-3xl`}>
-							Take a look at our <span className="text-red-600">clients</span>
+						<h1
+							className={`${rubik.className} text-xl font-extrabold text-secondary-foreground sm:text-2xl md:text-3xl`}
+						>
+							Take a look at our <span className="text-primary">clients</span>
 						</h1>
 						<p className="mt-2 text-base text-slate-700 md:text-lg">
 							We did a great job with these companies. You can be the next to work with us!
@@ -78,8 +80,10 @@ export default async function IndexPage() {
 			<section id="service" className="w-full bg-slate-200/30">
 				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
 					<div className="text-center">
-						<h1 className={`${rubik.className} text-xl font-extrabold text-slate-900 sm:text-2xl md:text-3xl`}>
-							<span className="text-red-600">Services</span> offered to your business
+						<h1
+							className={`${rubik.className} text-xl font-extrabold text-secondary-foreground sm:text-2xl md:text-3xl`}
+						>
+							<span className="text-primary">Services</span> offered to your business
 						</h1>
 						<p className="mt-2 text-base text-slate-700 md:text-lg">
 							We provide the best in class services for our customers.
@@ -109,8 +113,8 @@ export default async function IndexPage() {
 								const Icon = Icons[item.icon as keyof typeof Icons]
 
 								return (
-									<div key={item.id} className="col-span-6 rounded bg-zinc-100 p-4 lg:col-span-2">
-										<Icon className="size-7 text-slate-900" />
+									<div key={item.id} className="col-span-6 rounded bg-muted p-4 lg:col-span-2">
+										<Icon className="size-7 text-secondary-foreground" />
 										<h3>{item.siteName}</h3>
 										<p>{item.address}</p>
 										<div className="flex">

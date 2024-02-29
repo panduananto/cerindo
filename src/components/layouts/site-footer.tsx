@@ -15,7 +15,7 @@ function SiteFooter() {
 				<div className="col-span-12 pb-6 pt-10 md:col-span-4 md:pb-10">
 					<Logo></Logo>
 					<div className="mt-6 font-light text-slate-600">
-						<p className={`${rubik.className} font-medium text-slate-900`}>Cerindo</p>
+						<p className={`${rubik.className} font-medium text-secondary-foreground`}>Cerindo</p>
 						<p>Puri Sentra Niaga Blok B No. 37</p>
 						<p>Jatiwaringin, Pondok Gede</p>
 						<p>Jakarta Timur 13620</p>
@@ -38,13 +38,13 @@ function SiteFooter() {
 							<h4 className={`${rubik.className} mt-3 text-5xl font-medium text-slate-700`}>Solutions!</h4>
 							<Link
 								href="about-us"
-								className="mt-4 inline-flex items-center text-lg text-slate-900 hover:underline hover:underline-offset-4"
+								className="mt-4 inline-flex items-center text-lg text-secondary-foreground hover:underline hover:underline-offset-4"
 							>
 								<Icons.chevronRight className="size-5" aria-hidden="true" />
 								About us
 							</Link>
 						</div>
-						<div className="flex flex-col items-start space-y-3 text-slate-900">
+						<div className="flex flex-col items-start space-y-3 text-secondary-foreground">
 							<Link href="projects" className="inline-block hover:underline">
 								Projects
 							</Link>
@@ -72,7 +72,7 @@ function SiteFooter() {
 					</div>
 				</div>
 			</div>
-			<div className="border-t border-slate-300 bg-slate-50 py-4 text-center text-xs font-extralight text-slate-900">
+			<div className="border-t border-slate-300 bg-secondary py-4 text-center text-xs text-secondary-foreground">
 				<p>&#169; 2022 Cerindo</p>
 			</div>
 		</footer>

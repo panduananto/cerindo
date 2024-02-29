@@ -9,6 +9,7 @@ import ImportersForm from '@/components/forms/importers-form'
 import ShipmentForm from '@/components/forms/shipment-form'
 import ImportersList from '@/components/importers-list'
 import ImportersSearchBar from '@/components/importers-search-bar'
+import SkpabeanFooter from '@/components/skpabean-footer'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -40,7 +41,7 @@ export default async function SkpabeanPage({ searchParams }: SkpabeanPageProps) 
 	return (
 		<div className="flex h-full min-h-full overflow-hidden">
 			<div className="relative flex w-full min-w-0 flex-auto flex-col bg-background lg:min-w-[350px] lg:max-w-[350px]">
-				<div className="flex flex-[0_0_auto] flex-col border-b bg-slate-50 px-8 py-4">
+				<div className="flex flex-[0_0_auto] flex-col border-b bg-secondary px-8 py-4">
 					<ImportersSearchBar />
 				</div>
 				<ScrollArea type="auto">
@@ -102,6 +103,7 @@ export default async function SkpabeanPage({ searchParams }: SkpabeanPageProps) 
 						</div>
 					</div>
 				</ScrollArea>
+				<SkpabeanFooter />
 			</div>
 		</div>
 	)

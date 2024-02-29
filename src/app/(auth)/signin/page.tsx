@@ -35,7 +35,7 @@ export default async function SignInPage() {
 		<section className="container mx-auto flex h-full max-w-lg flex-col items-start justify-center rounded-lg px-0">
 			<div className="inline-flex flex-col items-start">
 				<Link href="/" className="mb-4 inline-flex items-center text-sm hover:underline hover:underline-offset-4">
-					<Icons.arrowLeft className="mr-2 size-5 text-slate-900" />
+					<Icons.arrowLeft className="mr-2 size-5 text-secondary-foreground" />
 					Go back to homepage
 				</Link>
 			</div>
@@ -54,22 +54,26 @@ export default async function SignInPage() {
 							<span className="w-full border-t" />
 						</div>
 						<div className="relative flex justify-center text-xs uppercase">
-							<span className="bg-white px-2 text-slate-500">Or continue with</span>
+							<span className="bg-white px-2 text-muted-foreground">Or continue with</span>
 						</div>
 					</div>
 					<SignInForm />
 				</CardContent>
 				<CardFooter className="flex justify-between text-sm">
-					<p className="text-slate-500">
+					<p className="text-muted-foreground">
 						Don't have an account?{' '}
-						<Link aria-label="Sign up" href="/register" className="font-medium text-slate-900 hover:underline">
+						<Link
+							aria-label="Sign up"
+							href="/register"
+							className="font-medium text-secondary-foreground hover:underline"
+						>
 							Sign up
 						</Link>
 					</p>
 					<Link
 						aria-label="Reset password"
 						href="/account/reset-password"
-						className="font-medium text-slate-900 hover:underline"
+						className="font-medium text-secondary-foreground hover:underline"
 					>
 						Reset password
 					</Link>

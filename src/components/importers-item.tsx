@@ -20,7 +20,7 @@ const ImportersItem = ({ item }: ImportersItem) => {
 
 	return (
 		<li key={item.id} className="flex flex-col items-start border-b hover:bg-muted">
-			<Link href={href} className="px-8 py-5">
+			<Link href={href} className="w-full px-8 py-2">
 				<p className="font-medium">{item.company_name}</p>
 				<p className="font-normal text-slate-700">{item.npwp}</p>
 			</Link>

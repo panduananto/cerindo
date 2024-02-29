@@ -175,7 +175,7 @@ const AklTableFooter = () => {
 	}
 
 	return (
-		<div className="mt-auto flex items-center justify-between border-t border-slate-300 bg-white px-4 py-3 sm:px-6 lg:px-8">
+		<div className="mt-auto flex items-center justify-between border-t border-slate-300 bg-background px-4 py-3 sm:px-6 lg:px-8">
 			<p className="shrink-0 text-[13px] text-slate-700">
 				<span className="font-extrabold">{allAkl.length}</span> barang dan{' '}
 				<span className="font-extrabold">{distinctAkl.length}</span> izin AKL terpilih
