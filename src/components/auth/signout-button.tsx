@@ -14,10 +14,14 @@ const SignoutButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttrib
 		return (
 			<button
 				className={cn(className)}
-				disabled={isPending && disabled}
-				onClick={() => startTransition(() => logout())}
-				ref={ref}
+				disabled={isPending || disabled}
 				{...props}
+				onClick={() => {
+					startTransition(() => {
+						logout()
+					})
+				}}
+				ref={ref}
 			>
 				{isPending ? (
 					<Icons.loader className="mr-2 size-4 animate-spin" aria-hidden="true" />

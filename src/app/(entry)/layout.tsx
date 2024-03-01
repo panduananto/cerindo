@@ -17,10 +17,6 @@ export default async function EntryLayout({ children }: EntryLayoutProps) {
 		data: { user },
 	} = await supabase.auth.getUser()
 
-	if (!user) {
-		return notFound()
-	}
-
 	return (
 		<div className="flex min-h-full flex-col">
 			<SiteHeader user={user} />
