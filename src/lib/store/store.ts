@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector, useStore } from 'react-redux'
 
 import aklReducer from './features/akl/akl-slice'
+import skpReducer from './features/skp/skp-slice'
 
 import type { TypedUseSelectorHook } from 'react-redux'
 
@@ -9,6 +10,7 @@ export const makeStore = () => {
 	return configureStore({
 		reducer: {
 			akl: aklReducer,
+			skp: skpReducer,
 		},
 	})
 }

@@ -10,8 +10,10 @@ import * as z from 'zod'
 
 import { updateImporter } from '@/lib/actions/importers'
 import { getImporterById } from '@/lib/queries/importers'
+import { upsertImporter } from '@/lib/store/features/skp/skp-slice'
+import { useAppDispatch } from '@/lib/store/store'
 import getSupabaseBrowserClient from '@/lib/supabase/client'
-import { getErrorMessage } from '@/lib/utils'
+import { deepEqual, getErrorMessage } from '@/lib/utils'
 import { importersSchema } from '@/lib/validations/skpabean'
 
 import LoadingButton from '../loading-button'
@@ -35,6 +37,8 @@ const useImporterById = (id: string) => {
 
 const ImportersForm = ({ query }: { query: string }) => {
 	const queryClient = useQueryClient()
+	const dispatch = useAppDispatch()
+
 	const { data: importer, isLoading, isError } = useImporterById(query)
 
 	const form = useForm<Inputs>({
@@ -49,12 +53,12 @@ const ImportersForm = ({ query }: { query: string }) => {
 			address: '',
 		},
 		values: {
-			pic: importer?.official_name ?? '',
-			picTitle: importer?.official_title ?? '',
-			company: importer?.company_name ?? '',
+			pic: importer?.pic ?? '',
+			picTitle: importer?.picTitle ?? '',
+			company: importer?.company ?? '',
 			npwp: importer?.npwp ?? '',
-			phone: importer?.company_phone ?? '',
-			address: importer?.company_address ?? '',
+			phone: importer?.phone ?? '',
+			address: importer?.address ?? '',
 		},
 	})
 
@@ -85,21 +89,33 @@ const ImportersForm = ({ query }: { query: string }) => {
 			formData.append(key, value)
 		})
 
-		const response = await updateImporter(query, formData)
+		const current = queryClient.getQueryData(['importer-by-id', { id: query }])
 
-		if (response?.error) {
-			toast.error('Oops!', {
-				description: response.error,
+		if (deepEqual(values, current)) {
+			dispatch(upsertImporter(values))
+
+			toast.success('Sukses!', {
+				description: 'Dokumen importir berhasil diupdate!',
+			})
+		} else {
+			const response = await updateImporter(query, formData)
+
+			if (response?.error) {
+				toast.error('Oops!', {
+					description: response.error,
+				})
+
+				return
+			}
+
+			dispatch(upsertImporter(values))
+
+			toast.success('Sukses!', {
+				description: 'Data importir berhasil diupdate!',
 			})
 
-			return
+			queryClient.invalidateQueries({ queryKey: ['importer-by-id', { id: query }] })
 		}
-
-		toast.success('Sukses!', {
-			description: 'Data importir berhasil diupdate!',
-		})
-
-		queryClient.invalidateQueries({ queryKey: ['importer-by-id', { id: query }] })
 	}
 
 	return (
@@ -122,11 +138,11 @@ const ImportersForm = ({ query }: { query: string }) => {
 													</div>
 												)}
 												<Input
-													autoComplete="off"
 													type="text"
+													{...field}
+													autoComplete="off"
 													id="pic"
 													placeholder="Masukkan nama direksi perusahaan importir..."
-													{...field}
 												/>
 											</div>
 										</FormControl>
@@ -152,11 +168,11 @@ const ImportersForm = ({ query }: { query: string }) => {
 													</div>
 												)}
 												<Input
-													autoComplete="off"
 													type="text"
+													{...field}
+													autoComplete="off"
 													id="picTitle"
 													placeholder="Masukkan jabatan direksi perusahaan importir..."
-													{...field}
 												/>
 											</div>
 										</FormControl>
@@ -182,11 +198,11 @@ const ImportersForm = ({ query }: { query: string }) => {
 													</div>
 												)}
 												<Input
-													autoComplete="off"
 													type="text"
+													{...field}
+													autoComplete="off"
 													id="company"
 													placeholder="Masukkan nama perusahaan importir..."
-													{...field}
 												/>
 											</div>
 										</FormControl>
@@ -212,11 +228,11 @@ const ImportersForm = ({ query }: { query: string }) => {
 													</div>
 												)}
 												<Input
-													autoComplete="off"
 													type="text"
+													{...field}
+													autoComplete="off"
 													id="npwp"
 													placeholder="Masukkan npwp perusahaan importir..."
-													{...field}
 												/>
 											</div>
 										</FormControl>
@@ -242,11 +258,11 @@ const ImportersForm = ({ query }: { query: string }) => {
 													</div>
 												)}
 												<Input
-													autoComplete="off"
 													type="text"
+													{...field}
+													autoComplete="off"
 													id="phone"
 													placeholder="Masukkan nomor telepon perusahaan importir..."
-													{...field}
 												/>
 											</div>
 										</FormControl>
@@ -272,10 +288,10 @@ const ImportersForm = ({ query }: { query: string }) => {
 													</div>
 												)}
 												<Textarea
+													{...field}
 													autoComplete="off"
 													id="address"
 													placeholder="Masukkan alamat perusahaan importir"
-													{...field}
 													rows={4}
 												/>
 											</div>
@@ -289,8 +305,8 @@ const ImportersForm = ({ query }: { query: string }) => {
 				</div>
 				<div className="flex justify-end space-x-2 border-t border-border p-4">
 					<LoadingButton type="submit" loading={form.formState.isSubmitting}>
-						Update
-					</LoadingButton>{' '}
+						Update data
+					</LoadingButton>
 				</div>
 			</form>
 		</Form>

@@ -4,12 +4,13 @@ import { redirect } from 'next/navigation'
 import { env } from '@/env.mjs'
 
 import { getSupabaseServerClient } from '@/lib/supabase/server'
+import { cn } from '@/lib/utils'
 
 import ImportersForm from '@/components/forms/importers-form'
 import ShipmentForm from '@/components/forms/shipment-form'
 import ImportersList from '@/components/importers-list'
 import ImportersSearchBar from '@/components/importers-search-bar'
-import SkpabeanFooter from '@/components/skpabean-footer'
+import SKPabeanFooter from '@/components/skpabean-footer'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -74,11 +75,14 @@ export default async function SkpabeanPage({ searchParams }: SkpabeanPageProps) 
 										Pengisian data perusahaan importir, harap pastikan data yang diisi adalah benar.
 									</p>
 								</div>
-								<div className="mt-5 rounded border border-border bg-background">
+								<div
+									className={cn(
+										'mt-5 rounded border-border bg-background',
+										query ? 'border' : 'border-2 border-dashed p-4',
+									)}
+								>
 									{!query ? (
-										<div className="rounded-md border-2 border-dashed border-border p-4 text-center">
-											<p className="text-sm font-medium"> Silahkan pilih importir di sebelah kiri</p>
-										</div>
+										<p className="text-center text-sm font-medium"> Silahkan pilih importir di sebelah kiri</p>
 									) : (
 										<ImportersForm query={query} />
 									)}
@@ -103,7 +107,7 @@ export default async function SkpabeanPage({ searchParams }: SkpabeanPageProps) 
 						</div>
 					</div>
 				</ScrollArea>
-				<SkpabeanFooter />
+				<SKPabeanFooter />
 			</div>
 		</div>
 	)

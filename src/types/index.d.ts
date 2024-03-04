@@ -1,3 +1,5 @@
+import { AlignmentType, HeightRule, VerticalAlign, WidthType } from 'docx'
+
 import Icons from '@/components/ui/icons'
 
 import type { Tables } from './supabase'
@@ -72,3 +74,40 @@ export type SearchAklResult = Akl[]
 export type Importer = Tables<'importers'>
 
 export type ImporterList = Pick<Importer, 'id' | 'company_name' | 'npwp'>[]
+
+export type TableCellType = {
+	width: {
+		size: number
+		type: (typeof WidthType)[keyof typeof WidthType]
+	}
+	children: {
+		text: string
+		options?: {
+			size: number
+			break?: number
+			bold?: boolean
+		}
+	}
+	options?: {
+		columnSpan?: number
+		rowSpan?: number
+		verticalAlign?: (typeof VerticalAlign)[keyof typeof VerticalAlign]
+		text?: {
+			alignment?: (typeof AlignmentType)[keyof typeof AlignmentType]
+		}
+	}
+}
+
+export type TableRowType = {
+	[key: string]: TableCellType[]
+}
+
+export type TableData = {
+	options?: {
+		height?: {
+			value: number
+			rule: (typeof HeightRule)[keyof typeof HeightRule]
+		}
+	}
+	rows: TableRowType
+}

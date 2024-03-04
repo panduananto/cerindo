@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import ExportSKPButton from './export-skp-button'
 import { Button } from './ui/button'
 import {
 	DropdownMenu,
@@ -12,7 +13,7 @@ import {
 	DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 
-const SkpabeanFooter = () => {
+const SKPabeanFooter = () => {
 	return (
 		<div className="mt-auto flex flex-row items-center justify-between border-t bg-background px-4 py-3 sm:px-6 lg:px-8">
 			<DropdownMenu>
@@ -23,7 +24,7 @@ const SkpabeanFooter = () => {
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="w-56" align="end" forceMount>
 					<DropdownMenuGroup>
-						<DropdownMenuItem>SKP &#40;docx&#41;</DropdownMenuItem>
+						<ExportSKPButton />
 						<DropdownMenuItem>SKDO &#40;docx&#41;</DropdownMenuItem>
 						<DropdownMenuItem>DNP &#40;docx&#41;</DropdownMenuItem>
 					</DropdownMenuGroup>
@@ -37,4 +38,4 @@ const SkpabeanFooter = () => {
 	)
 }
 
-export default SkpabeanFooter
+export default SKPabeanFooter

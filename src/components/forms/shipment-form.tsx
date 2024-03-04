@@ -5,11 +5,15 @@ import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import * as z from 'zod'
 
-import { cn } from '@/lib/utils'
+import { upsertShipment } from '@/lib/store/features/skp/skp-slice'
+import { useAppDispatch } from '@/lib/store/store'
+import { cn, getErrorMessage } from '@/lib/utils'
 import { shipmentSchema } from '@/lib/validations/skpabean'
 
+import LoadingButton from '../loading-button'
 import { Button } from '../ui/button'
 import { Calendar } from '../ui/calendar'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
@@ -23,6 +27,7 @@ import { Textarea } from '../ui/textarea'
 type Inputs = z.infer<typeof shipmentSchema>
 
 const ShipmentForm = () => {
+	const dispatch = useAppDispatch()
 	const form = useForm<Inputs>({
 		mode: 'onTouched',
 		resolver: zodResolver(shipmentSchema),
@@ -32,16 +37,34 @@ const ShipmentForm = () => {
 			goods: '',
 			containerSerial: '',
 			vessel: '',
-			eta: '',
+			eta: new Date(),
 			tracking: '',
-			trackingDate: '',
+			trackingDate: new Date(),
 			invoice: '',
-			invoiceDate: '',
+			invoiceDate: new Date(),
 			price: '',
 		},
 	})
 
-	async function onSubmit(values: Inputs) {}
+	async function onSubmit(values: Inputs) {
+		const validatedFields = shipmentSchema.safeParse(values)
+
+		if (!validatedFields.success) {
+			const errorMessage = getErrorMessage(validatedFields.error)
+
+			toast.error('Oops!', {
+				description: errorMessage,
+			})
+
+			return
+		}
+
+		dispatch(upsertShipment(values))
+
+		toast.success('Sukses!', {
+			description: 'Dokumen shipment berhasil diupdate',
+		})
+	}
 
 	return (
 		<Form {...form}>
@@ -54,7 +77,7 @@ const ShipmentForm = () => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel>Jenis Shipment</FormLabel>
+										<FormLabel htmlFor="shipmentType">Jenis Shipment</FormLabel>
 										<FormControl>
 											<RadioGroup onValueChange={field.onChange} defaultValue="sea" className="flex items-center">
 												<FormItem className="relative flex-1 space-y-0">
@@ -114,7 +137,13 @@ const ShipmentForm = () => {
 										<FormItem>
 											<FormLabel htmlFor="aircraft">Kode penerbangan</FormLabel>
 											<FormControl>
-												<Input type="text" autoComplete="off" placeholder="Masukkan kode penerbangan..." {...field} />
+												<Input
+													type="text"
+													{...field}
+													autoComplete="off"
+													id="aircraft"
+													placeholder="Masukkan kode penerbangan..."
+												/>
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -132,7 +161,13 @@ const ShipmentForm = () => {
 									<FormItem>
 										<FormLabel htmlFor="goods">Deskripsi Barang *</FormLabel>
 										<FormControl>
-											<Textarea autoComplete="off" placeholder="Masukkan deskripsi barang..." {...field} rows={4} />
+											<Textarea
+												{...field}
+												autoComplete="off"
+												id="goods"
+												placeholder="Masukkan deskripsi barang..."
+												rows={4}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -149,7 +184,13 @@ const ShipmentForm = () => {
 									<FormItem>
 										<FormLabel htmlFor="containerSerial">Party / Cont</FormLabel>
 										<FormControl>
-											<Input type="text" autoComplete="off" placeholder="Masukkan harga barang..." {...field} />
+											<Input
+												type="text"
+												{...field}
+												autoComplete="off"
+												id="containerSerial"
+												placeholder="Masukkan jumlah kemasan atau volume..."
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -166,7 +207,13 @@ const ShipmentForm = () => {
 									<FormItem>
 										<FormLabel htmlFor="price">Harga barang *</FormLabel>
 										<FormControl>
-											<Input type="text" autoComplete="off" placeholder="Masukkan harga barang..." {...field} />
+											<Input
+												type="text"
+												{...field}
+												autoComplete="off"
+												id="price"
+												placeholder="Masukkan harga barang..."
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -185,9 +232,10 @@ const ShipmentForm = () => {
 										<FormControl>
 											<Input
 												type="text"
-												autoComplete="off"
-												placeholder="Masukkan nama vessel pengangkut barang..."
 												{...field}
+												autoComplete="off"
+												id="vessel"
+												placeholder="Masukkan nama vessel pengangkut barang..."
 											/>
 										</FormControl>
 										<FormMessage />
@@ -211,7 +259,7 @@ const ShipmentForm = () => {
 												<FormControl>
 													<Button variant="outline" className="w-full">
 														{field.value ? (
-															format(field.value, 'PPP')
+															format(field.value, 'PPP').toString()
 														) : (
 															<span className="text-muted-foreground">Pilih tanggal ETA</span>
 														)}
@@ -245,7 +293,13 @@ const ShipmentForm = () => {
 									<FormItem>
 										<FormLabel htmlFor="tracking">B/L atau AWB *</FormLabel>
 										<FormControl>
-											<Input type="text" autoComplete="off" placeholder="Masukkan nomor B/L atau AWB..." {...field} />
+											<Input
+												type="text"
+												{...field}
+												autoComplete="off"
+												id="tracking"
+												placeholder="Masukkan nomor B/L atau AWB..."
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -268,7 +322,7 @@ const ShipmentForm = () => {
 												<FormControl>
 													<Button variant="outline" className="w-full">
 														{field.value ? (
-															format(field.value, 'PPP')
+															format(field.value, 'PPP').toString()
 														) : (
 															<span className="text-muted-foreground">Pilih tanggal dokumen</span>
 														)}
@@ -302,7 +356,13 @@ const ShipmentForm = () => {
 									<FormItem>
 										<FormLabel htmlFor="invoice">Invoice *</FormLabel>
 										<FormControl>
-											<Input type="text" autoComplete="off" placeholder="Masukkan nomor invoice..." {...field} />
+											<Input
+												type="text"
+												{...field}
+												autoComplete="off"
+												id="invoice"
+												placeholder="Masukkan nomor invoice..."
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -325,7 +385,7 @@ const ShipmentForm = () => {
 												<FormControl>
 													<Button variant="outline" className="w-full">
 														{field.value ? (
-															format(field.value, 'PPP')
+															format(field.value, 'PPP').toString()
 														) : (
 															<span className="text-muted-foreground">Pilih tanggal invoice</span>
 														)}
@@ -350,6 +410,11 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
+				</div>
+				<div className="flex justify-end space-x-2 border-t border-border p-4">
+					<LoadingButton type="submit" loading={form.formState.isSubmitting}>
+						Update data
+					</LoadingButton>
 				</div>
 			</form>
 		</Form>
