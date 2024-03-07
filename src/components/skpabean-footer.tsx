@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import ExportSKDOButton from './export-skdo-button'
 import ExportSKPButton from './export-skp-button'
 import { Button } from './ui/button'
 import {
@@ -25,7 +26,7 @@ const SKPabeanFooter = () => {
 				<DropdownMenuContent className="w-56" align="end" forceMount>
 					<DropdownMenuGroup>
 						<ExportSKPButton />
-						<DropdownMenuItem>SKDO &#40;docx&#41;</DropdownMenuItem>
+						<ExportSKDOButton />
 						<DropdownMenuItem>DNP &#40;docx&#41;</DropdownMenuItem>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />

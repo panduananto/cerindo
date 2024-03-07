@@ -33,7 +33,6 @@ const ShipmentForm = () => {
 		resolver: zodResolver(shipmentSchema),
 		defaultValues: {
 			shipmentType: 'sea',
-			aircraft: '',
 			goods: '',
 			containerSerial: '',
 			vessel: '',
@@ -127,31 +126,6 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					{form.getValues('shipmentType') === 'air' && (
-						<div className="col-span-4">
-							<FormField
-								control={form.control}
-								name="aircraft"
-								render={({ field }) => {
-									return (
-										<FormItem>
-											<FormLabel htmlFor="aircraft">Kode penerbangan</FormLabel>
-											<FormControl>
-												<Input
-													type="text"
-													{...field}
-													autoComplete="off"
-													id="aircraft"
-													placeholder="Masukkan kode penerbangan..."
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)
-								}}
-							/>
-						</div>
-					)}
 					<div className="col-span-6">
 						<FormField
 							control={form.control}
@@ -228,7 +202,7 @@ const ShipmentForm = () => {
 							render={({ field }) => {
 								return (
 									<FormItem>
-										<FormLabel htmlFor="vessel">Vessel *</FormLabel>
+										<FormLabel htmlFor="vessel">Vessel / Flight *</FormLabel>
 										<FormControl>
 											<Input
 												type="text"

@@ -7,13 +7,14 @@ interface LoadingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 	loading: boolean
 }
 
-const LoadingButton = ({ children, loading, ...props }: LoadingButtonProps) => {
-	return (
-		<Button {...props} disabled={props.disabled || loading}>
-			{loading && <Icons.loader className="mr-2 size-4 animate-spin" />}
-			{children}
-		</Button>
-	)
-}
-
+const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
+	({ children, loading, ...props }, ref) => {
+		return (
+			<Button ref={ref} {...props} disabled={props.disabled || loading}>
+				{loading && <Icons.loader className="mr-2 size-4 animate-spin" />}
+				{children}
+			</Button>
+		)
+	},
+)
 export default LoadingButton
