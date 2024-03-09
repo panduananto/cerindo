@@ -149,7 +149,7 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					<div className="col-span-3">
+					<div className="col-span-6 lg:col-span-3">
 						<FormField
 							control={form.control}
 							name="containerSerial"
@@ -172,7 +172,7 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					<div className="col-span-3">
+					<div className="col-span-6 lg:col-span-3">
 						<FormField
 							control={form.control}
 							name="price"
@@ -195,7 +195,7 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					<div className="col-span-4">
+					<div className="col-span-6 lg:col-span-4">
 						<FormField
 							control={form.control}
 							name="vessel"
@@ -218,7 +218,7 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					<div className="col-span-2">
+					<div className="col-span-6 lg:col-span-2">
 						<FormField
 							control={form.control}
 							name="eta"
@@ -237,7 +237,7 @@ const ShipmentForm = () => {
 														) : (
 															<span className="text-muted-foreground">Pilih tanggal ETA</span>
 														)}
-														<Icons.calendar className="ml-auto size-4 opacity-50" />
+														<Icons.calendar className="ml-auto size-4 shrink-0 opacity-50" />
 													</Button>
 												</FormControl>
 											</PopoverTrigger>
@@ -281,7 +281,7 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					<div className="col-span-2">
+					<div className="col-span-6 lg:col-span-2">
 						<FormField
 							control={form.control}
 							name="trackingDate"
@@ -300,7 +300,7 @@ const ShipmentForm = () => {
 														) : (
 															<span className="text-muted-foreground">Pilih tanggal dokumen</span>
 														)}
-														<Icons.calendar className="ml-auto size-4 opacity-50" />
+														<Icons.calendar className="ml-auto size-4 shrink-0 opacity-50" />
 													</Button>
 												</FormControl>
 											</PopoverTrigger>
@@ -321,7 +321,7 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					<div className="col-span-4">
+					<div className="col-span-6 lg:col-span-4">
 						<FormField
 							control={form.control}
 							name="invoice"
@@ -344,7 +344,7 @@ const ShipmentForm = () => {
 							}}
 						/>
 					</div>
-					<div className="col-span-2">
+					<div className="col-span-6 lg:col-span-2">
 						<FormField
 							control={form.control}
 							name="invoiceDate"
@@ -363,7 +363,7 @@ const ShipmentForm = () => {
 														) : (
 															<span className="text-muted-foreground">Pilih tanggal invoice</span>
 														)}
-														<Icons.calendar className="ml-auto size-4 opacity-50" />
+														<Icons.calendar className="ml-auto size-4 shrink-0 opacity-50" />
 													</Button>
 												</FormControl>
 											</PopoverTrigger>

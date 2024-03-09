@@ -24,7 +24,7 @@ export default async function ImportersList({ search }: ImportersListProps) {
 	})
 
 	return (
-		<ul className="flex-auto overflow-y-auto">
+		<ul className="flex-auto divide-y overflow-y-auto py-4 xl:py-0">
 			{filtered.length === 0 ? (
 				<li className="flex items-center justify-center px-8 py-5">Data importir tidak ditemukan</li>
 			) : (

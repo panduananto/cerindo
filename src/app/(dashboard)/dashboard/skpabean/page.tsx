@@ -40,23 +40,36 @@ export default async function SkpabeanPage({ searchParams }: SkpabeanPageProps) 
 	const { search, query } = searchParams as { [key: string]: string }
 
 	return (
-		<div className="flex h-full min-h-full overflow-hidden">
-			<div className="relative flex w-full min-w-0 flex-auto flex-col bg-background lg:min-w-[350px] lg:max-w-[350px]">
-				<div className="flex flex-[0_0_auto] flex-col border-b bg-secondary px-8 py-4">
-					<ImportersSearchBar />
+		<div className="flex h-full min-h-full flex-col overflow-hidden xl:flex-row">
+			<div className="relative flex w-full min-w-0 flex-auto flex-col bg-background xl:min-w-[350px] xl:max-w-[350px]">
+				<div className="flex flex-[0_0_auto] flex-col border-b bg-secondary px-8 py-4 xl:p-0">
+					<div className="relative">
+						<div className="relative w-full flex-1 p-0 xl:border-b xl:px-8 xl:py-4">
+							<ImportersSearchBar />
+						</div>
+						<div
+							className={cn(
+								!search || search === ''
+									? 'hidden xl:block'
+									: 'absolute left-1/2 top-12 z-50 block w-full -translate-x-1/2 rounded-lg border bg-white shadow-lg xl:top-auto xl:z-0 xl:rounded-none xl:border-b xl:border-none xl:shadow-none',
+								'bg-white',
+							)}
+						>
+							<ScrollArea type="auto">
+								<Suspense
+									fallback={
+										<div className="flex flex-col items-start space-y-2 px-8 py-5">
+											<Skeleton className="h-3 w-full" />
+											<Skeleton className="h-3 w-40" />
+										</div>
+									}
+								>
+									<ImportersList search={search ?? ''} />
+								</Suspense>
+							</ScrollArea>
+						</div>
+					</div>
 				</div>
-				<ScrollArea type="auto">
-					<Suspense
-						fallback={
-							<div className="flex flex-col items-start space-y-2 px-8 py-5">
-								<Skeleton className="h-3 w-full" />
-								<Skeleton className="h-3 w-40" />
-							</div>
-						}
-					>
-						<ImportersList search={search ?? ''} />
-					</Suspense>
-				</ScrollArea>
 			</div>
 			<div className="flex flex-auto flex-col overflow-y-auto border-l bg-muted">
 				<ScrollArea type="auto">

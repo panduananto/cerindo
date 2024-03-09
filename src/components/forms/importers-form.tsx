@@ -122,7 +122,7 @@ const ImportersForm = ({ query }: { query: string }) => {
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="grid grid-cols-6 gap-x-4 gap-y-6 p-6">
-					<div className="col-span-3">
+					<div className="col-span-6 lg:col-span-3">
 						<FormField
 							control={form.control}
 							name="pic"
@@ -152,7 +152,7 @@ const ImportersForm = ({ query }: { query: string }) => {
 							}}
 						/>
 					</div>
-					<div className="col-span-3">
+					<div className="col-span-6 lg:col-span-3">
 						<FormField
 							control={form.control}
 							name="picTitle"
@@ -212,7 +212,7 @@ const ImportersForm = ({ query }: { query: string }) => {
 							}}
 						/>
 					</div>
-					<div className="col-span-3">
+					<div className="col-span-6 xl:col-span-3">
 						<FormField
 							control={form.control}
 							name="npwp"
@@ -242,7 +242,7 @@ const ImportersForm = ({ query }: { query: string }) => {
 							}}
 						/>
 					</div>
-					<div className="col-span-3">
+					<div className="col-span-6 xl:col-span-3">
 						<FormField
 							control={form.control}
 							name="phone"
