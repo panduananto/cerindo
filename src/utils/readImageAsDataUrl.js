@@ -1,14 +1,14 @@
 const readImageAsDataURL = (file, cb = null) => {
-	const reader = new FileReader();
+	const reader = new FileReader()
 
-	reader.readAsDataURL(file);
+	reader.readAsDataURL(file)
 	reader.onload = () => {
 		if (cb !== null) {
-			cb(reader.result);
+			cb(reader.result)
 		}
 
-		return reader.result;
-	};
-};
+		return reader.result
+	}
+}
 
-export default readImageAsDataURL;
+export default readImageAsDataURL

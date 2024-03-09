@@ -1,0 +1,34 @@
+{
+  "root": true,
+  "extends": ["plugin:tailwindcss/recommended"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js"],
+      "parser": "@typescript-eslint/parser"
+    },
+    {
+      "files": ["*.html"],
+      "parser": "@angular-eslint/template-parser"
+    }
+  ],
+  "settings": {
+    "tailwindcss": {
+      "config": "tailwind.config.ts",
+      "whitelist": [
+        "border",
+        "input",
+        "ring",
+        "background",
+        "foreground",
+        "primary",
+        "secondary",
+        "destructive",
+        "muted",
+        "accent",
+        "popover",
+        "card",
+        "toaster"
+      ]
+    }
+  }
+}
