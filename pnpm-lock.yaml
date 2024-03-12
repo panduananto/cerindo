@@ -95,9 +95,6 @@ importers:
       embla-carousel-react:
         specifier: 8.0.0
         version: 8.0.0(react@18.2.0)
-      error:
-        specifier: 10.4.0
-        version: 10.4.0
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
@@ -2436,10 +2433,6 @@ packages:
 
   /emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
-
-  /error@10.4.0:
-    resolution: {integrity: sha512-YxIFEJuhgcICugOUvRx5th0UM+ActZ9sjY0QJmeVwsQdvosZ7kYzc9QqS0Da3R5iUmgU5meGIxh0xBeZpMVeLw==}
-    dev: false
 
   /es-define-property@1.0.0:
     resolution: {integrity: sha512-jxayLKShrEqqzJ0eumQbVhTYQM27CfT1T35+gCgDFoL82JLsXqTJ76zv6A0YLOgEnLUMvLzsDsGIrl8NFpT2gQ==}

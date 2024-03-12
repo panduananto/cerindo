@@ -32,7 +32,6 @@
     "dotenv": "^16.4.5",
     "embla-carousel-autoplay": "8.0.0",
     "embla-carousel-react": "8.0.0",
-    "error": "10.4.0",
     "file-saver": "^2.0.5",
     "framer-motion": "^11.0.8",
     "jszip": "^3.10.1",
