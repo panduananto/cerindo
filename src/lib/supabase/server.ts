@@ -8,15 +8,11 @@ import type { Database } from '@/types/supabase'
 export function getSupabaseServerClient() {
 	const cookiesStore = cookies()
 
-	return createServerClient<Database>(
-		env.NEXT_PUBLIC_SUPABASE_URL_PRODUCTION,
-		env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY_PRODUCTION,
-		{
-			cookies: {
-				get(name: string) {
-					return cookiesStore.get(name)?.value
-				},
+	return createServerClient<Database>(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+		cookies: {
+			get(name: string) {
+				return cookiesStore.get(name)?.value
 			},
 		},
-	)
+	})
 }
