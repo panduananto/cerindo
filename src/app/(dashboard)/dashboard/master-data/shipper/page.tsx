@@ -1,7 +1,7 @@
 import React from 'react'
 import { redirect } from 'next/navigation'
 
-import { env } from '@/env.mjs'
+import { env } from '@/env'
 
 import { getSupabaseServerClient } from '@/lib/supabase/server'
 

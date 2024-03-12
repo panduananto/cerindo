@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 import { createServerClient } from '@supabase/ssr'
 
-import { env } from './env.mjs'
+import { env } from './env'
 
 import type { CookieOptions } from '@supabase/ssr'
 import type { NextRequest } from 'next/server'

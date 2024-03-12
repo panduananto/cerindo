@@ -3,7 +3,7 @@ import '@/styles/index.css'
 import React from 'react'
 import { Metadata, Viewport } from 'next'
 
-import { env } from '@/env.mjs'
+import { env } from '@/env'
 
 import { inter } from '@/config/font'
 import { siteConfig } from '@/config/site'

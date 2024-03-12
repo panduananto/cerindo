@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-import { env } from '@/env.mjs'
+import { env } from '@/env'
 
 import { rubik } from '@/config/font'
 import { getSupabaseServerClient } from '@/lib/supabase/server'

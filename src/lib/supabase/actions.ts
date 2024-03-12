@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 
-import { env } from '@/env.mjs'
+import { env } from '@/env'
 import { createServerClient } from '@supabase/ssr'
 
 import type { Database } from '@/types/supabase'

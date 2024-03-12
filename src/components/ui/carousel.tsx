@@ -11,7 +11,7 @@ import type {
 	EmblaCarouselType as CarouselApi,
 	EmblaOptionsType as CarouselOptions,
 	EmblaPluginType as CarouselPlugin,
-} from 'embla-carousel-react'
+} from 'embla-carousel'
 
 type CarouselProps = {
 	opts?: CarouselOptions
