@@ -1,8 +1,7 @@
-import { createEnv } from '@t3-oss/env-core'
+import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
 export const env = createEnv({
-	clientPrefix: 'NEXT_PUBLIC',
 	server: {
 		NODE_ENV: z.enum(['development', 'production']),
 	},
