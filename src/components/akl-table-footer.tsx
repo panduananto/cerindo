@@ -190,11 +190,11 @@ const AklTableFooter = () => {
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="w-56" align="end" forceMount>
 						<DropdownMenuGroup>
-							<DropdownMenuItem>
+							<DropdownMenuItem disabled={allAkl.length === 0 ? true : false} onClick={handleExportToExcel}>
 								<Icons.fileDown className="mr-2 size-4" />
 								Export excel &#40;xlsx&#41;
 							</DropdownMenuItem>
-							<DropdownMenuItem>
+							<DropdownMenuItem disabled={distinctAkl.length === 0 ? true : false} onClick={handleZippingAkl}>
 								<Icons.fileArchive className="mr-2 size-4" />
 								Download AKL &#40;zip&#41;
 							</DropdownMenuItem>
