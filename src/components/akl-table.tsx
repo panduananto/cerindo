@@ -1,153 +1,86 @@
 'use client'
 
-import React from 'react'
+import React, { CSSProperties, useMemo } from 'react'
 
 import { Akl } from '@/types'
-import { useDrag, useDrop } from 'react-dnd'
+import {
+	closestCenter,
+	DndContext,
+	KeyboardSensor,
+	MouseSensor,
+	TouchSensor,
+	useSensor,
+	useSensors,
+} from '@dnd-kit/core'
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
-import { deleteAkl, reorderAkl, selectAklById, selectAklIds } from '@/lib/store/features/akl/akl-slice'
+import { deleteAkl, reorderAkl, selectAklById, selectAklIds, selectAllAkl } from '@/lib/store/features/akl/akl-slice'
 import { useAppDispatch, useAppSelector } from '@/lib/store/store'
+import { cn } from '@/lib/utils'
 
 import { Button } from './ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
 import Icons from './ui/icons'
 
-const AklTable = () => {
-	const aklIds = useAppSelector(selectAklIds)
+import type { DragEndEvent, UniqueIdentifier } from '@dnd-kit/core'
+import type { Row, RowData } from '@tanstack/react-table'
+
+declare module '@tanstack/react-table' {
+	interface ColumnMeta<TData extends RowData, TValue> {
+		headerClassName?: string
+		rowClassName?: string
+	}
+}
+
+const RowDragHandleCell = ({ rowId }: { rowId: string }) => {
+	const { attributes, listeners, setActivatorNodeRef } = useSortable({
+		id: rowId,
+	})
 
 	return (
-		<div className="flex max-w-full flex-auto flex-col overflow-auto">
-			<table className="relative min-w-full">
-				<thead className="w-full shadow-sm">
-					<tr>
-						<th
-							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-muted py-3 pl-4 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
-						></th>
-						<th
-							scope="col"
-							className="sticky top-0 z-10 hidden whitespace-nowrap bg-muted py-3 pr-4 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-[''] 2md:table-cell"
-						>
-							Tipe
-						</th>
-						<th
-							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
-						>
-							Deskripsi
-						</th>
-						<th
-							scope="col"
-							className="sticky top-0 z-10 hidden whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-[''] lg:table-cell"
-						>
-							Negara
-						</th>
-						<th
-							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
-						>
-							Status
-						</th>
-						<th
-							scope="col"
-							className="sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']"
-						>
-							Details
-						</th>
-					</tr>
-				</thead>
-				{aklIds.length !== 0 ? (
-					<tbody className="w-full divide-y divide-border overflow-y-auto">
-						{aklIds.map((id) => {
-							return <AklTableRow key={id} id={id} />
-						})}
-					</tbody>
-				) : (
-					<tbody>
-						<tr>
-							<td colSpan={6}>
-								<div className="m-6 rounded border-2 border-dashed border-slate-300 py-4 text-center">
-									<p className="text-sm font-medium">Anda belum memilih izin AKL</p>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				)}
-			</table>
-		</div>
+		<Button variant="ghost" size="icon" ref={setActivatorNodeRef} {...attributes} {...listeners}>
+			<Icons.gripVertical className="size-5" />
+			<span className="sr-only">Drag to reorder</span>
+		</Button>
 	)
 }
 
-type AklTableRowProps = {
-	id: string
-}
-
-const AklTableRow = ({ id }: AklTableRowProps) => {
+const DraggableRow = ({ row }: { row: Row<Akl> }) => {
 	const dispatch = useAppDispatch()
-	const akl = useAppSelector((state) => selectAklById(state, id))
+	const akl = useAppSelector((state) => selectAklById(state, row.original.id))
 
-	if (!akl) {
-		return null
+	const { transform, transition, setNodeRef, isDragging } = useSortable({
+		id: row.original.id,
+	})
+
+	const style: CSSProperties = {
+		transform: CSS.Transform.toString(transform),
+		transition: transition,
+		opacity: isDragging ? 0.5 : 1,
+		zIndex: isDragging ? 1 : 0,
+		position: 'relative',
 	}
-
-	const [, dropRef] = useDrop({
-		accept: 'id',
-		drop: (draggedRow: Akl) => dispatch(reorderAkl({ draggedId: draggedRow.id, targetId: id })),
-	})
-
-	const [{ isDragging }, dragRef, previewRef] = useDrag({
-		collect: (monitor) => ({
-			isDragging: monitor.isDragging(),
-		}),
-		item: { id },
-		type: 'id',
-	})
 
 	return (
 		<Collapsible asChild>
 			<React.Fragment>
-				<tr ref={previewRef} className={isDragging ? 'opacity-50' : 'opacity-100'}>
-					<td
-						ref={dropRef}
-						className="whitespace-nowrap pl-4 pr-3 text-left text-sm uppercase tracking-normal text-slate-700"
-					>
-						<div ref={dragRef} className="flex items-center">
-							<Button variant="ghost" size="icon">
-								<Icons.gripVertical className="size-5" />
-								<span className="sr-only">Drag to reorder</span>
-							</Button>
-						</div>
-					</td>
-					<td className="hidden whitespace-nowrap py-3 pr-4 text-left text-sm uppercase tracking-normal text-slate-700 2md:table-cell">
-						<span>{akl.type}</span>
-					</td>
-					<td className="max-w-[270px] truncate px-4 py-3 text-left text-sm uppercase tracking-normal text-slate-700">
-						<span>{akl.name}</span>
-					</td>
-					<td className="hidden whitespace-nowrap px-4 py-3 text-left text-sm tracking-normal text-slate-700 lg:table-cell">
-						{akl.countries.name} &#40;{akl.countries.code}&#41;
-					</td>
-					<td className="whitespace-nowrap px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-						{new Date() > new Date(String(akl.expiry_date)) ? (
-							<div className="inline-flex flex-row items-center gap-x-1 rounded-full bg-red-100 px-2 py-0.5 text-red-600">
-								<Icons.alertCircle strokeWidth={3} className="size-3" />
-								<span>Kadaluarsa</span>
-							</div>
-						) : (
-							<span className="inline-flex flex-row items-center gap-x-1 rounded-full bg-green-100 px-2 py-0.5 text-green-600">
-								<Icons.checkCircle strokeWidth={3} className="size-3" />
-								<span>Aktif</span>
-							</span>
-						)}
-					</td>
-					<td className="flex items-center justify-start whitespace-nowrap px-4 py-3 text-left text-sm uppercase tracking-normal text-slate-700">
-						<CollapsibleTrigger asChild>
-							<Button variant="ghost" size="icon" className="border border-slate-300 hover:bg-muted">
-								<Icons.chevronDown className="size-5" />
-								<span className="sr-only">Drag to reorder</span>
-							</Button>
-						</CollapsibleTrigger>
-					</td>
+				<tr ref={setNodeRef} style={style} className="border-b border-border">
+					{row.getVisibleCells().map((cell) => {
+						return (
+							<td
+								key={cell.id}
+								className={cn(
+									'whitespace-nowrap py-3 pl-4 pr-3 text-left text-sm uppercase tracking-normal text-slate-700',
+									cell.column.columnDef.meta?.rowClassName ?? '',
+								)}
+							>
+								{flexRender(cell.column.columnDef.cell, cell.getContext())}
+							</td>
+						)
+					})}
 				</tr>
 				<CollapsibleContent asChild>
 					<tr>
@@ -159,7 +92,7 @@ const AklTableRow = ({ id }: AklTableRowProps) => {
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
 												Kode AKL
 											</p>
-											<p className="mt-1 text-sm text-slate-700">{akl.id.split('_').join(' ')}</p>
+											<p className="mt-1 text-sm text-slate-700">{akl.id_akl.split('_').join(' ')}</p>
 										</div>
 										<div className="col-span-4 rounded border border-slate-300 px-2.5 py-2 shadow sm:col-span-1">
 											<p className="text-left text-sm font-semibold leading-[18px] tracking-normal text-slate-700">
@@ -285,6 +218,151 @@ const AklTableRow = ({ id }: AklTableRowProps) => {
 				</CollapsibleContent>
 			</React.Fragment>
 		</Collapsible>
+	)
+}
+
+const AklTable = () => {
+	const dispatch = useAppDispatch()
+	const aklIds = useAppSelector(selectAklIds) as UniqueIdentifier[]
+	const allAkl = useAppSelector(selectAllAkl)
+
+	const columnHelper = createColumnHelper<Akl>()
+	const columns = useMemo(
+		() => [
+			columnHelper.display({
+				id: 'dragHandle',
+				header: '',
+				cell: ({ row }) => <RowDragHandleCell rowId={row.id} />,
+				meta: {
+					headerClassName: 'pr-0',
+					rowClassName: 'pr-0',
+				},
+			}),
+			columnHelper.accessor('type', {
+				header: 'Tipe',
+				cell: ({ row }) => <span>{row.getValue('type')}</span>,
+				meta: {
+					headerClassName: 'hidden 2md:table-cell pl-0',
+					rowClassName: 'hidden 2md:table-cell pl-0',
+				},
+			}),
+			columnHelper.accessor('name', {
+				header: 'Deskripsi',
+				cell: ({ row }) => <span>{row.getValue('name')}</span>,
+			}),
+			columnHelper.accessor('countries', {
+				header: 'Negara',
+				cell: ({ row }) => <span>{`${row.original.countries.name} (${row.original.countries.code})`}</span>,
+				meta: {
+					headerClassName: 'hidden lg:table-cell',
+					rowClassName: 'hidden lg:table-cell',
+				},
+			}),
+			columnHelper.display({
+				id: 'status',
+				header: 'Status',
+				cell: () => (
+					<span className="inline-flex flex-row items-center gap-x-1 rounded-full bg-green-100 px-2 py-0.5 text-green-600">
+						<Icons.checkCircle strokeWidth={3} className="size-3" />
+						<span>Aktif</span>
+					</span>
+				),
+			}),
+			columnHelper.display({
+				id: 'details',
+				header: 'Details',
+				cell: () => (
+					<CollapsibleTrigger asChild>
+						<Button variant="ghost" size="icon" className="border border-slate-300 hover:bg-muted">
+							<Icons.chevronDown className="size-5" />
+							<span className="sr-only">Open row details</span>
+						</Button>
+					</CollapsibleTrigger>
+				),
+				meta: {
+					headerClassName: 'pl-0',
+				},
+			}),
+		],
+		[],
+	)
+
+	const table = useReactTable({
+		data: allAkl,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+		getRowId: (row) => row.id,
+	})
+
+	const handleDragEnd = (event: DragEndEvent) => {
+		const { active, over } = event
+
+		if (active && over && active.id !== over.id) {
+			dispatch(
+				reorderAkl({
+					draggedId: String(active.id),
+					targetId: String(over.id),
+				}),
+			)
+		}
+	}
+
+	const sensors = useSensors(useSensor(MouseSensor, {}), useSensor(TouchSensor, {}), useSensor(KeyboardSensor, {}))
+
+	return (
+		<DndContext
+			collisionDetection={closestCenter}
+			modifiers={[restrictToVerticalAxis]}
+			onDragEnd={handleDragEnd}
+			sensors={sensors}
+		>
+			<div className="flex max-w-full flex-auto flex-col overflow-auto">
+				<table className="min-w-full">
+					<thead className="w-full shadow-sm">
+						{table.getHeaderGroups().map((headerGroup) => {
+							return (
+								<tr key={headerGroup.id}>
+									{headerGroup.headers.map((header) => {
+										return (
+											<th
+												key={header.id}
+												scope="col"
+												colSpan={header.colSpan}
+												className={cn(
+													"sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']",
+													header.column.columnDef.meta?.headerClassName ?? '',
+												)}
+											>
+												{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+											</th>
+										)
+									})}
+								</tr>
+							)
+						})}
+					</thead>
+					{aklIds.length !== 0 ? (
+						<tbody className="w-full overflow-y-auto">
+							<SortableContext items={aklIds} strategy={verticalListSortingStrategy}>
+								{table.getRowModel().rows.map((row) => {
+									return <DraggableRow key={row.id} row={row} />
+								})}
+							</SortableContext>
+						</tbody>
+					) : (
+						<tbody>
+							<tr>
+								<td colSpan={6}>
+									<div className="m-6 rounded border-2 border-dashed border-slate-300 py-4 text-center">
+										<p className="text-sm font-medium">Anda belum memilih izin AKL</p>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					)}
+				</table>
+			</div>
+		</DndContext>
 	)
 }
 

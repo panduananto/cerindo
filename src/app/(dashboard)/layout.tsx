@@ -1,5 +1,5 @@
 import React from 'react'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 import { dashboardConfig } from '@/config/dashboard'
 import { getSupabaseServerClient } from '@/lib/supabase/server'
@@ -15,18 +15,18 @@ export default async function DashboardRootLayout({ children }: DashboardRootLay
 	const supabase = getSupabaseServerClient()
 
 	const {
-		data: { user },
-	} = await supabase.auth.getUser()
+		data: { session },
+	} = await supabase.auth.getSession()
 
-	if (!user) {
-		return notFound()
+	if (!session?.user) {
+		return redirect('/signin')
 	}
 
 	return (
 		<div className="relative flex h-full min-h-full flex-row overflow-hidden">
 			<SidebarNavProvider>
 				<SidebarNav items={dashboardConfig.sidebarNav} />
-				<DashboardMainArea user={user}>{children}</DashboardMainArea>
+				<DashboardMainArea user={session.user}>{children}</DashboardMainArea>
 			</SidebarNavProvider>
 		</div>
 	)

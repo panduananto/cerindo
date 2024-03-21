@@ -201,7 +201,9 @@ const AklTableFooter = () => {
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
-							<DropdownMenuItem className="hover:text-primary">Reset tabel</DropdownMenuItem>
+							<DropdownMenuItem className="hover:text-primary" onClick={() => dispatch(clearAll())}>
+								Reset tabel
+							</DropdownMenuItem>
 						</DropdownMenuGroup>
 					</DropdownMenuContent>
 				</DropdownMenu>

@@ -3,8 +3,6 @@
 import React from 'react'
 
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import { cn } from '@/lib/utils'
 
@@ -54,7 +52,7 @@ const DashboardMainArea = ({ children, user }: DashboardMainAreaProps) => {
 						<UserAccountNav user={user} />
 					</div>
 				</header>
-				<DndProvider backend={HTML5Backend}>{children}</DndProvider>
+				{children}
 			</motion.main>
 		</MotionConfig>
 	)
