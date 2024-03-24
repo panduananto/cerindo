@@ -122,8 +122,8 @@ const AklSearchBar = () => {
 						</CardContent>
 					) : data && data.length !== 0 ? (
 						<CardContent className="w-full p-0">
-							<ScrollArea className="max-h-60">
-								<ul className="py-4">
+							<ScrollArea>
+								<ul className="max-h-60 py-4">
 									{data.map((akl, index) => {
 										return (
 											<li

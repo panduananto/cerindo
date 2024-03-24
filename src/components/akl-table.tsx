@@ -1,6 +1,6 @@
 'use client'
 
-import React, { CSSProperties, useMemo } from 'react'
+import React, { CSSProperties, useMemo, useState } from 'react'
 
 import { Akl } from '@/types'
 import {
@@ -15,7 +15,13 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import {
+	createColumnHelper,
+	flexRender,
+	getCoreRowModel,
+	getPaginationRowModel,
+	useReactTable,
+} from '@tanstack/react-table'
 
 import { deleteAkl, reorderAkl, selectAklById, selectAklIds, selectAllAkl } from '@/lib/store/features/akl/akl-slice'
 import { useAppDispatch, useAppSelector } from '@/lib/store/store'
@@ -26,7 +32,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collap
 import Icons from './ui/icons'
 
 import type { DragEndEvent, UniqueIdentifier } from '@dnd-kit/core'
-import type { Row, RowData } from '@tanstack/react-table'
+import type { PaginationState, Row, RowData } from '@tanstack/react-table'
 
 declare module '@tanstack/react-table' {
 	interface ColumnMeta<TData extends RowData, TValue> {
@@ -67,7 +73,7 @@ const DraggableRow = ({ row }: { row: Row<Akl> }) => {
 	return (
 		<Collapsible asChild>
 			<React.Fragment>
-				<tr ref={setNodeRef} style={style} className="border-b border-border">
+				<tr ref={setNodeRef} style={style} className="border-b border-border last:border-b-0">
 					{row.getVisibleCells().map((cell) => {
 						return (
 							<td
@@ -287,11 +293,20 @@ const AklTable = () => {
 		[],
 	)
 
+	const [pagination, setPagination] = useState<PaginationState>({
+		pageIndex: 0,
+		pageSize: 10,
+	})
+
 	const table = useReactTable({
 		data: allAkl,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getRowId: (row) => row.id,
+		getPaginationRowModel: getPaginationRowModel(),
+		onPaginationChange: setPagination,
+		state: { pagination },
+		autoResetAll: false,
 	})
 
 	const handleDragEnd = (event: DragEndEvent) => {
@@ -318,7 +333,40 @@ const AklTable = () => {
 		>
 			<div className="flex max-w-full flex-auto flex-col overflow-auto">
 				<table className="min-w-full">
-					<thead className="w-full shadow-sm">
+					<thead className="sticky top-0 z-10 w-full shadow-sm">
+						<tr>
+							<td
+								scope="col"
+								colSpan={6}
+								className="bg-white px-6 py-3 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-border before:content-['']"
+							>
+								<div className="flex items-center space-x-4">
+									<p className="text-sm">
+										Halaman {table.getState().pagination.pageIndex + 1} dari {table.getPageCount()}
+									</p>
+									<div className="flex items-center space-x-2">
+										<Button
+											variant="outline"
+											size="icon"
+											disabled={!table.getCanPreviousPage()}
+											onClick={() => table.previousPage()}
+										>
+											<Icons.chevronLeft className="size-4" />
+											<span className="sr-only">Go to previous page</span>
+										</Button>
+										<Button
+											variant="outline"
+											size="icon"
+											disabled={!table.getCanNextPage()}
+											onClick={() => table.nextPage()}
+										>
+											<span className="sr-only">Go to next page</span>
+											<Icons.chevronRight className="size-4" />
+										</Button>
+									</div>
+								</div>
+							</td>
+						</tr>
 						{table.getHeaderGroups().map((headerGroup) => {
 							return (
 								<tr key={headerGroup.id}>
@@ -329,7 +377,7 @@ const AklTable = () => {
 												scope="col"
 												colSpan={header.colSpan}
 												className={cn(
-													"sticky top-0 z-10 whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-slate-300 before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-slate-300 after:content-['']",
+													"relative whitespace-nowrap bg-muted px-4 py-3 text-left text-[13px] font-semibold text-slate-700 before:absolute before:left-0 before:top-0 before:w-full before:border-t before:border-border before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:border-b after:border-border after:content-['']",
 													header.column.columnDef.meta?.headerClassName ?? '',
 												)}
 											>
