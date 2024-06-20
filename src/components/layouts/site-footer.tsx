@@ -73,7 +73,7 @@ function SiteFooter() {
 				</div>
 			</div>
 			<div className="border-t border-slate-300 bg-secondary py-4 text-center text-xs text-secondary-foreground">
-				<p>&#169; 2022 Cerindo</p>
+				<p>&#169; 2024 Cerindo</p>
 			</div>
 		</footer>
 	)

@@ -20,7 +20,7 @@ export default async function EntryLayout({ children }: EntryLayoutProps) {
 	return (
 		<div className="flex min-h-full flex-col">
 			<SiteHeader user={user} />
-			<main>{children}</main>
+			<main className="flex flex-1 flex-col">{children}</main>
 			<SiteFooter />
 		</div>
 	)

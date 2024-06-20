@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { rubik } from '@/config/font'
 import { marketingConfig } from '@/config/marketing'
@@ -7,6 +8,7 @@ import { marketingConfig } from '@/config/marketing'
 import ClientCarousel from '@/components/client-carousel'
 import ProjectCarousel from '@/components/project-carousel'
 import ServiceTabs from '@/components/service-tabs'
+import { Button } from '@/components/ui/button'
 import Icons from '@/components/ui/icons'
 
 export default async function IndexPage() {
@@ -30,6 +32,12 @@ export default async function IndexPage() {
 					<div className="z-20 mx-auto flex size-full max-w-6xl flex-col items-center justify-center px-4 py-7 text-background sm:px-6 md:items-start lg:px-8">
 						<h1 className={`${rubik.className} text-5xl font-bold md:text-7xl`}>Trusted!</h1>
 						<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">Done by experienced people.</p>
+						<Button asChild>
+							<Link href="/tracking" className="mt-8">
+								<Icons.mapPin className="mr-2 size-4" aria-hidden="true" />
+								Track shipment
+							</Link>
+						</Button>
 					</div>
 				</header>
 				<aside className="bg-primary text-background">
