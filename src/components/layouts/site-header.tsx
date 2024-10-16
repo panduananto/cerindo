@@ -25,18 +25,13 @@ const SiteHeader = ({ user }: SiteHeaderProps) => {
 	const scrollYBoundedProgressDelayed = useTransform(scrollYBoundedProgress, [0, 0.85, 1], [0, 0, 1])
 
 	return (
-		<motion.header
-			style={{
-				translateY: useMotionTemplate`calc(${useTransform(scrollYBoundedProgressDelayed, [0, 1], [0, -100])} * 1%)`,
-			}}
-			className="sticky inset-x-0 top-0 z-40 w-full border-b border-secondary-foreground/10 bg-background"
-		>
+		<header className="sticky inset-x-0 top-0 z-40 w-full border-b border-secondary-foreground/10 bg-background shadow-md">
 			<div className="relative mx-auto flex h-16 max-w-6xl items-center px-4 sm:px-6 lg:px-8">
 				<div className="flex items-center">
 					<MainNav items={siteConfig.mainNav} />
 					<MobileNav mainNavItems={siteConfig.mainNav} />
 				</div>
-				<div className="ml-auto">
+				{/* <div className="ml-auto">
 					{user ? (
 						<UserAccountNav user={user} />
 					) : (
@@ -47,9 +42,9 @@ const SiteHeader = ({ user }: SiteHeaderProps) => {
 							</Link>
 						</Button>
 					)}
-				</div>
+				</div> */}
 			</div>
-		</motion.header>
+		</header>
 	)
 }
 

@@ -281,7 +281,7 @@ export const marketingConfig = {
 			title: 'Telkomsel',
 			totalShipment: 12748,
 			description:
-				'Official house forwarder for Telkomsel. Importing telecom equipment for district capital allover Indonesia with Priority Lane facility. Bonded warehouse management in 2004-2006. Providing export services including: warehouse management, export documentation, shipment arrangement, container stuffing, trucking, haulage, and ocean freight.',
+				"We're the official house forwarder for Telkomsel. We bring in telecom equipment for district capitals all over Indonesia using the Priority Lane facility, and managed a bonded warehouse from 2004 to 2006. We provide export services like warehouse management, export documentation, shipment arrangement, container stuffing, trucking, haulage, and ocean freight. 12.7k shipments were successfully processed in two years!",
 			backgroundImage: '/images/telkomsel_bg.jpg',
 			images: [
 				{
@@ -300,7 +300,7 @@ export const marketingConfig = {
 			title: 'Kementerian Kelautan dan Perikanan RI',
 			totalShipment: 78,
 			description:
-				'Delivery and local distribution of material for fish farming project located on Sabang, Pangandaran and Karimun, Java. Import of mooring, cages, netts from Norway by 43 containers, bracket for sinker tube from China by 4 containers, 3 unit feeding barges from Vietnam via 2 work boats from Batam.',
+				"We delivered the materials for fish farming projects located on Sabang, Pangandaran, and Karimunjawa. We're getting 43 containers of mooring, cages, and nets from Norway, 4 containers of brackets for sinker tubes from China, and 3 feeding barges from Vietnam. We're also bringing in 2 work boats from Batam to help with the transportation. So far, we've successfully processed 73 shipments!",
 			backgroundImage: '/images/kkp_bg.jpg',
 			images: [
 				{
@@ -319,7 +319,7 @@ export const marketingConfig = {
 			title: 'PT PAL Indonesia',
 			totalShipment: 567,
 			description:
-				'Shipset material for 5 (five) units PALWO BOWONO vessel, PALPASS 500 project, Fast Patrol Boats for Indonesian Customs, and FPU for PT. PERTAMINA, 2 (two) units MPC project. Main Diesel Engine 8PA5L, Auxiliary Main Diesel Engine PB1600 from Korea to Surabaya.',
+				"We've sent a bunch of stuff from Korea to Surabaya. It includes ship materials for Palwo Bowono, Palpass 500 Project, Fast Patrol Ships for Indonesian Customs, and FPU for PT. Pertamina. We also sent two MPC project units, 8PA5L Main Diesel Engine, and PB1600 Auxiliary Main Diesel Engine. In total, we've made 567 deliveries!",
 			backgroundImage: '/images/ptpal_bg.jpg',
 			images: [
 				{

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 import { AspectRatio } from './ui/aspect-ratio'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import { Carousel, CarouselContent, CarouselItem } from './ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel'
 import Icons from './ui/icons'
 
 type ProjectCarouselProps = {
@@ -61,6 +61,8 @@ const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
 						)
 					})}
 				</CarouselContent>
+				<CarouselPrevious />
+				<CarouselNext />
 			</Carousel>
 		</div>
 	)

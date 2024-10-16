@@ -30,8 +30,8 @@ export default async function IndexPage() {
 						/>
 					</div>
 					<div className="z-20 mx-auto flex size-full max-w-6xl flex-col items-center justify-center px-4 py-7 text-background sm:px-6 md:items-start lg:px-8">
-						<h1 className={`${rubik.className} text-5xl font-bold md:text-7xl`}>Trusted!</h1>
-						<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">Done by experienced people.</p>
+						<h1 className={`${rubik.className} text-4xl font-bold sm:text-5xl md:text-7xl`}>We Bring Solutions!</h1>
+						<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">Managed by experts.</p>
 						<Button asChild>
 							<Link href="/tracking" className="mt-8">
 								<Icons.mapPin className="mr-2 size-4" aria-hidden="true" />
@@ -70,21 +70,6 @@ export default async function IndexPage() {
 					</div>
 				</aside>
 			</div>
-			<section id="client" className="w-full bg-background">
-				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
-					<div className="text-center">
-						<h1
-							className={`${rubik.className} text-xl font-extrabold text-secondary-foreground sm:text-2xl md:text-3xl`}
-						>
-							Take a look at our <span className="text-primary">clients</span>
-						</h1>
-						<p className="mt-2 text-base text-slate-700 md:text-lg">
-							We did a great job with these companies. You can be the next to work with us!
-						</p>
-					</div>
-					<ClientCarousel clients={clients} />
-				</div>
-			</section>
 			<section id="service" className="w-full bg-slate-200/30">
 				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
 					<div className="text-center">
@@ -100,7 +85,22 @@ export default async function IndexPage() {
 					<ServiceTabs services={services} />
 				</div>
 			</section>
-			<section id="project" className="w-full bg-muted/30">
+			<section id="client" className="w-full bg-background">
+				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
+					<div className="text-center">
+						<h1
+							className={`${rubik.className} text-xl font-extrabold text-secondary-foreground sm:text-2xl md:text-3xl`}
+						>
+							Take a look at our <span className="text-primary">clients</span>
+						</h1>
+						<p className="mt-2 text-base text-slate-700 md:text-lg">
+							We did a great job with these companies. You can be the next to work with us!
+						</p>
+					</div>
+					<ClientCarousel clients={clients} />
+				</div>
+			</section>
+			<section id="project" className="w-full bg-muted/30 px-10">
 				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
 					<div className="text-center">
 						<h1 className={`${rubik.className} text-xl font-extrabold sm:text-2xl md:text-3xl`}>

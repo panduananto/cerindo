@@ -32,6 +32,16 @@ export const siteConfig = {
 					href: '#get-in-touch',
 					items: [],
 				},
+				{
+					title: 'about us',
+					href: '/about-us',
+					items: [],
+				},
+				{
+					title: 'FAQ',
+					href: '/faq',
+					items: [],
+				},
 			],
 		},
 	] satisfies MainNavItem[],

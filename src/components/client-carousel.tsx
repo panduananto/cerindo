@@ -30,7 +30,7 @@ const ClientCarousel = ({ clients }: ClientCarouselProps) => {
 					>
 						<Image
 							src={client.logo}
-							className="mx-auto inline h-[60px] w-[80%] bg-center object-center grayscale transition-[filter] duration-200 ease-in-out group-hover:grayscale-0"
+							className="mx-auto inline h-[60px] w-[80%] bg-center object-center"
 							alt={`${client.id} logo`}
 							height="0"
 							width="0"
@@ -53,7 +53,7 @@ const ClientCarousel = ({ clients }: ClientCarouselProps) => {
 									>
 										<Image
 											src={client.logo}
-											className="mx-auto inline h-[60px] w-[80%] bg-center object-center grayscale transition-[filter] duration-200 ease-in-out group-hover:grayscale-0"
+											className="mx-auto inline h-[60px] w-[80%] bg-center object-center"
 											alt={`${client.name} logo`}
 											width="0"
 											height="0"
