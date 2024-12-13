@@ -3,6 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 
+import AutoScroll from 'embla-carousel-auto-scroll'
 import Autoplay from 'embla-carousel-autoplay'
 
 import { chunk } from '@/lib/utils'
@@ -40,8 +41,8 @@ const ClientCarousel = ({ clients }: ClientCarouselProps) => {
 			</div>
 			<div className="block 2md:hidden">
 				<Carousel
-					opts={{ loop: true, duration: 30000, dragFree: false, watchDrag: false }}
-					plugins={[Autoplay({ delay: 0 })]}
+					opts={{ loop: true, dragFree: true, watchDrag: true }}
+					plugins={[AutoScroll({ startDelay: 50, speed: 1, playOnInit: true, stopOnInteraction: false })]}
 				>
 					<CarouselContent>
 						{clientsChunked.map((clients, index) => (

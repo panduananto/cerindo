@@ -14,6 +14,11 @@ const nextConfig = {
 				hostname: '**.googleusercontent.com',
 				port: '',
 			},
+			{
+				protocol: 'https',
+				hostname: 'fastly.picsum.photos',
+				port: '',
+			},
 		],
 	},
 }

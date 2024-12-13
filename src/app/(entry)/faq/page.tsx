@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 	description: 'We are Cerindo',
 }
 
-export default async function AboutUsPage() {
+export default async function FAQPAge() {
 	return (
 		<div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-8 sm:px-6 lg:px-8">
 			<div className="py-8">

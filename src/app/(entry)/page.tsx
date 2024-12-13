@@ -104,7 +104,7 @@ export default async function IndexPage() {
 				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
 					<div className="text-center">
 						<h1 className={`${rubik.className} text-xl font-extrabold sm:text-2xl md:text-3xl`}>
-							Our latest <span className="text-primary">project</span>
+							Our success <span className="text-primary">journey</span>
 						</h1>
 						<p className="mt-2 text-base md:text-lg">
 							Check out some of our featured projects we have been and currently working on.

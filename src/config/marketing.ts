@@ -279,6 +279,7 @@ export const marketingConfig = {
 		{
 			id: 'aqtfj78a6tpamkze',
 			title: 'Telkomsel',
+			slug: 'telkomsel',
 			totalShipment: 12748,
 			description:
 				"We're the official house forwarder for Telkomsel. We bring in telecom equipment for district capitals all over Indonesia using the Priority Lane facility, and managed a bonded warehouse from 2004 to 2006. We provide export services like warehouse management, export documentation, shipment arrangement, container stuffing, trucking, haulage, and ocean freight. 12.7k shipments were successfully processed in two years!",
@@ -298,6 +299,7 @@ export const marketingConfig = {
 		{
 			id: 'eayt7866p28a93za',
 			title: 'Kementerian Kelautan dan Perikanan RI',
+			slug: 'kementerian-kelautan-dan-perikanan-ri',
 			totalShipment: 78,
 			description:
 				"We delivered the materials for fish farming projects located on Sabang, Pangandaran, and Karimunjawa. We're getting 43 containers of mooring, cages, and nets from Norway, 4 containers of brackets for sinker tubes from China, and 3 feeding barges from Vietnam. We're also bringing in 2 work boats from Batam to help with the transportation. So far, we've successfully processed 73 shipments!",
@@ -317,6 +319,7 @@ export const marketingConfig = {
 		{
 			id: 'bic74jw3ywndy23g',
 			title: 'PT PAL Indonesia',
+			slug: 'pt-pal-indonesia',
 			totalShipment: 567,
 			description:
 				"We've sent a bunch of stuff from Korea to Surabaya. It includes ship materials for Palwo Bowono, Palpass 500 Project, Fast Patrol Ships for Indonesian Customs, and FPU for PT. Pertamina. We also sent two MPC project units, 8PA5L Main Diesel Engine, and PB1600 Auxiliary Main Diesel Engine. In total, we've made 567 deliveries!",
