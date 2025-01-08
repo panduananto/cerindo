@@ -40,7 +40,7 @@ const ServiceTabs = ({ services }: ServiceTabsProps) => {
 									value={key}
 									className={cn(
 										'backgroundspace-nowrap w-full justify-start rounded px-5 py-2.5 text-left text-sm font-semibold leading-5 xl:px-5 xl:py-4',
-										'duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-300',
+										'duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-300',
 										'data-[state=active]:bg-primary data-[state=active]:text-background data-[state=active]:shadow-sm',
 									)}
 								>
@@ -59,12 +59,12 @@ const ServiceTabs = ({ services }: ServiceTabsProps) => {
 										<div key={`post-${service.id}`} className="grid grid-cols-8 overflow-hidden rounded">
 											<img
 												src={service.images}
-												className="col-span-8 size-auto max-h-full min-h-full min-w-full max-w-full bg-no-repeat object-cover object-center md:col-span-4 md:h-full"
-												alt={`${service.id}`}
+												className="col-span-8 size-auto h-[260px] min-w-full max-w-full bg-no-repeat object-cover object-center md:col-span-4 md:h-full"
+												alt={`${service.title}`}
 											/>
-											<div className="col-span-8 rounded-b border-x border-b border-slate-300 bg-background p-4 text-sm text-secondary-foreground md:col-span-4 md:rounded-bl-none md:rounded-tr md:border-l-0 md:border-t md:px-6 md:py-8">
+											<div className="col-span-8 rounded-b border-x border-b border-slate-300 bg-background p-4 py-8 text-sm text-secondary-foreground md:col-span-4 md:rounded-bl-none md:rounded-tr md:border-l-0 md:border-t md:px-6 md:py-8">
 												<h3 className={`${rubik.className} text-lg font-bold md:text-xl`}>{service.title}</h3>
-												<ReadMoreText text={service.description} />
+												<p className="mt-2 !leading-7 md:mt-4 md:text-base">{service.description}</p>
 												<ul className="mt-4 space-y-2 md:mt-6">
 													{service.benefits.map((benefit) => (
 														<li key={benefit.text} className="flex flex-row items-center space-x-3">

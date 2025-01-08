@@ -45,7 +45,7 @@ const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
 												<CardTitle className={`${rubik.className} truncate text-left font-bold`}>
 													{project.title}
 												</CardTitle>
-												<div className="mt-2 flex items-center space-x-1">
+												{/* <div className="mt-2 flex items-center space-x-1">
 													<Icons.truck className="size-5 text-primary" />
 													<p className="text-sm font-medium text-muted-foreground">
 														<span className="font-bold text-primary">
@@ -56,7 +56,7 @@ const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
 														</span>{' '}
 														shipment succesfully processed
 													</p>
-												</div>
+												</div> */}
 											</CardHeader>
 										</div>
 										<CardContent>

@@ -24,30 +24,28 @@ export default async function FAQPAge() {
 				<div>
 					<Accordion type="single" collapsible className="w-full space-y-2">
 						<AccordionItem value="item-1">
-							<AccordionTrigger className="w-full">Apa itu impor?</AccordionTrigger>
+							<AccordionTrigger className="w-full">What is import?</AccordionTrigger>
 							<AccordionContent className="text-justify">
-								Impor adalah proses transportasi barang atau komoditas dari suatu negara ke negara lain secara legal,
-								umumnya dalam proses perdagangan. roses impor umumnya adalah tindakan memasukan barang atau komoditas
-								dari negara lain ke dalam negeri. Impor barang secara besar umumnya membutuhkan campur tangan dari bea
-								cukai di negara pengirim maupun penerima. Impor adalah bagian penting dari perdagangan internasional.
+								Import is the process of transporting goods or commodities from one country to another legally, usually
+								in the process of trade. The import process is generally the act of bringing goods or commodities from
+								another country into the country. Large imports of goods generally require intervention from customs in
+								both the sending and receiving countries. Import is an important part of international trade.
 							</AccordionContent>
 						</AccordionItem>
 						<AccordionItem value="item-2">
-							<AccordionTrigger className="w-full">Apa itu ekspor?</AccordionTrigger>
+							<AccordionTrigger className="w-full">What is export?</AccordionTrigger>
 							<AccordionContent className="text-justify">
-								Ekspor adalah proses transportasi barang atau komoditas dari suatu negara ke negara lain. Proses ini
-								sering kali digunakan oleh perusahaan dengan skala bisnis kecil sampai menengah sebagai strategi utama
-								untuk bersaing di tingkat internasional.
+								Export is the process of transporting goods or commodities from one country to another. This process is
+								often used by small to medium-sized businesses as a primary strategy to compete internationally.
 							</AccordionContent>
 						</AccordionItem>
 						<AccordionItem value="item-3">
-							<AccordionTrigger className="w-full">Apa itu PPJK?</AccordionTrigger>
+							<AccordionTrigger className="w-full">What is PPJK?</AccordionTrigger>
 							<AccordionContent className="text-justify">
-								Perusahaan Pengurusan Jasa Kepabeanan (PPJK) merupakan Perusahaan yang bertindak menyediakan jasa
-								pengurusan tentang formalitas kepabeanan dan hal-hal yang terkait di dalamnya. PPJK mengurus barang
-								impor yang wajib membayar pajak bea masuk sehingga padanya dikenakan jaminan bahwa PPJK telah
-								bertanggung jawab untuk melunasi pajak bea masuk berdasarkan kuasa dari Perusahaan atau perorangan
-								selaku Importir.
+								Customs Service Management Company (PPJK as in Indonesian) is a company that acts to provide services
+								for managing customs formalities and related matters. PPJK handles imported goods that are required to
+								pay import duty so that it is subject to a guarantee that PPJK has been responsible for paying import
+								duty based on the power of attorney from the Company or individual as the Importer.
 							</AccordionContent>
 						</AccordionItem>
 					</Accordion>

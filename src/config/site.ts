@@ -13,33 +13,33 @@ export const siteConfig = {
 			title: 'Lobby',
 			items: [
 				{
-					title: 'client',
-					href: '#client',
-					items: [],
-				},
-				{
-					title: 'service',
-					href: '#service',
-					items: [],
-				},
-				{
-					title: 'project',
-					href: '#project',
-					items: [],
-				},
-				{
-					title: 'get in touch',
-					href: '#get-in-touch',
-					items: [],
-				},
-				{
 					title: 'about us',
 					href: '/about-us',
 					items: [],
 				},
 				{
+					title: 'services',
+					href: '#services',
+					items: [],
+				},
+				{
+					title: 'clients',
+					href: '#clients',
+					items: [],
+				},
+				{
+					title: 'projects',
+					href: '#projects',
+					items: [],
+				},
+				{
 					title: 'FAQ',
 					href: '/faq',
+					items: [],
+				},
+				{
+					title: 'get in touch',
+					href: '#get-in-touch',
 					items: [],
 				},
 			],

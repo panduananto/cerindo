@@ -9,7 +9,7 @@ export const marketingConfig = {
 		},
 		{
 			icon: 'clock',
-			title: 'We are open at:',
+			title: 'We are open from:',
 			text: 'Monday-Friday, 08:30-17:30',
 			asLink: false,
 		},
@@ -154,22 +154,22 @@ export const marketingConfig = {
 		},
 	],
 	services: {
-		'Customs Brockerage': [
+		'Customs Brokerage': [
 			{
 				id: 'ire76ipbkbxpnkpm',
-				title: 'Customs Brockerage',
+				title: 'Customs Brokerage',
 				description:
-					'Well-versed staffs in customs procedure and documentation, thereby avoiding unnecessary delays and costly error. Using our own PIB/PEB EDI (Electronic Data Interchange) to declare your Import/Export promptly without delay.',
+					'Experienced staffs in customs procedure and documentation, thereby avoiding unnecessary delays and costly error. Using our own PIB/PEB EDI (Electronic Data Interchange) to declare your Import/Export promptly without delay.',
 				images: '/images/customs_brockerage.jpg',
 				benefits: [
 					{
 						text: 'Compliant and efficient team',
 					},
 					{
-						text: 'Expert assistance and advice.',
+						text: 'Expert assistance and advice',
 					},
 					{
-						text: 'Awere of regulations and requirements.',
+						text: 'Knowledge of regulations and requirements',
 					},
 				],
 			},
@@ -179,17 +179,17 @@ export const marketingConfig = {
 				id: 'w3e3tgcep2973fjk',
 				title: 'FCL and LCL Consolidation',
 				description:
-					'We arrange your cargo in 20’, 40’, High Cube, Open Top/Open Side, Standard / Dry Container, Flat rack, and Reefer.',
+					'We can arrange your cargo in 20’, 40’, High Cube, Open Top/Open Side, Standard/Dry, Flat rack, and Reefer Container',
 				images: '/images/fcl_lcl_consolidation.jpg',
 				benefits: [
 					{
-						text: 'Competitive prices.',
+						text: 'Competitive prices',
 					},
 					{
-						text: 'Shipping expertise.',
+						text: 'Shipping expertise',
 					},
 					{
-						text: 'Seamless transparency.',
+						text: 'Seamless transparency',
 					},
 				],
 			},
@@ -199,57 +199,57 @@ export const marketingConfig = {
 				id: 'zeq6h2dwfpf3k69b',
 				title: 'Project Cargo Specialist',
 				description:
-					'We offer our Project Cargo Transportation service from the plantation to site, includes multimodal transportation, customs handling, coordinating, and consulting service.',
+					'We offer our Project Cargo Transportation service from the factory to site, inclusive of; multimodal transportation, customs clearance, local handling and coordinating, and consulting service.',
 				images: '/images/project_cargo_specialist.jpg',
 				benefits: [
 					{
-						text: 'Special equipment for logistic process.',
+						text: 'Special equipment for project logistic',
 					},
 					{
-						text: 'Efficient process.',
+						text: 'Efficient process',
 					},
 					{
-						text: 'Reliable service.',
+						text: 'Reliable service',
 					},
 				],
 			},
 		],
-		'Air-Sea Freight Export-Import': [
+		'Multimodal Export-Import': [
 			{
 				id: 'rbfwpczfz7dzq8gz',
-				title: 'Air-Sea Freight Export-Import',
+				title: 'Multimodal Export-Import',
 				description:
-					'Combining transportation Sea-Air, Air-Sea, Sea-Sea, and Air-Air Transfer. We operate fast and frequent consolidated services that lead to an appropriate cost with a guaranteed satisfaction.',
+					'Combine transportation: Sea-Air, Air-Sea, Sea-Sea, and Air-Air Transfer. We operate fast and frequent consolidated services that lead to an appropriate cost with a guaranteed satisfaction.',
 				images: '/images/freight_exim.jpg',
 				benefits: [
 					{
-						text: 'Cost efficiency on freight loads.',
+						text: 'Cost efficiency on freight loads',
 					},
 					{
-						text: 'Lowest percentage of cargo losses.',
+						text: 'Lowest percentage of cargo losses',
 					},
 					{
-						text: 'Travel without limitations.',
+						text: 'Travel without limitations',
 					},
 				],
 			},
 		],
-		'Warehousing and General Cargo': [
+		Warehousing: [
 			{
 				id: 'ecjb9mp2mt4f987d',
-				title: 'Warehousing and General Cargo',
+				title: 'Warehousing',
 				description:
-					'We own and manage 700 sq.mtr warehouse in Komplek Pergudangan Arcadia, Daan Mogot Km 21.5, Batu Ceper, Tangerang. Local expertise and international knowledge supported by worldwide agency will apply a professional handling at every destination.',
+					'We operate 700 sq.mtr warehouse in Komplek Pergudangan Arcadia, Daan Mogot, Batu Ceper, Tangerang.',
 				images: '/images/warehousing.jpg',
 				benefits: [
 					{
-						text: 'Located on strategic area.',
+						text: 'Located on strategic area',
 					},
 					{
-						text: 'Environmentally-friendly product storage.',
+						text: 'Secured with constant monitoring',
 					},
 					{
-						text: 'Flexible storage arrangements.',
+						text: 'Flexible storage arrangements',
 					},
 				],
 			},
@@ -259,17 +259,17 @@ export const marketingConfig = {
 				id: 'y6bpcygfrizmi2xz',
 				title: 'Dangerous Goods Handling',
 				description:
-					'Dangerous Cargo (also referred to as Hazardous) is the cargo classified as explosive, flammable, and toxic. The cargo is dangerous by nature and hence required a lot of precaution, safety measure, care handling. Limited forwarding company will be able to handle such cargo considering serious damage either to cargo itself, people, and surroundings. Just contact us when you need someone to handle such classification of cargo.',
+					'Dangerous Cargo (also referred to as Hazardous) is the cargo classified as explosive, flammable, and toxic. The cargo is dangerous by nature and hence required a lot of precaution, safety measure, care handling. We are able to handle such cargo considering serious damage either to cargo itself, people, and surroundings. Contact us when you need someone to handle such classification of cargo.',
 				images: '/images/dangerous_goods.jpg',
 				benefits: [
 					{
-						text: 'Prioritize safety and efficiency.',
+						text: 'Ensures environmental protection',
 					},
 					{
-						text: 'Ensures environmental protection.',
+						text: 'Prioritize safety and efficiency',
 					},
 					{
-						text: 'Dangerous goods specialists.',
+						text: 'Dangerous goods specialists',
 					},
 				],
 			},
@@ -344,15 +344,16 @@ export const marketingConfig = {
 			siteName: 'Head Office',
 			address: 'Puri Sentra Niaga Blok B No.37, Jatiwaringin, Jakarta Timur 13620',
 			phone: '+62218629000',
-			fax: '+62218603677',
+			email: '',
 		},
 		{
 			id: '3cgpgbrcnrd32akr',
 			icon: 'building2',
 			siteName: 'Surabaya Branch Office',
-			address: 'Jl. Ikan Mungsing IX No.2, Surabaya 60177',
-			phone: '+62313571082',
-			fax: '+62313521829',
+			address:
+				'Gedung Praxis Lt. 5 Unit SO-505, Jl. Sonokembang No. 4-6, Embong Kaliasin - Kec. Genteng, Surabaya 60271',
+			phone: '+623158289491',
+			email: '',
 		},
 		{
 			id: 'm8c36ntjt3iz67ef',
@@ -360,7 +361,7 @@ export const marketingConfig = {
 			siteName: 'Komplek Pergudangan Arcadia',
 			address: 'Blok G 15 No.17-18, Jl. Daan Mogot KM 21,5, Batuceper-Tangerang',
 			phone: '+622129006246',
-			fax: '+622129006248',
+			email: '',
 		},
 	],
 }

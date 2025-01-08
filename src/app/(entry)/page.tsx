@@ -31,7 +31,6 @@ export default async function IndexPage() {
 					</div>
 					<div className="z-20 mx-auto flex size-full max-w-6xl flex-col items-center justify-center px-4 py-7 text-background sm:px-6 md:items-start lg:px-8">
 						<h1 className={`${rubik.className} text-4xl font-bold sm:text-5xl md:text-7xl`}>We Bring Solutions!</h1>
-						<p className="mt-2 text-3xl font-extralight tracking-tighter md:text-5xl">Managed by experts.</p>
 						<Button asChild>
 							<Link href="/tracking" className="mt-8">
 								<Icons.mapPin className="mr-2 size-4" aria-hidden="true" />
@@ -76,11 +75,9 @@ export default async function IndexPage() {
 						<h1
 							className={`${rubik.className} text-xl font-extrabold text-secondary-foreground sm:text-2xl md:text-3xl`}
 						>
-							<span className="text-primary">Services</span> offered to your business
+							<span className="text-primary">Services</span> we offer
 						</h1>
-						<p className="mt-2 text-base text-slate-700 md:text-lg">
-							We provide the best in class services for our customers.
-						</p>
+						<p className="mt-2 text-base text-slate-700 md:text-lg">We provide the best services for our customers.</p>
 					</div>
 					<ServiceTabs services={services} />
 				</div>
@@ -91,7 +88,7 @@ export default async function IndexPage() {
 						<h1
 							className={`${rubik.className} text-xl font-extrabold text-secondary-foreground sm:text-2xl md:text-3xl`}
 						>
-							Take a look at our <span className="text-primary">clients</span>
+							Our <span className="text-primary">clients</span>
 						</h1>
 						<p className="mt-2 text-base text-slate-700 md:text-lg">
 							We did a great job with these companies. You can be the next to work with us!
@@ -104,10 +101,10 @@ export default async function IndexPage() {
 				<div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
 					<div className="text-center">
 						<h1 className={`${rubik.className} text-xl font-extrabold sm:text-2xl md:text-3xl`}>
-							Our success <span className="text-primary">journey</span>
+							Our success <span className="text-primary">stories</span>
 						</h1>
 						<p className="mt-2 text-base md:text-lg">
-							Check out some of our featured projects we have been and currently working on.
+							Check out some of our featured projects we have done and currently working on.
 						</p>
 					</div>
 					<ProjectCarousel projects={projects} />
@@ -129,12 +126,6 @@ export default async function IndexPage() {
 											<span>Phone:</span>
 											<a href={`tel:${item.phone}`} className="ml-2 block">
 												{item.phone}
-											</a>
-										</div>
-										<div className="flex">
-											<span>Fax:</span>
-											<a href={`tel:${item.phone}`} className="ml-2 block">
-												{item.fax}
 											</a>
 										</div>
 									</div>
