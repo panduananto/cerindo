@@ -58,6 +58,11 @@ export const marketingConfig = {
 			logo: '/images/covestro_logo.svg',
 		},
 		{
+			id: 'y8az3fbtrgb9cb84',
+			name: 'dksh',
+			logo: '/images/dksh.svg',
+		},
+		{
 			id: 'gqprf3mx8ht9egw2',
 			name: 'ecosway',
 			logo: '/images/ecosway_logo.svg',
