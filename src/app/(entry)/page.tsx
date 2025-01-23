@@ -29,14 +29,29 @@ export default async function IndexPage() {
 							className="bg-no-repeat object-cover object-center"
 						/>
 					</div>
-					<div className="z-20 mx-auto flex size-full max-w-6xl flex-col items-center justify-center px-4 py-7 text-background sm:px-6 md:items-start lg:px-8">
-						<h1 className={`${rubik.className} text-4xl font-bold sm:text-5xl md:text-7xl`}>We Bring Solutions!</h1>
+					<div className="z-20 mx-auto flex size-full max-w-6xl items-center justify-center space-x-2 px-4 py-7 text-background sm:px-6 md:space-x-8 lg:px-8">
+						{/* <h1 className={`${rubik.className} text-4xl font-bold sm:text-5xl md:text-7xl`}>We Bring Solutions!</h1>
 						<Button asChild>
 							<Link href="/tracking" className="mt-8">
 								<Icons.mapPin className="mr-2 size-4" aria-hidden="true" />
 								Track shipment
 							</Link>
-						</Button>
+						</Button> */}
+						<img
+							src="/images/cerindo_cgl_logo.svg"
+							className="inline-block h-32 w-auto text-[#9d001b] md:h-40 lg:h-48"
+							alt="Logo"
+						/>
+						<img
+							src="/images/cerindo_cpl_logo.svg"
+							className="inline-block h-32 w-auto text-[#9d001b] md:h-40 lg:h-48"
+							alt="Logo"
+						/>
+						<img
+							src="/images/cerindo_sayap_tagline_logo.svg"
+							className="inline-block h-32 w-auto text-[#9d001b] md:h-40 lg:h-48"
+							alt="Logo"
+						/>
 					</div>
 				</header>
 				<aside className="bg-primary text-background">

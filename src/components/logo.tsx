@@ -8,7 +8,7 @@ type LogoProps = {
 }
 
 function Logo({
-	source = '/images/cerindo_logo.svg',
+	source = '/images/cerindo_bintang_logo.svg',
 	link = '/',
 	className,
 	...props

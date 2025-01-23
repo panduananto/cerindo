@@ -23,6 +23,11 @@ export const marketingConfig = {
 	],
 	clients: [
 		{
+			id: '3rtqdg7dcg5pgt37',
+			name: 'advanex',
+			logo: '/images/advanex_logo.svg',
+		},
+		{
 			id: '9fyezm7dwd2paa67',
 			name: 'abn',
 			logo: '/images/ABN_logo.svg',
@@ -36,6 +41,11 @@ export const marketingConfig = {
 			id: 'pr6xc68pqm4ziyqn',
 			name: 'asiakomnet',
 			logo: '/images/asiakomnet_logo.svg',
+		},
+		{
+			id: 'lg1bn69pqmgz3yhk',
+			name: 'asia actual indonesia',
+			logo: '/images/asia_actual_logo.svg',
 		},
 		{
 			id: 'cg9kqymeg4txy6tt',

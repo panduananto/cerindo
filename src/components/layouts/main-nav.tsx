@@ -18,7 +18,7 @@ const MainNav = ({ items }: MainNavProps) => {
 	const hash = useHash()
 
 	return (
-		<div className="hidden gap-6 2md:flex">
+		<div className="hidden gap-10 2md:flex">
 			<Logo />
 			{items?.[0]?.items ? (
 				<nav
